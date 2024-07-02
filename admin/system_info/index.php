@@ -1,1 +1,181 @@
-<h1 style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: DauphinPlain; font-size: 70px; line-height: 90px; color: rgb(0, 0, 0); text-align: center;">About Us</h1><h4 style="margin: 10px 10px 5px; padding: 0px; font-size: 14px; line-height: 18px; text-align: center; font-style: italic; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif;">"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</h4><h5 style="margin: 5px 10px 20px; padding: 0px; font-size: 12px; line-height: 14px; text-align: center; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif;">"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."</h5><hr style="margin: 0px; padding: 0px; clear: both; border-top: 0px; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)); color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; text-align: center;"><div id="Content" style="margin: 0px; padding: 0px; position: relative; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; text-align: center;"><div id="bannerL" style="margin: 0px 0px 0px -160px; padding: 0px; position: sticky; top: 20px; width: 160px; height: 10px; float: left; text-align: right;"></div><div id="bannerR" style="margin: 0px -160px 0px 0px; padding: 0px; position: sticky; top: 20px; width: 160px; height: 10px; float: right; text-align: left;"></div><div class="boxed" style="margin: 10px 28.7969px; padding: 0px; clear: both;"><div id="lipsum" style="margin: 0px; padding: 0px; text-align: justify;"><p style="margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id feugiat ipsum, vel condimentum risus. Ut quis tempor felis. Aenean vestibulum laoreet libero, in sollicitudin nisl pulvinar vel. Aliquam vel iaculis urna, in malesuada metus. Maecenas non augue maximus, mattis metus nec, tincidunt est. In urna justo, sodales vel volutpat at, pharetra et nisi. Nulla tellus ipsum, congue nec mauris eu, bibendum vehicula lorem. Donec iaculis porta arcu, id fringilla ligula tempor et. In porta vitae odio eu mollis. Fusce consequat tempus bibendum. Aliquam scelerisque eros vel ultricies pellentesque. Morbi ac congue nunc. Curabitur pretium semper nunc quis euismod. Aliquam erat volutpat.</p><p style="margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px;">Donec blandit nisl neque, in commodo est mattis sed. Donec rutrum libero dictum condimentum aliquam. Vestibulum sed eros velit. Donec vitae semper elit. In consequat ut ipsum ut consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam arcu erat, lobortis non luctus a, convallis a ipsum.</p><p style="margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px;">Nunc eu arcu malesuada, maximus massa vel, dictum erat. Nunc sit amet nisl nulla. Aliquam erat volutpat. Aenean leo velit, imperdiet id cursus ut, condimentum a metus. Donec ligula tortor, sagittis eu posuere aliquam, lobortis sit amet lectus. Praesent ligula ipsum, ullamcorper dictum odio eget, mattis imperdiet arcu. Suspendisse pellentesque diam a magna sollicitudin blandit.</p><p style="margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px;">Donec sodales, lacus vel tincidunt vehicula, leo dolor sollicitudin nisl, vel fringilla dui nunc accumsan eros. Praesent in justo quis ex ultricies lacinia. Praesent porta elit id facilisis commodo. Suspendisse consectetur venenatis orci, placerat viverra purus consequat vitae. Phasellus convallis non orci a pharetra. Duis volutpat sapien libero, a malesuada tellus ultricies at. Nam quam arcu, tempor tempus ipsum sagittis, ornare maximus sapien.</p></div></div></div>
+<?php if($_settings->chk_flashdata('success')): ?>
+<script>
+	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
+</script>
+<?php endif;?>
+
+<style>
+	img#cimg{
+		height: 15vh;
+		width: 15vh;
+		object-fit: cover;
+		border-radius: 100% 100%;
+	}
+	img#cimg2{
+		height: 50vh;
+		width: 100%;
+		object-fit: contain;
+		/* border-radius: 100% 100%; */
+	}
+</style>
+<div class="col-lg-12">
+	<div class="card card-outline rounded-0 card-danger">
+		<div class="card-header">
+			<h5 class="card-title">System Information</h5>
+			<!-- <div class="card-tools">
+				<a class="btn btn-block btn-sm btn-default btn-flat border-navy new_department" href="javascript:void(0)"><i class="fa fa-plus"></i> Add New</a>
+			</div> -->
+		</div>
+		<div class="card-body">
+			<form action="" id="system-frm">
+				<div id="msg" class="form-group"></div>
+				<div class="form-group">
+					<label for="name" class="control-label">System Name</label>
+					<input type="text" class="form-control form-control-sm" name="name" id="name" value="<?php echo $_settings->info('name') ?>">
+				</div>
+				<div class="form-group">
+					<label for="short_name" class="control-label">System Short Name</label>
+					<input type="text" class="form-control form-control-sm" name="short_name" id="short_name" value="<?php echo  $_settings->info('short_name') ?>">
+				</div>
+			<div class="form-group">
+				<label for="" class="control-label">Welcome Content</label>
+	             <textarea name="content[welcome]" id="" cols="30" rows="2" class="form-control summernote"><?php echo  is_file(base_app.'welcome.html') ? file_get_contents(base_app.'welcome.html') : "" ?></textarea>
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">About Us</label>
+	             <textarea name="content[about]" id="" cols="30" rows="2" class="form-control summernote"><?php echo  is_file(base_app.'about.html') ? file_get_contents(base_app.'about.html') : "" ?></textarea>
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">System Logo</label>
+				<div class="custom-file">
+	              <input type="file" class="custom-file-input rounded-circle" id="customFile1" name="img" onchange="displayImg(this,$(this))">
+	              <label class="custom-file-label" for="customFile1">Choose file</label>
+	            </div>
+			</div>
+			<div class="form-group d-flex justify-content-center">
+				<img src="<?php echo validate_image($_settings->info('logo')) ?>" alt="" id="cimg" class="img-fluid img-thumbnail">
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">Website Cover</label>
+				<div class="custom-file">
+	              <input type="file" class="custom-file-input rounded-circle" id="customFile2" name="cover" onchange="displayImg2(this,$(this))">
+	              <label class="custom-file-label" for="customFile2">Choose file</label>
+	            </div>
+			</div>
+			<div class="form-group d-flex justify-content-center">
+				<img src="<?php echo validate_image($_settings->info('cover')) ?>" alt="" id="cimg2" class="img-fluid img-thumbnail">
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">Banner Images</label>
+				<div class="custom-file">
+	              <input type="file" class="custom-file-input rounded-circle" id="customFile3" name="banners[]" multiple accept=".png,.jpg,.jpeg" onchange="displayImg3(this,$(this))">
+	              <label class="custom-file-label" for="customFile3">Choose file</label>
+	            </div>
+				<small><i>Choose to upload new banner immages</i></small>
+			</div>
+			<?php 
+            $upload_path = "uploads/banner";
+            if(is_dir(base_app.$upload_path)): 
+			$file= scandir(base_app.$upload_path);
+                foreach($file as $img):
+                    if(in_array($img,array('.','..')))
+                        continue;
+                    
+                
+            ?>
+                <div class="d-flex w-100 align-items-center img-item">
+                    <span><img src="<?php echo base_url.$upload_path.'/'.$img."?v=".(time()) ?>" width="150px" height="100px" style="object-fit:cover;" class="img-thumbnail" alt=""></span>
+                    <span class="ml-4"><button class="btn btn-sm btn-default text-danger rem_img" type="button" data-path="<?php echo base_app.$upload_path.'/'.$img ?>"><i class="fa fa-trash"></i></button></span>
+                </div>
+            <?php endforeach; ?>
+            <?php endif; ?>
+			</form>
+		</div>
+		<div class="card-footer">
+			<div class="col-md-12">
+				<div class="row">
+					<button class="btn btn-sm btn-primary" form="system-frm">Update</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script>
+	function displayImg(input,_this) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	        	$('#cimg').attr('src', e.target.result);
+	        	_this.siblings('.custom-file-label').html(input.files[0].name)
+	        }
+
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	function displayImg2(input,_this) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	        	_this.siblings('.custom-file-label').html(input.files[0].name)
+	        	$('#cimg2').attr('src', e.target.result);
+	        }
+
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	function displayImg3(input,_this) {
+		var fnames = [];
+		Object.keys(input.files).map(function(k){
+			fnames.push(input.files[k].name)
+
+		})
+		_this.siblings('.custom-file-label').html(fnames.join(", "))
+	}
+	function delete_img($path){
+        start_loader()
+        
+        $.ajax({
+            url: _base_url_+'classes/Master.php?f=delete_img',
+            data:{path:$path},
+            method:'POST',
+            dataType:"json",
+            error:err=>{
+                console.log(err)
+                alert_toast("An error occured while deleting an Image","error");
+                end_loader()
+            },
+            success:function(resp){
+                $('.modal').modal('hide')
+                if(typeof resp =='object' && resp.status == 'success'){
+                    $('[data-path="'+$path+'"]').closest('.img-item').hide('slow',function(){
+                        $('[data-path="'+$path+'"]').closest('.img-item').remove()
+                    })
+                    alert_toast("Image Successfully Deleted","success");
+                }else{
+                    console.log(resp)
+                    alert_toast("An error occured while deleting an Image","error");
+                }
+                end_loader()
+            }
+        })
+    }
+	$(document).ready(function(){
+		$('.rem_img').click(function(){
+            _conf("Are sure to delete this image permanently?",'delete_img',["'"+$(this).attr('data-path')+"'"])
+        })
+		 $('.summernote').summernote({
+		        height: 200,
+		        toolbar: [
+		            [ 'style', [ 'style' ] ],
+		            [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
+		            [ 'fontname', [ 'fontname' ] ],
+		            [ 'fontsize', [ 'fontsize' ] ],
+		            [ 'color', [ 'color' ] ],
+		            [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
+		            [ 'table', [ 'table' ] ],
+		            [ 'view', [ 'undo', 'redo', 'fullscreen', 'help' ] ]
+		        ]
+		    })
+	})
+</script>
