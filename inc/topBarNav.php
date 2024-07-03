@@ -10,6 +10,9 @@
   .user-dd:hover{
     color:#fff !important
   }
+  .navbar-brand, .navbar-nav {
+      margin-left: -70px; /* Adjust this value to move more or less */
+  }
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-danger">
             <div class="container px-4 px-lg-5 ">
