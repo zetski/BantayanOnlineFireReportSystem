@@ -50,11 +50,11 @@ $(function(){
         }
     });
 
-    $('#image-preview').click(function() {
+    $(document).on('click', '#image-preview', function() {
         $('#imageModal').modal('show');
     });
 
-    $('#remove-image').click(function() {
+    $(document).on('click', '#remove-image', function() {
         $('#image-upload').val('');
         $('#image-preview').attr('src', '#');
         $('#image-preview-container').addClass('d-none');
