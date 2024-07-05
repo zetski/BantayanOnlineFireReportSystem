@@ -9,39 +9,45 @@
                     <div class="card-body">
                         <div class="container-fluid">
                             <?php if($_settings->chk_flashdata('request_sent')): ?>
-                                <div class="alert alert-success bg-gradient-teal rounded-0">
-                                    <div><?= $_settings->flashdata('request_sent') ?></div>
-                                </div>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                            <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    html: 'Your report has been sent successfully. Your request code id: <b><?= $_settings->flashdata('request_sent') ?></b>',
+                                    showConfirmButton: true,
+                                });
+                            </script>
                             <?php endif;?>
-                           <form action="" id="request-form" enctype="multipart/form-data">
-                               <input type="hidden" name="id">
-                               <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                   <label for="fullname" class="control-label">Fullname <small class="text-danger">*</small></label>
-                                   <input type="text" class="form-control form-control-sm rounded-0" name="fullname" id="fullname" required="required">
-                               </div>
-                               <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                   <label for="contact" class="control-label">Contact # <small class="text-danger">*</small></label>
-                                   <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required">
-                               </div>
-                               <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                   <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
-                                   <div class="position-relative">
-                                       <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
-                                       <label class="upload-icon" for="image-upload">
-                                           <i class="fa fa-camera"></i>
-                                       </label>
-                                       <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
-                                       <div id="image-preview-container" class="d-none">
-                                           <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
-                                           <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                   <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
-                                   <textarea rows="3" class="form-control form-control-sm rounded-0" name="location" id="location" required="required"></textarea>
-                               </div>
-                           </form>
+                            <form action="" id="request-form" enctype="multipart/form-data">
+                                <input type="hidden" name="id">
+                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                    <label for="fullname" class="control-label">Fullname <small class="text-danger">*</small></label>
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="fullname" id="fullname" required="required">
+                                </div>
+                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                    <label for="contact" class="control-label">Contact # <small class="text-danger">*</small></label>
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required">
+                                </div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
+                                    <div class="position-relative">
+                                        <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
+                                        <label class="upload-icon" for="image-upload">
+                                            <i class="fa fa-camera"></i>
+                                        </label>
+                                        <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
+                                        <div id="image-preview-container" class="d-none">
+                                            <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
+                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
+                                    <textarea rows="3" class="form-control form-control-sm rounded-0" name="location" id="location" required="required"></textarea>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="card-footer py-1 text-center">

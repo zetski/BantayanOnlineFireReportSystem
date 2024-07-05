@@ -224,7 +224,7 @@ Class Master extends DBConnection {
 			$resp['tid'] = $tid;
 			$resp['status'] = 'success';
 			if (empty($id)) {
-				$this->settings->set_flashdata('request_sent', "Your report has been sent successfully. Your request code id: <b>{$code}</b>");
+				$this->settings->set_flashdata('request_sent', $code);
 			} else {
 				$resp['msg'] = "Request successfully updated.";
 				$this->settings->set_flashdata('success', "Request has been updated successfully.");
