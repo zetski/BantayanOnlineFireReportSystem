@@ -76,6 +76,10 @@
 </div>
 
 <style>
+    body{
+        padding-top: 10px;
+        margin-top: 40px;
+    }
 .position-relative {
     position: relative;
 }

@@ -1,4 +1,8 @@
 <style>
+     body{
+        padding-top: 10px;
+        margin-top: 50px;
+    }
     .carousel-item>img {
         object-fit: contain !important; /* Change from cover to contain */
         height: 100%; /* Ensures the image takes up the full height of the container */

@@ -1,4 +1,8 @@
 <style>
+    body{
+        padding-top: 10px;
+        margin-top: 40px;
+    }
     .carousel-item>img {
         object-fit: cover !important;
         height: 20em; /* Adjust the height to your desired value */
