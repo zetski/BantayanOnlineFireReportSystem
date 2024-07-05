@@ -152,6 +152,13 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
         $('#print').click(function(){
             print_r()
         })
-
+        
+        // Set min and max dates for the date inputs
+        var today = new Date().toISOString().split('T')[0];
+        var from_date_input = document.getElementById('from_date');
+        var to_date_input = document.getElementById('to_date');
+        
+        from_date_input.max = today;
+        to_date_input.min = today;
     })
 </script>
