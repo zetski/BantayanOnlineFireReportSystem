@@ -1,41 +1,127 @@
-<style>
-     body{
-        padding-top: 10px;
-        margin-top: 10px;
-    }
-</style>
-&lt;h1 style=&quot;margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: DauphinPlain; font-size: 70px; line-height: 90px; color: rgb(0, 0, 0); text-align: center;&quot;&gt;About Us&lt;/h1&gt;
-&lt;h4 style=&quot;margin: 10px 10px 5px; padding: 0px; font-size: 14px; line-height: 18px; text-align: center; color: rgb(0, 0, 0);&quot; open=&quot;&quot; sans&quot;,=&quot;&quot; arial,=&quot;&quot; sans-serif;&quot;=&quot;&quot;&gt;The &quot;Bantayan Island Fire Station&quot; is an agency in the Municipality of Bantayan Island responsible for ensuring public safety by preventing and suppressing destructive fires. It also provides emergency medical services and responds to various types of emergencies. The &quot;Bantayan Island Fire Station&quot; plays a crucial role in safeguarding lives and properties accross the Bantayan Island through its fire prevention, fire fighting, and emergency response efforts.&lt;/h4&gt;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .about-us-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+        }
+        .carousel-container {
+            flex: 1;
+            max-width: 300px; /* Adjust as necessary */
+            margin-right: 40px; /* Add space between the carousel and text section */
+        }
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .text-section {
+            flex: 2;
+        }
+        h1 {
+            font-family: 'Arial', sans-serif;
+            font-size: 36px;
+            color: #333;
+        }
+        h4, p {
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            color: #555;
+        }
+        .contact-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        .contact-box h5 {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="about-us-container">
+        <!-- Carousel Container -->
+        <div class="carousel-container">
+            <div id="officerCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="img/cont.jpg" alt="Officer 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/dlaw.jpg" alt="Officer 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/echo.jpg" alt="Officer 3">
+                    </div>
+                    <!-- Add more carousel items as needed -->
+                </div>
+                <a class="carousel-control-prev" href="#officerCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#officerCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
 
-&lt;div style=&quot;text-align: center; margin: 20px 0;&quot;&gt;
-    &lt;div style=&quot;display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; justify-items: center;&quot;&gt;
-        &lt;img src=&quot;officer1.jpg&quot; alt=&quot;Officer 1&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer2.jpg&quot; alt=&quot;Officer 2&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer3.jpg&quot; alt=&quot;Officer 3&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer4.jpg&quot; alt=&quot;Officer 4&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer5.jpg&quot; alt=&quot;Officer 5&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer6.jpg&quot; alt=&quot;Officer 6&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer7.jpg&quot; alt=&quot;Officer 7&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer8.jpg&quot; alt=&quot;Officer 8&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer9.jpg&quot; alt=&quot;Officer 9&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer10.jpg&quot; alt=&quot;Officer 10&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer11.jpg&quot; alt=&quot;Officer 11&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer12.jpg&quot; alt=&quot;Officer 12&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-        &lt;img src=&quot;officer13.jpg&quot; alt=&quot;Officer 13&quot; style=&quot;width: 100px; height: auto; margin: 5px;&quot;&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
+        <!-- Text Section -->
+        <div class="text-section">
+            <h1>About Us</h1>
+            <h4>The Bureau of Fire Protection (BFP) is a key agency in the Philippines dedicated to ensuring public safety through fire prevention, suppression, and investigation. Established under Republic Act 6975, the BFP operates under the Department of the Interior and Local Government (DILG) and plays a crucial role in protecting lives and properties from fire and other emergencies.</h4><br>
+            <h2>Mission</h2>
+            <h4>To prevent and suppress destructive fires, investigate their causes, enforce fire-related laws, and promote fire safety awareness and education among the public.</h4><br>
+            <h2>Vision</h2>
+            <h4>A modern fire service fully capable of ensuring a fire-safe naton by 2034.</h4>
+            <div class="contact-box">
+                <h5>Contact Us</h5>
+                <p>Email</p>
+                <p>Telephone No</p>
+                <p>Mobile No</p>
+                <p>Address</p>
+            </div>
+        </div>
+    </div>
 
-&lt;!-- &lt;hr style=&quot;margin: 0px; padding: 0px; clear: both; border-top: 0px; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)); color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; text-align: center;&quot;&gt;
+     <!-- jQuery -->
+    <script src="<?php echo base_url ?>plugins/jquery/jquery.min.js"></script>
+    <script src="<?php echo base_url ?>plugins/jquery/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-&lt;div id=&quot;Content&quot; style=&quot;margin: 0px; padding: 0px; position: relative; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; text-align: center;&quot;&gt;
-    &lt;div id=&quot;bannerL&quot; style=&quot;margin: 0px 0px 0px -160px; padding: 0px; position: sticky; top: 20px; width: 160px; height: 10px; float: left; text-align: right;&quot;&gt;&lt;/div&gt;
-    &lt;div id=&quot;bannerR&quot; style=&quot;margin: 0px -160px 0px 0px; padding: 0px; position: sticky; top: 20px; width: 160px; height: 10px; float: right; text-align: left;&quot;&gt;&lt;/div&gt;
-    &lt;div class=&quot;boxed&quot; style=&quot;margin: 10px 28.7969px; padding: 0px; clear: both;&quot;&gt;
-        &lt;div id=&quot;lipsum&quot; style=&quot;margin: 0px; padding: 0px; text-align: justify;&quot;&gt;
-            &lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px;&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id feugiat ipsum, vel condimentum risus. Ut quis tempor felis. Aenean vestibulum laoreet libero, in sollicitudin nisl pulvinar vel. Aliquam vel iaculis urna, in malesuada metus. Maecenas non augue maximus, mattis metus nec, tincidunt est. In urna justo, sodales vel volutpat at, pharetra et nisi. Nulla tellus ipsum, congue nec mauris eu, bibendum vehicula lorem. Donec iaculis porta arcu, id fringilla ligula tempor et. In porta vitae odio eu mollis. Fusce consequat tempus bibendum. Aliquam scelerisque eros vel ultricies pellentesque. Morbi ac congue nunc. Curabitur pretium semper nunc quis euismod. Aliquam erat volutpat.&lt;/p&gt;
-            &lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px;&quot;&gt;Donec blandit nisl neque, in commodo est mattis sed. Donec rutrum libero dictum condimentum aliquam. Vestibulum sed eros velit. Donec vitae semper elit. In consequat ut ipsum ut consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam arcu erat, lobortis non luctus a, convallis a ipsum.&lt;/p&gt;
-            &lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px;&quot;&gt;Nunc eu arcu malesuada, maximus massa vel, dictum erat. Nunc sit amet nisl nulla. Aliquam erat volutpat. Aenean leo velit, imperdiet id cursus ut, condimentum a metus. Donec ligula tortor, sagittis eu posuere aliquam, lobortis sit amet lectus. Praesent ligula ipsum, ullamcorper dictum odio eget, mattis imperdiet arcu. Suspendisse pellentesque diam a magna sollicitudin blandit.&lt;/p&gt;
-            &lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px;&quot;&gt;Donec sodales, lacus vel tincidunt vehicula, leo dolor sollicitudin nisl, vel fringilla dui nunc accumsan eros. Praesent in justo quis ex ultricies lacinia. Praesent porta elit id facilisis commodo. Suspendisse consectetur venenatis orci, placerat viverra purus consequat vitae. Phasellus convallis non orci a pharetra. Duis volutpat sapien libero, a malesuada tellus ultricies at. Nam quam arcu, tempor tempus ipsum sagittis, ornare maximus sapien.&lt;/p&gt;
-        &lt;/div&gt; --&gt;
-    
+    <script>
+        $(document).ready(function(){
+    $(window).resize(function(){
+        if ($(window).width() <= 768) {
+            // Add classes for mobile view
+            $("element").addClass("mobile-class");
+        } else {
+            // Remove classes for desktop view
+            $("element").removeClass("mobile-class");
+        }
+    }).resize(); // Trigger resize to ensure elements are styled correctly on load
+});
 
+    </script>
+</body>
+</html>
