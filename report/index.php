@@ -45,7 +45,34 @@
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
-                                    <textarea rows="3" class="form-control form-control-sm rounded-0" name="location" id="location" required="required"></textarea>
+                                    <select class="form-control form-control-sm rounded-0" name="location" id="location" required="required">
+                                        <option value="">Select Barangay</option>
+                                        <option value="Atop-Atop">Atop-Atop</option>
+                                        <option value="Baigad">Baigad</option>
+                                        <option value="Bantigue">Bantigue</option>
+                                        <option value="Baod">Baod</option>
+                                        <option value="Binaobao">Binaobao</option>
+                                        <option value="Botigues">Botigues</option>
+                                        <option value="Doong">Doong</option>
+                                        <option value="Guiwanon">Guiwanon</option>
+                                        <option value="Hilotongan">Hilotongan</option>
+                                        <option value="Kabac">Kabac</option>
+                                        <option value="Kabangbang">Kabangbang</option>
+                                        <option value="Kampinganon">Kampinganon</option>
+                                        <option value="Kangkaibe">Kangkaibe</option>
+                                        <option value="Lipayran">Lipayran</option>
+                                        <option value="Luyongbay-bay">Luyongbay-bay</option>
+                                        <option value="Mojon">Mojon</option>
+                                        <option value="Oboob">Oboob</option>
+                                        <option value="Patao">Patao</option>
+                                        <option value="Putian">Putian</option>
+                                        <option value="Sillon">Sillon</option>
+                                        <option value="Suba">Suba</option>
+                                        <option value="Sulangan">Sulangan</option>
+                                        <option value="Sungko">Sungko</option>
+                                        <option value="Tamiao">Tamiao</option>
+                                        <option value="Ticad">Ticad</option>
+                                    </select>
                                 </div>
                             </form>
                         </div>
@@ -76,49 +103,45 @@
 </div>
 
 <style>
-    body{
+    body {
         padding-top: 10px;
         margin-top: 40px;
     }
-.position-relative {
-    position: relative;
-}
-
-.upload-icon {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: #6c757d;
-}
-
-#image-preview-container {
-    position: absolute;
-    bottom: 10px;
-    right: 50px;
-    width: 50px;
-    height: 50px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#image-preview {
-    max-width: 100%;
-    max-height: 100%;
-    cursor: pointer;
-}
-
-.remove-image {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-    cursor: pointer;
-    padding: 2px;
-}
+    .position-relative {
+        position: relative;
+    }
+    .upload-icon {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #6c757d;
+    }
+    #image-preview-container {
+        position: absolute;
+        bottom: 10px;
+        right: 50px;
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #image-preview {
+        max-width: 100%;
+        max-height: 100%;
+        cursor: pointer;
+    }
+    .remove-image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        cursor: pointer;
+        padding: 2px;
+    }
 </style>
 <script src="report/script.js"></script>
