@@ -2,6 +2,9 @@
   [class*="sidebar-light-"] .nav-treeview > .nav-item > .nav-link.active, [class*="sidebar-light-"] .nav-treeview > .nav-item > .nav-link.active:hover {
       color: #ffffff !important;
   }
+  .bg-maroon {
+      background-color: #2980B9 !important;
+  }
 </style>
 <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-light-maroon navbar-light elevation-4 sidebar-no-expand">
@@ -170,6 +173,6 @@
         }
 
       }
-      $('.nav-link.active').addClass('bg-gradient-maroon')
+      $('.nav-link.active').addClass('bg-maroon')
     })
   </script>
