@@ -1,7 +1,7 @@
 <section class="py-3">
     <div class="container">
-        <div class="content py-5 px-3 bg-gradient-danger">
-            <h2>Fire Reporting</h2>
+        <div class="content py-5 px-3" style="background-color: #FF5733">
+            <h2 style="color: #fff">Fire Reporting</h2>
         </div>
         <div class="row justify-content-center mt-n3">
             <div class="col-lg-8 col-md-10 col-sm-12 col-sm-12">
