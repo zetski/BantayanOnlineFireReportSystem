@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
                                     <label for="contact" class="control-label">Contact # <small class="text-danger">*</small></label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required">
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required" maxlength="11" pattern="\d{11}" title="Please enter 11 digits">
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
@@ -144,4 +144,11 @@
         padding: 2px;
     }
 </style>
+
+<script>
+    document.getElementById('contact').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+    });
+</script>
+
 <script src="report/script.js"></script>
