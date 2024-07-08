@@ -3,7 +3,7 @@
 	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
 </script>
 <?php endif;?>
-<div class="content py-5 px-3 bg-gradient-danger">
+<div class="content py-5 px-3" style="color: #fff; background-color: #2980B9">
 	<h2><b>Contact information</b></h2>
 </div>
 <div class="row mt-lg-n4 mt-md-n4 justify-content-center">
