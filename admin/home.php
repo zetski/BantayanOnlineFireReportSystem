@@ -19,7 +19,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <div class="col-12 col-sm-4 col-md-4">
     <a href="./?page=teams" class="text-decoration-none">
       <div class="info-box">
-        <span class="info-box-icon bg-gradient-danger elevation-1"><i class="fas fa-users"></i></span>
+        <span class="info-box-icon bg-gradient-secondary elevation-1"><i class="fas fa-users"></i></span>
         <div class="info-box-content">
           <span class="info-box-text">Control Teams</span>
           <span class="info-box-number text-right h5">
@@ -53,7 +53,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <div class="col-12 col-sm-4 col-md-4">
     <a href="./?page=requests&status=1" class="text-decoration-none">
       <div class="info-box">
-        <span class="info-box-icon bg-gradient-light elevation-1"><i class="fas fa-fire"></i></span>
+        <span class="info-box-icon bg-gradient-secondary elevation-1"><i class="fas fa-fire"></i></span>
         <div class="info-box-content">
           <span class="info-box-text">Assigned Requests</span>
           <span class="info-box-number text-right h5">
@@ -70,7 +70,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <div class="col-12 col-sm-4 col-md-4">
     <a href="./?page=requests&status=2" class="text-decoration-none">
       <div class="info-box">
-        <span class="info-box-icon bg-gradient-info elevation-1"><i class="fas fa-fire"></i></span>
+        <span class="info-box-icon bg-gradient-secondary elevation-1"><i class="fas fa-fire"></i></span>
         <div class="info-box-content">
           <span class="info-box-text">Team OTW Requests</span>
           <span class="info-box-number text-right h5">
@@ -87,7 +87,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <div class="col-12 col-sm-4 col-md-4">
     <a href="./?page=requests&status=3" class="text-decoration-none">
       <div class="info-box">
-        <span class="info-box-icon bg-gradient-primary elevation-1"><i class="fas fa-fire"></i></span>
+        <span class="info-box-icon bg-gradient-secondary elevation-1"><i class="fas fa-fire"></i></span>
         <div class="info-box-content">
           <span class="info-box-text">On-Progress Requests</span>
           <span class="info-box-number text-right h5">
@@ -104,7 +104,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <div class="col-12 col-sm-4 col-md-4">
     <a href="./?page=requests&status=4" class="text-decoration-none">
       <div class="info-box">
-        <span class="info-box-icon bg-gradient-teal elevation-1"><i class="fas fa-fire"></i></span>
+        <span class="info-box-icon bg-gradient-secondary elevation-1"><i class="fas fa-fire"></i></span>
         <div class="info-box-content">
           <span class="info-box-text">Completed Requests</span>
           <span class="info-box-number text-right h5">
