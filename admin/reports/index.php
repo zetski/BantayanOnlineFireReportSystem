@@ -2,7 +2,7 @@
 $from_date = isset($_GET['from_date']) ? $_GET['from_date'] : '2021-01-01';
 $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
 ?>
-<div class="content py-5 px-3 bg-gradient-danger">
+<div class="content py-5 px-3" style="color: #fff; background-color: #2980B9">
     <h2>Daily Report</h2>
 </div>
 <div class="row flex-column mt-4 justify-content-center align-items-center mt-lg-n4 mt-md-3 mt-sm-0">
