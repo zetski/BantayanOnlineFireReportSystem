@@ -36,7 +36,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <div class="col-12 col-sm-4 col-md-4">
     <a href="./?page=requests&status=0" class="text-decoration-none">
       <div class="info-box">
-        <span class="info-box-icon bg-gradient-secondary elevation-1"><i class="fas fa-fire"></i></span>
+        <span class="info-box-icon bg-gradient-secondary elevation-1"><i class="fas fa-clock"></i></span>
         <div class="info-box-content">
           <span class="info-box-text">Pending Requests</span>
           <span class="info-box-number text-right h5">
