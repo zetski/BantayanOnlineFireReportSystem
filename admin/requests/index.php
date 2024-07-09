@@ -59,7 +59,7 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                     }
                     $qry = $conn->query("SELECT * FROM `request_list` {$where} ORDER BY abs(unix_timestamp(date_created)) DESC");
                     while ($row = $qry->fetch_assoc()):
-                        $image_src = !empty($row['image']) && file_exists($row['image']) ? $row['image'] : 'uploads/default_image.jpg';
+                        $image_src = !empty($row['image']) && file_exists($row['image']) ? $row['image'] : '../uploads/def.jpg';
                     ?>
                         <tr>
                             <td class="text-center"><?php echo $i++; ?></td>
