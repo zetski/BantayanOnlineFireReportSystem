@@ -1,6 +1,6 @@
 <section class="py-3">
     <div class="container">
-        <div class="content py-3 px-3" style="background-color: #FF5733">
+        <div class="content py-3 px-3" style="background-color: #2980B9">
             <h2 style="color: #fff">Fire Reporting</h2>
         </div>
         <div class="row justify-content-center mt-n3">
