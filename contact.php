@@ -9,6 +9,7 @@
         body {
             padding-top: 20px;
             margin-top: 50px;
+            margin-bottom: 10px
         }
         .carousel-item>img {
             object-fit: contain !important;
