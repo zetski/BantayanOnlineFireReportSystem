@@ -55,12 +55,12 @@
                         </p>
                       </a>
                       <ul class="nav nav-treeview" style="display: none;">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                           <a href="./?page=requests/manage_request" class="nav-link tree-item nav-requests_manage_request">
                             <i class="fas fa-plus nav-icon"></i>
                             <p>Create New</p>
                           </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                           <a href="./?page=requests&status=0" class="nav-link tree-item nav-requests_0">
                             <i class="far fa-circle nav-icon"></i>
