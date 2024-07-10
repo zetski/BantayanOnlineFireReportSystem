@@ -39,8 +39,8 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                         <button class="btn btn-info btn-sm bg-gradient-info rounded-0" type="button" id="update_status">Update Status</button>
                     <?php endif; ?>
                     <button class="btn btn-navy btn-sm bg-gradient-navy rounded-0" type="button" id="print"><i class="fa fa-print"></i> Print</button>
-                    <a class="btn btn-primary btn-sm bg-gradient-primary rounded-0" href="./?page=requests/manage_request&id=<?= isset($id) ? $id : '' ?>"><i class="fa fa-edit"></i> Edit</a>
-                    <button class="btn btn-danger btn-sm bg-gradient-danger rounded-0" type="button" id="delete_data"><i class="fa fa-trash"></i> Delete</button>
+                    <!-- <a class="btn btn-primary btn-sm bg-gradient-primary rounded-0" href="./?page=requests/manage_request&id=</?= isset($id) ? $id : '' ?>"><i class="fa fa-edit"></i> Edit</a>
+                    <button class="btn btn-danger btn-sm bg-gradient-danger rounded-0" type="button" id="delete_data"><i class="fa fa-trash"></i> Delete</button> -->
                     <a class="btn btn-light btn-sm bg-gradient-light border rounded-0" href="./?page=requests"><i class="fa fa-angle-left"></i> Back to List</a>
                 </div>
             </div>
