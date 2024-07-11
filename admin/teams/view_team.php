@@ -37,8 +37,9 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 </div>
             </div>
 			<div class="card-footer py-1 text-center">
+				<!-- swap position DELETE AND EDIT -->
+			<a class="btn btn-primary btn-sm bg-gradient-primary rounded-0" href="./?page=teams/manage_team&id=<?= isset($id) ? $id : '' ?>"><i class="fa fa-edit"></i> Edit</a>
 				<button class="btn btn-danger btn-sm bg-gradient-danger rounded-0" type="button" id="delete_data"><i class="fa fa-trash"></i> Delete</button>
-				<a class="btn btn-primary btn-sm bg-gradient-primary rounded-0" href="./?page=teams/manage_team&id=<?= isset($id) ? $id : '' ?>"><i class="fa fa-edit"></i> Edit</a>
 				<a class="btn btn-light btn-sm bg-gradient-light border rounded-0" href="./?page=teams"><i class="fa fa-angle-left"></i> Back to List</a>
 			</div>
 		</div>
