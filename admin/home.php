@@ -183,11 +183,20 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
         </a>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <canvas id="barChart"></canvas>
+      </div>
+      <div class="col-12 col-md-6">
+        <canvas id="lineChart"></canvas>
+      </div>
+    </div>
   </div>
 
   <!-- Latest Bootstrap 5.3.0 JS and Popper.js -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     // Example AJAX call to update notification count
     function updateNotificationCount() {
@@ -206,6 +215,81 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
     // Call the function initially and every few seconds (example)
     updateNotificationCount(); // Initial call
     setInterval(updateNotificationCount, 10000); // Repeat every 10 seconds
+
+    // Data for charts
+    var barData = {
+      labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
+      datasets: [{
+        label: 'Number of Requests',
+        data: [
+          <?php echo $team; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 0")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 1")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 2")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 3")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 4")->fetch_row()[0]; ?>
+        ],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    var lineData = {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [{
+        label: 'Requests Over Time',
+        data: [12, 19, 3, 5, 2, 3, 9], // Example data, replace with your actual data
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1,
+        fill: true
+      }]
+    };
+
+    // Bar chart configuration
+    var barConfig = {
+      type: 'bar',
+      data: barData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // Line chart configuration
+    var lineConfig = {
+      type: 'line',
+      data: lineData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // Render charts
+    var barChart = new Chart(document.getElementById('barChart'), barConfig);
+    var lineChart = new Chart(document.getElementById('lineChart'), lineConfig);
   </script>
 </body>
 </html>
