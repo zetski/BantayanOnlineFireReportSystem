@@ -28,30 +28,28 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
     }
 </style>
 <div class="content py-3 px-3" style="background-color: #2980B9; color: #fff">
-	<h2><b><?= isset($code) ? $code : '' ?> Request</b></h2>
+    <h2><b><?= isset($code) ? $code : '' ?> Request</b></h2>
 </div>
 <div class="row flex-column mt-lg-n4 mt-md-n4 justify-content-center align-items-center">
-	<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
-		<div class="card rounded-0">
+    <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+        <div class="card rounded-0">
             <div class="card-header py-1">
                 <div class="card-tools">
-                    <?php if(isset($status) && $status < 4): ?>
+                    <?php if(isset($status) && $status < 4 && isset($team_id) && $team_id > 0): ?>
                         <button class="btn btn-info btn-sm bg-gradient-info rounded-0" type="button" id="update_status">Update Status</button>
                     <?php endif; ?>
                     <button class="btn btn-navy btn-sm bg-gradient-navy rounded-0" type="button" id="print"><i class="fa fa-print"></i> Print</button>
-                    <!-- <a class="btn btn-primary btn-sm bg-gradient-primary rounded-0" href="./?page=requests/manage_request&id=</?= isset($id) ? $id : '' ?>"><i class="fa fa-edit"></i> Edit</a>
-                    <button class="btn btn-danger btn-sm bg-gradient-danger rounded-0" type="button" id="delete_data"><i class="fa fa-trash"></i> Delete</button> -->
                     <a class="btn btn-light btn-sm bg-gradient-light border rounded-0" href="./?page=requests"><i class="fa fa-angle-left"></i> Back to List</a>
                 </div>
             </div>
         </div>
     </div>
-	<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 printout">
-		<div class="card rounded-0">
+    <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 printout">
+        <div class="card rounded-0">
             <div class="card-header py-1">
                 <div class="card-title">Request Details</div>
             </div>
-			<div class="card-body">
+            <div class="card-body">
                 <div class="container-fluid">
                     <div class="d-flex w-100 mb-2">
                         <div class="col-auto pr-1">Request Code:</div>
@@ -79,8 +77,8 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                     </div>
                 </div>
             </div>
-		</div>
-	</div>
+        </div>
+    </div>
     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 printout">
         <div class="card rounded-0">
             <div class="card-header">
@@ -106,7 +104,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                             <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($team['members']) ? str_replace(["\r\n", "\r", "\n"], '<br>', $team['members']) : '' ?></div>
                         </div>
                     <?php else: ?>
-                        <h4 class="text-center">There's no team assigned to this team yet.</h4>
+                        <h4 class="text-center">There's no team assigned to this request yet.</h4>
                         <div class="text-center">
                             <button class="btn btn-flat btn-sm btn-light bg-gradient-light border" type="button" id="assign_team"><i class="fa fa-users"></i> Assign a Team</button>
                         </div>
@@ -234,33 +232,33 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
         $('#assign_team').click(function(){
             uni_modal("Assign a Team", 'requests/assign_team.php?id=<?= isset($id) ? $id : '' ?>')
         })
-		$('#delete_data').click(function(){
-			_conf("Are you sure to delete this request permanently?","delete_request", ["<?= isset($id) ? $id :'' ?>"])
-		})
+        $('#delete_data').click(function(){
+            _conf("Are you sure to delete this request permanently?","delete_request", ["<?= isset($id) ? $id :'' ?>"])
+        })
         $('#update_status').click(function(){
             uni_modal("Update Status", "requests/take_action.php?id=<?= isset($id) ? $id : '' ?>")
         })
     })
     function delete_request($id){
-		start_loader();
-		$.ajax({
-			url:_base_url_+"classes/Master.php?f=delete_request",
-			method:"POST",
-			data:{id: $id},
-			dataType:"json",
-			error:err=>{
-				console.log(err)
-				alert_toast("An error occured.",'error');
-				end_loader();
-			},
-			success:function(resp){
-				if(typeof resp== 'object' && resp.status == 'success'){
-					location.replace("./?page=requests");
-				}else{
-					alert_toast("An error occured.",'error');
-					end_loader();
-				}
-			}
-		})
-	}
+        start_loader();
+        $.ajax({
+            url:_base_url_+"classes/Master.php?f=delete_request",
+            method:"POST",
+            data:{id: $id},
+            dataType:"json",
+            error:err=>{
+                console.log(err)
+                alert_toast("An error occured.",'error');
+                end_loader();
+            },
+            success:function(resp){
+                if(typeof resp== 'object' && resp.status == 'success'){
+                    location.replace("./?page=requests");
+                }else{
+                    alert_toast("An error occured.",'error');
+                    end_loader();
+                }
+            }
+        })
+    }
 </script>
