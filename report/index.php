@@ -33,7 +33,7 @@
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                                     <div class="position-relative">
                                         <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
-                                        <label class="upload-icon" for="image-upload">
+                                        <label class="upload-icon" for="image-upload" onclick="openCamera()">
                                             <i class="fa fa-camera"></i>
                                         </label>
                                         <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
@@ -47,32 +47,13 @@
                                     <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
                                     <select class="form-control form-control-sm rounded-0" name="location" id="location" required="required">
                                         <option value="">Select Barangay</option>
-                                        <option value="Atop-Atop">Atop-Atop</option>
-                                        <option value="Baigad">Baigad</option>
-                                        <option value="Bantigue">Bantigue</option>
-                                        <option value="Baod">Baod</option>
-                                        <option value="Binaobao">Binaobao</option>
-                                        <option value="Botigues">Botigues</option>
-                                        <option value="Doong">Doong</option>
-                                        <option value="Guiwanon">Guiwanon</option>
-                                        <option value="Hilotongan">Hilotongan</option>
-                                        <option value="Kabac">Kabac</option>
-                                        <option value="Kabangbang">Kabangbang</option>
-                                        <option value="Kampinganon">Kampinganon</option>
-                                        <option value="Kangkaibe">Kangkaibe</option>
-                                        <option value="Lipayran">Lipayran</option>
-                                        <option value="Luyongbay-bay">Luyongbay-bay</option>
-                                        <option value="Mojon">Mojon</option>
-                                        <option value="Oboob">Oboob</option>
-                                        <option value="Patao">Patao</option>
-                                        <option value="Putian">Putian</option>
-                                        <option value="Sillon">Sillon</option>
-                                        <option value="Suba">Suba</option>
-                                        <option value="Sulangan">Sulangan</option>
-                                        <option value="Sungko">Sungko</option>
-                                        <option value="Tamiao">Tamiao</option>
-                                        <option value="Ticad">Ticad</option>
+                                        <!-- Add your options here -->
                                     </select>
+                                </div>
+                                <div id="camera-container" class="d-none">
+                                    <video id="video" width="320" height="240" autoplay></video>
+                                    <button type="button" id="snap">Capture</button>
+                                    <canvas id="canvas" width="320" height="240" class="d-none"></canvas>
                                 </div>
                             </form>
                         </div>
@@ -146,6 +127,39 @@
 </style>
 
 <script>
+    function openCamera() {
+        document.getElementById('camera-container').classList.remove('d-none');
+        const video = document.getElementById('video');
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(err => {
+                console.error("An error occurred: " + err);
+            });
+    }
+
+    document.getElementById('snap').addEventListener('click', function() {
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const video = document.getElementById('video');
+        context.drawImage(video, 0, 0, 320, 240);
+        const dataURL = canvas.toDataURL('image/png');
+        document.getElementById('image-preview').src = dataURL;
+        document.getElementById('image-preview-container').classList.remove('d-none');
+        document.getElementById('image-upload').files = dataURLtoFile(dataURL, 'fire-incident.png');
+    });
+
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, {type: mime});
+    }
+
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
