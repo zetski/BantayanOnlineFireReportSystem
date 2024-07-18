@@ -48,6 +48,31 @@
                                     <select class="form-control form-control-sm rounded-0" name="location" id="location" required="required">
                                         <option value="">Select Barangay</option>
                                         <!-- Add your options here -->
+                                        <option value="Baigad">Baigad</option>
+                                        <option value="Bantigue">Bantigue</option>
+                                        <option value="Baod">Baod</option>
+                                        <option value="Binaobao">Binaobao</option>
+                                        <option value="Botigues">Botigues</option>
+                                        <option value="Doong">Doong</option>
+                                        <option value="Guiwanon">Guiwanon</option>
+                                        <option value="Hilotongan">Hilotongan</option>
+                                        <option value="Kabac">Kabac</option>
+                                        <option value="Kabangbang">Kabangbang</option>
+                                        <option value="Kampinganon">Kampinganon</option>
+                                        <option value="Kangkaibe">Kangkaibe</option>
+                                        <option value="Lipayran">Lipayran</option>
+                                        <option value="Luyongbay-bay">Luyongbay-bay</option>
+                                        <option value="Mojon">Mojon</option>
+                                        <option value="Oboob">Oboob</option>
+                                        <option value="Patao">Patao</option>
+                                        <option value="Putian">Putian</option>
+                                        <option value="Sillon">Sillon</option>
+                                        <option value="Suba">Suba</option>
+                                        <option value="Sulangan">Sulangan</option>
+                                        <option value="Sungko">Sungko</option>
+                                        <option value="Tamiao">Tamiao</option>
+                                        <option value="Ticad">Ticad</option>
+
                                     </select>
                                 </div>
                                 <div id="camera-container" class="d-none">
