@@ -21,7 +21,7 @@ class DBConnection{
                 echo 'Cannot connect to database server';
                 exit;
             } 
-            echo "success";           
+                       
         }    
         
     }
