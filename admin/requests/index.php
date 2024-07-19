@@ -108,47 +108,52 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('.delete_data').click(function() {
-            _conf("Are you sure to delete this request permanently?", "delete_request", [$(this).attr('data-id')]);
-        });
-        $('.table').dataTable({
-            columnDefs: [
-                { orderable: false, targets: [5] }
-            ],
-            order: [0, 'asc']
-        });
-        $('.dataTable td, .dataTable th').addClass('py-1 px-2 align-middle');
-
-        // New code for image modal
-        $('#imageModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget); // Button that triggered the modal
-            var src = button.data('src'); // Extract info from data-* attributes
-            var modal = $(this);
-            modal.find('#modalImage').attr('src', src);
-        });
+   $(document).ready(function() {
+    // Deletion confirmation and request handling
+    $('.delete_data').click(function() {
+        _conf("Are you sure to delete this request permanently?", "delete_request", [$(this).attr('data-id')]);
     });
 
-    function delete_request($id) {
-        start_loader();
-        $.ajax({
-            url: _base_url_ + "classes/Master.php?f=delete_request",
-            method: "POST",
-            data: { id: $id },
-            dataType: "json",
-            error: err => {
-                console.log(err);
-                alert_toast("An error occured.", 'error');
+    // Data table initialization
+    $('.table').dataTable({
+        columnDefs: [
+            { orderable: false, targets: [5] } // Disable ordering for the 6th column
+        ],
+        order: [0, 'asc'] // Set initial order to ascending on the first column
+    });
+    $('.dataTable td, .dataTable th').addClass('py-1 px-2 align-middle'); // Add padding and alignment
+
+    // Image modal handling
+    $('#imageModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var src = button.data('src'); // Extract image source from data-* attribute
+        var modal = $(this);
+        modal.find('#modalImage').attr('src', src); // Update modal image source
+    });
+});
+
+// Function to handle request deletion
+function delete_request($id) {
+    start_loader();
+    $.ajax({
+        url: _base_url_ + "classes/Master.php?f=delete_request",
+        method: "POST",
+        data: { id: $id },
+        dataType: "json",
+        error: err => {
+            console.log(err);
+            alert_toast("An error occurred.", 'error');
+            end_loader();
+        },
+        success: function(resp) {
+            if (typeof resp == 'object' && resp.status == 'success') {
+                location.reload();
+            } else {
+                alert_toast("An error occurred.", 'error');
                 end_loader();
-            },
-            success: function(resp) {
-                if (typeof resp == 'object' && resp.status == 'success') {
-                    location.reload();
-                } else {
-                    alert_toast("An error occured.", 'error');
-                    end_loader();
-                }
             }
-        });
-    }
+        }
+    });
+}
+
 </script>
