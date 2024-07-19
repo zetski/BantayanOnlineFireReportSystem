@@ -235,7 +235,7 @@
                     <h3 class="text-center">How to Use Fire Extinguisher</h3>
                     <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
                     <div class="instruction-step">
-                        <img src="img/usa.jpg">
+                        <img src="img/prero.jpg">
                         <p>Pull the pin in the handle</p>
                     </div>
                     <div class="instruction-step">
