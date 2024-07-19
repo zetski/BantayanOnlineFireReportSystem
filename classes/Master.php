@@ -197,6 +197,7 @@ Class Master extends DBConnection {
 				$resp['status'] = 'failed';
 				$resp['err'] = 'Invalid file extension.';
 				return json_encode($resp);
+				exit();
 			}
 		}
 	
