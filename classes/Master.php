@@ -187,16 +187,19 @@ Class Master extends DBConnection {
 				$dest_path = $uploadFileDir . $newFileName;
 	
 				if (move_uploaded_file($fileTmpPath, $dest_path)) {
-					$_POST['image'] = $dest_path;
+					$image_path = $dest_path;
+					$_POST['image'] = $image_path;
 				} else {
 					$resp['status'] = 'failed';
 					$resp['err'] = 'Failed to move uploaded file.';
-					return json_encode($resp);
+					echo json_encode($resp);
+					exit();
 				}
 			} else {
 				$resp['status'] = 'failed';
 				$resp['err'] = 'Invalid file extension.';
-				return json_encode($resp);
+				echo json_encode($resp);
+				exit();
 			}
 		}
 	
@@ -234,8 +237,10 @@ Class Master extends DBConnection {
 			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 	
-		return json_encode($resp);
+		echo json_encode($resp);
+		exit();
 	}
+	
 	
 	function delete_request(){
 		extract($_POST);
