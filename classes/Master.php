@@ -168,60 +168,37 @@ Class Master extends DBConnection {
 		}
 	
 		// Handle file upload
-		<?php
-$response = ['status' => 'success', 'message' => 'Report submitted successfully'];
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $image_path = null;
-
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['image']['tmp_name'];
-        $fileName = $_FILES['image']['name'];
-        $fileSize = $_FILES['image']['size'];
-        $fileType = $_FILES['image']['type'];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
-
-        $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
-        if (in_array($fileExtension, $allowedfileExtensions)) {
-            $uploadFileDir = '../uploads/';
-            if (!is_dir($uploadFileDir)) {
-                mkdir($uploadFileDir, 0777, true);
-            }
-            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-            $dest_path = $uploadFileDir . $newFileName;
-
-            if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                $image_path = $dest_path;
-                $_POST['image'] = $dest_path;
-            } else {
-                $response = ['status' => 'failed', 'message' => 'Failed to move uploaded file.'];
-                echo json_encode($response);
-                exit();
-            }
-        } else {
-            $response = ['status' => 'failed', 'message' => 'Invalid file extension.'];
-            echo json_encode($response);
-            exit();
-        }
-    }
-
-    // Process other form fields and save to database
-    // Assuming you have database connection set up and using PDO
-    try {
-        $stmt = $pdo->prepare("INSERT INTO reports (fullname, contact, message, location, image) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$_POST['fullname'], $_POST['contact'], $_POST['message'], $_POST['location'], $image_path]);
-    } catch (Exception $e) {
-        $response = ['status' => 'failed', 'message' => 'Failed to save report: ' . $e->getMessage()];
-        echo json_encode($response);
-        exit();
-    }
-
-    $response = ['status' => 'success', 'message' => 'Report submitted successfully'];
-    echo json_encode($response);
-}
-?>
-
+		$image_path = null;
+		if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+			$fileTmpPath = $_FILES['image']['tmp_name'];
+			$fileName = $_FILES['image']['name'];
+			$fileSize = $_FILES['image']['size'];
+			$fileType = $_FILES['image']['type'];
+			$fileNameCmps = explode(".", $fileName);
+			$fileExtension = strtolower(end($fileNameCmps));
+	
+			$allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
+			if (in_array($fileExtension, $allowedfileExtensions)) {
+				$uploadFileDir = '../uploads/';
+				if (!is_dir($uploadFileDir)) {
+					mkdir($uploadFileDir, 0777, true);
+				}
+				$newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+				$dest_path = $uploadFileDir . $newFileName;
+	
+				if (move_uploaded_file($fileTmpPath, $dest_path)) {
+					$_POST['image'] = $dest_path;
+				} else {
+					$resp['status'] = 'failed';
+					$resp['err'] = 'Failed to move uploaded file.';
+					return json_encode($resp);
+				}
+			} else {
+				$resp['status'] = 'failed';
+				$resp['err'] = 'Invalid file extension.';
+				return json_encode($resp);
+			}
+		}
 	
 		// Prepare data for insertion or update
 		extract($_POST);
