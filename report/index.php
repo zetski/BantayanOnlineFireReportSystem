@@ -33,15 +33,14 @@
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                                     <div class="position-relative">
                                         <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
-                                        <label class="upload-icon" for="camera">
+                                        <label class="upload-icon" for="image-upload">
                                             <i class="fa fa-camera"></i>
                                         </label>
-                                        <input type="button" class="d-none" id="camera">
+                                        <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
                                         <div id="image-preview-container" class="d-none">
                                             <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
                                             <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
                                         </div>
-                                        <input type="hidden" name="image" id="image-data">
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -146,64 +145,10 @@
     }
 </style>
 
-
 <script>
-   document.getElementById('contact').addEventListener('input', function (e) {
-    this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
-});
-
-const cameraButton = document.getElementById('camera');
-const imagePreviewContainer = document.getElementById('image-preview-container');
-const imagePreview = document.getElementById('image-preview');
-const imageDataInput = document.getElementById('image-data');
-const removeImageButton = document.getElementById('remove-image');
-
-cameraButton.addEventListener('click', () => {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            const video = document.createElement('video');
-            video.srcObject = stream;
-            video.play();
-
-            const captureButton = document.createElement('button');
-            captureButton.textContent = 'Capture';
-            captureButton.addEventListener('click', () => {
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                const context = canvas.getContext('2d');
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const imageDataUrl = canvas.toDataURL('image/png');
-                imagePreview.src = imageDataUrl;
-                imageDataInput.value = imageDataUrl;
-                imagePreviewContainer.classList.remove('d-none');
-
-                stream.getTracks().forEach(track => track.stop());
-                video.remove();
-                captureButton.remove();
-            });
-
-            document.body.appendChild(video);
-            document.body.appendChild(captureButton);
-        })
-        .catch(error => {
-            console.error('Error accessing webcam:', error);
-        });
-});
-
-imagePreview.addEventListener('click', () => {
-    const modalImage = document.getElementById('modal-image');
-    modalImage.src = imagePreview.src;
-    const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
-    imageModal.show();
-});
-
-removeImageButton.addEventListener('click', () => {
-    imagePreview.src = '#';
-    imageDataInput.value = '';
-    imagePreviewContainer.classList.add('d-none');
-});
-
+    document.getElementById('contact').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+    });
 </script>
 
 <script src="report/script.js"></script>
