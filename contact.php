@@ -196,6 +196,15 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .slider-card {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slider-card.active {
+            display: block;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -251,11 +260,49 @@
                         <p>Sweep from side to side</p>
                     </div>
                 </div>
+                <div class="instruction-card slider-card" id="should-shouldnt-card">
+                    <h3 class="text-center">What to Do in Case of a Fire</h3>
+                    <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
+                    <h4>Should:</h4>
+                    <ul>
+                        <li>Stay Calm</li>
+                        <li>Activate the Alarm</li>
+                        <li>Call Emergency Services</li>
+                        <li>Use Fire Extinguishers</li>
+                        <li>Evacuate Immediately</li>
+                        <li>Assist Others</li>
+                        <li>Stay Low</li>
+                        <li>Close Doors</li>
+                        <li>Stop, Drop, and Roll</li>
+                        <li>Follow Emergency Personnel Instructions</li>
+                    </ul>
+                    <h4>Shouldn't:</h4>
+                    <ul>
+                        <li>Panic</li>
+                        <li>Use Elevators</li>
+                        <li>Re-enter the Building</li>
+                        <li>Ignore Alarms</li>
+                        <li>Open Hot Doors</li>
+                        <li>Break Windows</li>
+                        <li>Take Belongings</li>
+                        <li>Use Water on Electrical or Grease Fires</li>
+                        <li>Block Exits</li>
+                        <li>Ignore Training</li>
+                    </ul>
+                </div>
             </div>
         </div>
+        <button class="btn btn-primary mt-4" id="toggle-card-btn">Toggle Fire Incident Guidelines</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('toggle-card-btn').addEventListener('click', function() {
+            const card = document.getElementById('should-shouldnt-card');
+            card.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
+
