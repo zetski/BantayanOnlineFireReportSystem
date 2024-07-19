@@ -23,8 +23,7 @@
     </button>
     <a class="navbar-brand" href="./">
       <img src="<?php echo validate_image($_settings->info('logo')) ?>" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-      <!-- </?php echo $_settings->info('short_name') ?> -->
-       <p>BANTAYAN OFRS</p>
+      <?php echo $_settings->info('short_name') ?>
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
