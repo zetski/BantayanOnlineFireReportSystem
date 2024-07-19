@@ -103,7 +103,7 @@ CREATE TABLE `system_info` (
 
 INSERT INTO `system_info` (`id`, `meta_field`, `meta_value`) VALUES
 (1, 'name', 'Online Fire Reporting System'),
-(6, 'short_name', 'OFRS - PHP'),
+(6, 'short_name', 'BANTAYAN OFRS'),
 (11, 'logo', 'uploads/logo.png?v=1653095716'),
 (13, 'user_avatar', 'uploads/user_avatar.jpg'),
 (14, 'cover', 'uploads/cover.png?v=1653095717'),
