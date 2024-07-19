@@ -1,5 +1,5 @@
 <?php
-if(!defined('DB_SERVER')){
+if(!defined('127.0.0.1:3306')){
     require_once("../initialize.php");
 }
 class DBConnection{
