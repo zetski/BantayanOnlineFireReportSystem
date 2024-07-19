@@ -31,48 +31,48 @@
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
-                                    <div class="position-relative">
-                                        <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
-                                        <label class="upload-icon" for="image-upload">
-                                            <i class="fa fa-camera"></i>
-                                        </label>
-                                        <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
-                                        <div id="image-preview-container" class="d-none">
-                                            <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
-                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
-                                        </div>
-                                    </div>
+                                    <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
-                                    <select class="form-control form-control-sm rounded-0" name="location" id="location" required="required">
-                                        <option value="">Select Barangay</option>
-                                        <option value="Atop-Atop">Atop-Atop</option>
-                                        <option value="Baigad">Baigad</option>
-                                        <option value="Bantigue">Bantigue</option>
-                                        <option value="Baod">Baod</option>
-                                        <option value="Binaobao">Binaobao</option>
-                                        <option value="Botigues">Botigues</option>
-                                        <option value="Doong">Doong</option>
-                                        <option value="Guiwanon">Guiwanon</option>
-                                        <option value="Hilotongan">Hilotongan</option>
-                                        <option value="Kabac">Kabac</option>
-                                        <option value="Kabangbang">Kabangbang</option>
-                                        <option value="Kampinganon">Kampinganon</option>
-                                        <option value="Kangkaibe">Kangkaibe</option>
-                                        <option value="Lipayran">Lipayran</option>
-                                        <option value="Luyongbay-bay">Luyongbay-bay</option>
-                                        <option value="Mojon">Mojon</option>
-                                        <option value="Oboob">Oboob</option>
-                                        <option value="Patao">Patao</option>
-                                        <option value="Putian">Putian</option>
-                                        <option value="Sillon">Sillon</option>
-                                        <option value="Suba">Suba</option>
-                                        <option value="Sulangan">Sulangan</option>
-                                        <option value="Sungko">Sungko</option>
-                                        <option value="Tamiao">Tamiao</option>
-                                        <option value="Ticad">Ticad</option>
-                                    </select>
+                                    <div class="position-relative">
+                                        <select class="form-control form-control-sm rounded-0" name="location" id="location" required="required">
+                                            <option value="">Select Barangay</option>
+                                            <option value="Atop-Atop">Atop-Atop</option>
+                                            <option value="Baigad">Baigad</option>
+                                            <option value="Bantigue">Bantigue</option>
+                                            <option value="Baod">Baod</option>
+                                            <option value="Binaobao">Binaobao</option>
+                                            <option value="Botigues">Botigues</option>
+                                            <option value="Doong">Doong</option>
+                                            <option value="Guiwanon">Guiwanon</option>
+                                            <option value="Hilotongan">Hilotongan</option>
+                                            <option value="Kabac">Kabac</option>
+                                            <option value="Kabangbang">Kabangbang</option>
+                                            <option value="Kampinganon">Kampinganon</option>
+                                            <option value="Kangkaibe">Kangkaibe</option>
+                                            <option value="Lipayran">Lipayran</option>
+                                            <option value="Luyongbay-bay">Luyongbay-bay</option>
+                                            <option value="Mojon">Mojon</option>
+                                            <option value="Oboob">Oboob</option>
+                                            <option value="Patao">Patao</option>
+                                            <option value="Putian">Putian</option>
+                                            <option value="Sillon">Sillon</option>
+                                            <option value="Suba">Suba</option>
+                                            <option value="Sulangan">Sulangan</option>
+                                            <option value="Sungko">Sungko</option>
+                                            <option value="Tamiao">Tamiao</option>
+                                            <option value="Ticad">Ticad</option>
+                                        </select>
+                                        <label class="upload-icon" id="take-picture" for="camera-input">
+                                            <i class="fa fa-camera"></i>
+                                        </label>
+                                    </div>
+                                    <div id="camera-container" class="d-none">
+                                        <video id="camera-stream" width="100%" height="100%" autoplay></video>
+                                        <button type="button" id="capture-btn" class="btn btn-primary btn-sm">Capture</button>
+                                        <canvas id="snapshot" class="d-none"></canvas>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -118,30 +118,19 @@
         font-size: 1.2rem;
         color: #6c757d;
     }
-    #image-preview-container {
+    #camera-container {
+        position: relative;
+        margin-top: 10px;
+    }
+    video, canvas {
+        width: 100%;
+        height: auto;
+    }
+    #capture-btn {
         position: absolute;
         bottom: 10px;
-        right: 50px;
-        width: 50px;
-        height: 50px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    #image-preview {
-        max-width: 100%;
-        max-height: 100%;
-        cursor: pointer;
-    }
-    .remove-image {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: rgba(255, 255, 255, 0.7);
-        border-radius: 50%;
-        cursor: pointer;
-        padding: 2px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 </style>
 
@@ -149,6 +138,37 @@
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
-</script>
 
-<script src="report/script.js"></script>
+    document.getElementById('take-picture').addEventListener('click', function () {
+        const cameraContainer = document.getElementById('camera-container');
+        cameraContainer.classList.remove('d-none');
+        const video = document.getElementById('camera-stream');
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(err => {
+                console.error('Error accessing the camera', err);
+            });
+    });
+
+    document.getElementById('capture-btn').addEventListener('click', function () {
+        const canvas = document.getElementById('snapshot');
+        const video = document.getElementById('camera-stream');
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL('image/png');
+        // Optionally, you can display the captured image
+        document.getElementById('modal-image').src = dataUrl;
+        $('#imageModal').modal('show');
+        // Stop the video stream after capturing
+        const stream = video.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        video.srcObject = null;
+        document.getElementById('camera-container').classList.add('d-none');
+    });
+</script>
