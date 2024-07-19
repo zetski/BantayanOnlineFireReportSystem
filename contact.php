@@ -53,7 +53,7 @@
             <div class="col-md-6">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        <?php 
+                        </?php 
                             $upload_path = "uploads/contact";
                             if(is_dir(base_app.$upload_path)): 
                             $file = scandir(base_app.$upload_path);
@@ -63,11 +63,11 @@
                                         continue;
                             $_i++;
                         ?>
-                        <div class="carousel-item h-100 <?php echo $_i == 1 ? "active" : '' ?>">
-                            <img src="<?php echo validate_image($upload_path.'/'.$img) ?>" class="d-block w-100 h-100" alt="<?php echo $img ?>">
+                        <div class="carousel-item h-100 </?php echo $_i == 1 ? "active" : '' ?>">
+                            <img src="</?php echo validate_image($upload_path.'/'.$img) ?>" class="d-block w-100 h-100" alt="</?php echo $img ?>">
                         </div>
-                        <?php endforeach; ?>
-                        <?php endif; ?>
+                        </?php endforeach; ?>
+                        </?php endif; ?>
                     </div>
                     <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
