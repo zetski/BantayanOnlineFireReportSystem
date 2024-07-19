@@ -162,7 +162,7 @@
             border-radius: 50%;
         }
         .instruction-card {
-            border: 1px solid #000;
+            border: 1px;
             padding: 20px;
             margin-top: 20px;
             background-color: #fff;
