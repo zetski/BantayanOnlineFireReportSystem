@@ -19,7 +19,7 @@
                                 });
                             </script>
                             <?php endif;?>
-                            <form action="../upload_report.php" id="request-form" enctype="multipart/form-data">
+                            <form action="" id="request-form" enctype="multipart/form-data">
                                 <input type="hidden" name="id">
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
                                     <label for="fullname" class="control-label">Fullname <small class="text-danger">*</small></label>
@@ -152,48 +152,3 @@
 </script>
 
 <script src="report/script.js"></script>
-<script>
-    document.getElementById('contact').addEventListener('input', function (e) {
-        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
-    });
-
-    document.getElementById('request-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        var formData = new FormData(this);
-
-        fetch('upload_report.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: data.message,
-                    showConfirmButton: true
-                });
-                document.getElementById('request-form').reset();
-                document.getElementById('image-preview-container').classList.add('d-none');
-                document.getElementById('image-preview').src = "#";
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: data.message,
-                    showConfirmButton: true
-                });
-            }
-        })
-        .catch(error => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'An unexpected error occurred.',
-                showConfirmButton: true
-            });
-        });
-    });
-</script>
