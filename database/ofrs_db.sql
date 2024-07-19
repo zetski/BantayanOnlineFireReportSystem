@@ -70,6 +70,7 @@ CREATE TABLE `request_list` (
   `fullname` text NOT NULL,
   `contact` text NOT NULL,
   `message` text NOT NULL,
+  `image` varchar(255) NOT NULL,
   `location` text NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 = Pending,\r\n1 = Assigned to Team,\r\n2 = Team on their Way\r\n3 = Relief on progress\r\n4 = Completed',
   `date_created` datetime NOT NULL DEFAULT current_timestamp(),
@@ -80,7 +81,7 @@ CREATE TABLE `request_list` (
 -- Dumping data for table `request_list`
 --
 
-INSERT INTO `request_list` (`id`, `team_id`, `code`, `fullname`, `contact`, `message`, `location`, `status`, `date_created`, `date_updated`) VALUES
+INSERT INTO `request_list` (`id`, `team_id`, `code`, `fullname`, `contact`, `message`, `image`, `location`, `status`, `date_created`, `date_updated`) VALUES
 (1, 2, '2022052100001', 'Ella Zane', '09456987455', 'A Residential Area is on Fire.', '2688 Goosetown Drive, Charlotte, North Carolina, 28202', 4, '2022-05-21 10:25:02', '2022-05-21 13:54:52'),
 (2, 1, '2022052100002', 'Dina Santos', '0978945631', 'Sample report only', '4250 Star Trek Drive, Tallahassee, Florida, 32303', 1, '2022-05-21 14:35:12', '2022-05-21 14:48:55'),
 (4, NULL, '2022052100003', 'Martha V Whitten', '562-397-5583', 'Commercial Buiding is on fire.', '3621 Thompson Drive, San Leandro, California(CA), 94578', 0, '2022-05-21 14:51:56', '2022-05-21 14:51:56');
