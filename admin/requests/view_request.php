@@ -1,27 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Meta tags and other head elements -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body>
-<?php if($_settings->chk_flashdata('success')): ?>
-<script>
-    Swal.fire({
-        title: 'Success!',
-        text: "<?php echo $_settings->flashdata('success') ?>",
-        icon: 'success',
-        confirmButtonText: 'OK'
-    });
-</script>
-<?php endif; ?>
-
 <?php
 if(isset($_GET['id']) && $_GET['id'] > 0){
     $qry = $conn->query("SELECT * from `request_list` where id = '{$_GET['id']}' ");
     if($qry->num_rows > 0){
         foreach($qry->fetch_assoc() as $k => $v){
-            $$k = $v;
+            $$k=$v;
         }
     }
     if(isset($team_id) && $team_id > 0){
@@ -38,11 +20,11 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 }
 ?>
 <style>
-    #request-logo {
-        max-width: 100%;
+    #request-logo{
+        max-width:100%;
         max-height: 20em;
-        object-fit: scale-down;
-        object-position: center center;
+        object-fit:scale-down;
+        object-position:center center;
     }
 </style>
 <div class="content py-3 px-3" style="background-color: #2980B9; color: #fff">
@@ -86,7 +68,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                         <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($contact) ? $contact : '' ?></div>
                     </div>
                     <div class="d-flex w-100 mb-2">
-                        <div class="col-auto pr-1">Message:</div>
+                        <div class="col-auto pr-1">Message</div>
                         <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($message) ? str_replace(["\r\n", "\r", "\n"], '<br>', $message) : '' ?></div>
                     </div>
                     <div class="d-flex w-100 mb-2">
@@ -211,6 +193,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 </div>
             </div>
         </div>
+       
         <hr>
     </div>
 </noscript>
@@ -265,29 +248,17 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
             dataType:"json",
             error:err=>{
                 console.log(err)
-                Swal.fire({
-                    title: 'Error!',
-                    text: "An error occurred.",
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
+                alert_toast("An error occured.",'error');
                 end_loader();
             },
             success:function(resp){
-                if(typeof resp == 'object' && resp.status == 'success'){
+                if(typeof resp== 'object' && resp.status == 'success'){
                     location.replace("./?page=requests");
                 }else{
-                    Swal.fire({
-                        title: 'Error!',
-                        text: "An error occurred.",
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
+                    alert_toast("An error occured.",'error');
                     end_loader();
                 }
             }
         })
     }
 </script>
-</body>
-</html>
