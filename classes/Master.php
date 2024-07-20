@@ -168,42 +168,36 @@ Class Master extends DBConnection {
 		}
 	
 		// Handle file upload
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			// Check if the file was uploaded without errors
-			if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
-				$fileTmpPath = $_FILES['image']['tmp_name'];
-				$fileName = $_FILES['image']['name'];
-				$fileSize = $_FILES['image']['size'];
-				$fileType = $_FILES['image']['type'];
-				$fileNameCmps = explode(".", $fileName);
-				$fileExtension = strtolower(end($fileNameCmps));
-		
-				// Sanitize file name
+		$image_path = null;
+		if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+			$fileTmpPath = $_FILES['image']['tmp_name'];
+			$fileName = $_FILES['image']['name'];
+			$fileSize = $_FILES['image']['size'];
+			$fileType = $_FILES['image']['type'];
+			$fileNameCmps = explode(".", $fileName);
+			$fileExtension = strtolower(end($fileNameCmps));
+	
+			$allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
+			if (in_array($fileExtension, $allowedfileExtensions)) {
+				$uploadFileDir = '../uploads/';
+				if (!is_dir($uploadFileDir)) {
+					mkdir($uploadFileDir, 0777, true);
+				}
 				$newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-		
-				// Check if the file has an allowed extension
-				$allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
-				if (in_array($fileExtension, $allowedfileExtensions)) {
-					// Directory in which the uploaded file will be moved
-					$uploadFileDir = '../uploads/';
-					$dest_path = $uploadFileDir . $newFileName;
-		
-					if(move_uploaded_file($fileTmpPath, $dest_path)) {
-						echo 'File is successfully uploaded.';
-					} else {
-						echo 'There was some error moving the file to upload directory. Please make sure the upload directory is writable by the web server.';
-					}
+				$dest_path = $uploadFileDir . $newFileName;
+	
+				if (move_uploaded_file($fileTmpPath, $dest_path)) {
+					$_POST['image'] = $dest_path;
 				} else {
-					echo 'Upload failed. Allowed file types: ' . implode(',', $allowedfileExtensions);
+					$resp['status'] = 'failed';
+					$resp['err'] = 'Failed to move uploaded file.';
+					return json_encode($resp);
 				}
 			} else {
-				echo 'There is some error in the file upload. Please check the following error.<br>';
-				echo 'Error:' . $_FILES['image']['error'];
+				$resp['status'] = 'failed';
+				$resp['err'] = 'Invalid file extension.';
+				return json_encode($resp);
 			}
-		
-			// Process other form fields here...
-		
-			// Redirect or display a success message
 		}
 	
 		// Prepare data for insertion or update
