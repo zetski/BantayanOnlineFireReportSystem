@@ -1,6 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags and other head elements -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
 <?php if($_settings->chk_flashdata('success')): ?>
 <script>
-    alert_toast("<?php echo $_settings->flashdata('success') ?>", 'success')
+    Swal.fire({
+        title: 'Success!',
+        text: "<?php echo $_settings->flashdata('success') ?>",
+        icon: 'success',
+        confirmButtonText: 'OK'
+    });
 </script>
 <?php endif; ?>
 
@@ -138,17 +150,29 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
             dataType: "json",
             error: err => {
                 console.log(err);
-                alert_toast("An error occured.", 'error');
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
                 end_loader();
             },
             success: function(resp) {
                 if (typeof resp == 'object' && resp.status == 'success') {
                     location.reload();
                 } else {
-                    alert_toast("An error occured.", 'error');
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An error occurred.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                     end_loader();
                 }
             }
         });
     }
 </script>
+</body>
+</html>
