@@ -185,7 +185,7 @@ Class Master extends DBConnection {
 				$allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
 				if (in_array($fileExtension, $allowedfileExtensions)) {
 					// Directory in which the uploaded file will be moved
-					$uploadFileDir = './uploaded_files/';
+					$uploadFileDir = '../uploads/';
 					$dest_path = $uploadFileDir . $newFileName;
 		
 					if(move_uploaded_file($fileTmpPath, $dest_path)) {
