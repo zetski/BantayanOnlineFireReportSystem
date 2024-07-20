@@ -145,7 +145,7 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                 if (typeof resp == 'object' && resp.status == 'success') {
                     location.reload();
                 } else {
-                    alert_toast("Ang error makabuang.", 'error');
+                    alert_toast("An error occured.", 'error');
                     end_loader();
                 }
             }
