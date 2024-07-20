@@ -19,7 +19,7 @@
                                 });
                             </script>
                             <?php endif;?>
-                            <form action="upload.php" method="POST" id="request-form" enctype="multipart/form-data">
+                            <form action="" id="request-form" enctype="multipart/form-data">
                                 <input type="hidden" name="id">
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
                                     <label for="fullname" class="control-label">Fullname <small class="text-danger">*</small></label>
@@ -149,22 +149,6 @@
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
-
-    document.getElementById('image-upload').addEventListener('change', function () {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                document.getElementById('image-preview').src = e.target.result;
-                document.getElementById('image-preview-container').classList.remove('d-none');
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-
-    document.getElementById('remove-image').addEventListener('click', function () {
-        document.getElementById('image-upload').value = '';
-        document.getElementById('image-preview').src = '#';
-        document.getElementById('image-preview-container').classList.add('d-none');
-    });
 </script>
+
+<script src="report/script.js"></script>
