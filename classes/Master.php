@@ -148,9 +148,6 @@ Class Master extends DBConnection {
 		if (isset($_POST['message'])) {
 			$_POST['message'] = addslashes(htmlspecialchars($_POST['message']));
 		}
-		if (isset($_POST['image'])) {
-			$_POST['image'] = addslashes(htmlspecialchars($_POST['image']));
-		}
 		if (isset($_POST['location'])) {
 			$_POST['location'] = addslashes(htmlspecialchars($_POST['location']));
 		}
