@@ -169,7 +169,7 @@ Class Master extends DBConnection {
 	
 		// Handle file upload
 		$image_path = null;
-		if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+		if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
 			$fileTmpPath = $_FILES['image']['tmp_name'];
 			$fileName = $_FILES['image']['name'];
 			$fileSize = $_FILES['image']['size'];
