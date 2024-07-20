@@ -15,7 +15,7 @@ $(function(){
             dataType: 'json',
             error: function(err) {
                 console.log(err);
-                alert_toast("An error occurred",'error');
+                alert_toast("Ang error makabuang",'error');
                 end_loader();
             },
             success: function(resp) {
