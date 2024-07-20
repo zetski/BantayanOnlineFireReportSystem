@@ -60,17 +60,17 @@
                     alert_toast("An error occurred", 'error');
                     end_loader();
                 },
-                success: function(resp){
-                    if(typeof resp === 'object' && resp.status === 'success'){
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Information updated successfully!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(() => {
-                            location.replace('./?page=system_settings');
-                        });
+                // success: function(resp){
+                //     if(typeof resp === 'object' && resp.status === 'success'){
+                //         Swal.fire({
+                //             icon: 'success',
+                //             title: 'Success',
+                //             text: 'Information updated successfully!',
+                //             showConfirmButton: false,
+                //             timer: 1500
+                //         }).then(() => {
+                //             location.replace('./?page=system_settings');
+                //         });
                     } else if(resp.status === 'failed' && resp.msg){
                         var el = $('<div>');
                         el.addClass("alert alert-danger err-msg").text(resp.msg);
