@@ -1,7 +1,5 @@
 <?php if($_settings->chk_flashdata('success')): ?>
-<script>
-    alert_toast("<?php echo $_settings->flashdata('success') ?>", 'success')
-</script>
+<!-- Removed the alert_toast here -->
 <?php endif; ?>
 <div class="content py-3 px-3" style="color: #fff; background-color: #2980B9">
     <h2><b>Contact information</b></h2>
