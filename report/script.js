@@ -29,7 +29,7 @@ $(function(){
                     $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
                     end_loader();
                 } else {
-                    alert_toast("Ang error makabuang",'error');
+                    alert_toast("An error occurred",'error');
                     end_loader();
                     console.log(resp);
                 }
