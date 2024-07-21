@@ -189,3 +189,4 @@
         document.getElementById('image-preview-container').classList.add('d-none');
     }
 </script>
+<script src="../report/script.js/"></script>
