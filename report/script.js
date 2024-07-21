@@ -4,20 +4,20 @@ $(function(){
         var _this = $(this);
         $('.err-msg').remove();
         start_loader();
-        $.ajax({
-            url: _base_url_+"classes/Master.php?f=save_request",
-            data: new FormData(this),
-            cache: false,
-            contentType: false,
-            processData: false,
-            method: 'POST',
-            type: 'POST',
-            dataType: 'json',
-            error: function(err) {
-                console.log(err);
-                alert_toast("An error occurred",'error');
-                end_loader();
-            },
+        // $.ajax({
+        //     url: _base_url_+"classes/Master.php?f=save_request",
+        //     data: new FormData(this),
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false,
+        //     method: 'POST',
+        //     type: 'POST',
+        //     dataType: 'json',
+        //     error: function(err) {
+        //         console.log(err);
+        //         alert_toast("An error occurred",'error');
+        //         end_loader();
+        //     },
             success: function(resp) {
                 if (typeof resp == 'object' && resp.status == 'success') {
                     location.reload();
