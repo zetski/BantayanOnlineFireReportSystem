@@ -151,3 +151,4 @@
     });
 </script>
 
+<script src="report/script.js"></script>
