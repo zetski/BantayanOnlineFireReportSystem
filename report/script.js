@@ -10,8 +10,8 @@ $(function(){
             cache: false,
             contentType: false,
             processData: false,
-            method: '&_POST',
-            type: '&_POST',
+            method: 'POST',
+            type: 'POST',
             dataType: 'json',
             error: function(err) {
                 console.log(err);
