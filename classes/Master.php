@@ -143,22 +143,25 @@ Class Master extends DBConnection {
 	
 	// 		return json_encode($resp);
 	// }
-	function save_request(){
-		if(isset($_POST['message']))
-		$_POST['message'] = addslashes(htmlspecialchars($_POST['message']));
-		
-		if(isset($_POST['location']))
-		$_POST['location'] = addslashes(htmlspecialchars($_POST['location']));
-
-		if(empty($_POST['id'])){
+	function save_request() {
+		// Sanitize input
+		if (isset($_POST['message'])) {
+			$_POST['message'] = addslashes(htmlspecialchars($_POST['message']));
+		}
+		if (isset($_POST['location'])) {
+			$_POST['location'] = addslashes(htmlspecialchars($_POST['location']));
+		}
+	
+		// Generate a unique code if id is empty
+		if (empty($_POST['id'])) {
 			$pref = date("Ymd");
 			$code = sprintf("%'.05d", 1);
-			while(true){
-				$check = $this->conn->query("SELECT id FROM `request_list` where `code` = '{$pref}{$code}'")->num_rows;
-				if($check > 0){
+			while (true) {
+				$check = $this->conn->query("SELECT id FROM `request_list` WHERE `code` = '{$pref}{$code}'")->num_rows;
+				if ($check > 0) {
 					$code = sprintf("%'.05d", abs($code) + 1);
-				}else{
-					$_POST['code'] = $pref.$code;
+				} else {
+					$_POST['code'] = $pref . $code;
 					break;
 				}
 			}
@@ -197,38 +200,41 @@ Class Master extends DBConnection {
 			}
 		}
 	
+		// Prepare data for insertion or update
 		extract($_POST);
 		$data = "";
-		foreach($_POST as $k =>$v){
-			if(!in_array($k,array('id'))){
-				if(!empty($data)) $data .=",";
+		foreach ($_POST as $k => $v) {
+			if (!in_array($k, array('id'))) {
+				if (!empty($data)) $data .= ",";
 				$v = $this->conn->real_escape_string($v);
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
-		if(empty($id)){
-			$sql = "INSERT INTO `request_list` set {$data} ";
-		}else{
-			$sql = "UPDATE `request_list` set {$data} where id = '{$id}' ";
+	
+		// Insert or update data in the database
+		if (empty($id)) {
+			$sql = "INSERT INTO `request_list` SET {$data}";
+		} else {
+			$sql = "UPDATE `request_list` SET {$data} WHERE id = '{$id}'";
 		}
-			$save = $this->conn->query($sql);
-		if($save){
+	
+		$save = $this->conn->query($sql);
+		if ($save) {
 			$tid = !empty($id) ? $id : $this->conn->insert_id;
 			$resp['tid'] = $tid;
 			$resp['status'] = 'success';
-			if(empty($id)){
-				$this->settings->set_flashdata('request_sent', "Your report has been sent successfully. Your request code id: <b>{$code}</b>");
-			}else{
-				$resp['msg'] = " request successfully updated.";
+			if (empty($id)) {
+				$this->settings->set_flashdata('request_sent', $code);
+			} else {
+				$resp['msg'] = "Request successfully updated.";
 				$this->settings->set_flashdata('success', "Request has been updated successfully.");
 			}
-
-		}else{
+		} else {
 			$resp['status'] = 'failed';
-			$resp['err'] = $this->conn->error."[{$sql}]";
+			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 	
-			return json_encode($resp);
+		return json_encode($resp);
 	}
 	
 	function delete_request(){
