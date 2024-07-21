@@ -33,20 +33,19 @@
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                                     <div class="position-relative">
                                         <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
-                                        <label class="upload-icon" for="take-picture">
+                                        <label class="upload-icon" for="image-upload">
                                             <i class="fa fa-camera"></i>
                                         </label>
-                                        <button type="button" class="d-none" id="take-picture" onclick="openCamera()">Take Picture</button>
+                                        <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
                                         <div id="image-preview-container" class="d-none">
                                             <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
-                                            <span id="remove-image" class="remove-image" onclick="removeImage()"><i class="fa fa-times"></i></span>
+                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
                                     <select class="form-control form-control-sm rounded-0" name="location" id="location" required="required">
-                                        <!-- Options will be populated dynamically -->
                                         <option value="">Select Barangay</option>
                                         <option value="Atop-Atop">Atop-Atop</option>
                                         <option value="Baigad">Baigad</option>
@@ -75,7 +74,6 @@
                                         <option value="Ticad">Ticad</option>
                                     </select>
                                 </div>
-                                <input type="hidden" name="captured-image" id="captured-image">
                             </form>
                         </div>
                     </div>
@@ -90,19 +88,18 @@
 </section>
 
 <!-- Modal -->
-<div class="modal fade" id="cameraModal" tabindex="-1" aria-labelledby="cameraModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cameraModalLabel">Take a Picture</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <video id="camera-stream" width="100%" autoplay></video>
-                <button id="capture-button" class="btn btn-primary mt-3" onclick="captureImage()">Capture</button>
-            </div>
-        </div>
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img id="modal-image" src="#" alt="Full-size Image" class="img-fluid">
+      </div>
     </div>
+  </div>
 </div>
 
 <style>
@@ -152,41 +149,6 @@
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
-
-    function openCamera() {
-        const modal = new bootstrap.Modal(document.getElementById('cameraModal'));
-        const video = document.getElementById('camera-stream');
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                video.srcObject = stream;
-                modal.show();
-            })
-            .catch(err => {
-                console.error("Error accessing the camera: ", err);
-            });
-    }
-
-    function captureImage() {
-        const video = document.getElementById('camera-stream');
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-        const imageDataUrl = canvas.toDataURL('image/png');
-
-        document.getElementById('image-preview').src = imageDataUrl;
-        document.getElementById('captured-image').value = imageDataUrl;
-        document.getElementById('image-preview-container').classList.remove('d-none');
-        const modal = bootstrap.Modal.getInstance(document.getElementById('cameraModal'));
-        modal.hide();
-
-        video.srcObject.getTracks().forEach(track => track.stop());
-    }
-
-    function removeImage() {
-        document.getElementById('image-preview').src = '#';
-        document.getElementById('captured-image').value = '';
-        document.getElementById('image-preview-container').classList.add('d-none');
-    }
 </script>
+
 <script src="report/script.js"></script>
