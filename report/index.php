@@ -33,19 +33,24 @@
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                                     <div class="position-relative">
                                         <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
-                                        <label class="upload-icon" for="image-upload">
+                                        <label class="upload-icon" id="camera-icon">
                                             <i class="fa fa-camera"></i>
                                         </label>
-                                        <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
+                                        <div id="camera-container" class="d-none">
+                                            <video id="camera" width="100%" height="auto" autoplay></video>
+                                            <button type="button" id="take-photo" class="btn btn-primary">Take Photo</button>
+                                        </div>
                                         <div id="image-preview-container" class="d-none">
                                             <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
                                             <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
+                                            <input type="hidden" id="image-data" name="image_data">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
                                     <select class="form-control form-control-sm rounded-0" name="location" id="location" required="required">
+                                        <!-- Location options go here -->
                                         <option value="">Select Barangay</option>
                                         <option value="Atop-Atop">Atop-Atop</option>
                                         <option value="Baigad">Baigad</option>
@@ -86,7 +91,6 @@
         </div>
     </div>
 </section>
-
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -104,51 +108,96 @@
 
 <style>
     body {
-        padding-top: 10px;
-        margin-top: 40px;
-    }
-    .position-relative {
-        position: relative;
-    }
-    .upload-icon {
-        position: absolute;
-        right: 10px;
-        bottom: 10px;
-        cursor: pointer;
-        font-size: 1.2rem;
-        color: #6c757d;
-    }
-    #image-preview-container {
-        position: absolute;
-        bottom: 10px;
-        right: 50px;
-        width: 50px;
-        height: 50px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    #image-preview {
-        max-width: 100%;
-        max-height: 100%;
-        cursor: pointer;
-    }
-    .remove-image {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: rgba(255, 255, 255, 0.7);
-        border-radius: 50%;
-        cursor: pointer;
-        padding: 2px;
-    }
+    padding-top: 10px;
+    margin-top: 40px;
+}
+.position-relative {
+    position: relative;
+}
+.upload-icon {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+#camera-container {
+    text-align: center;
+}
+#image-preview-container {
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#image-preview {
+    max-width: 100%;
+    max-height: 100%;
+    cursor: pointer;
+}
+.remove-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px;
+}
 </style>
 
+<script src="report/script.js"></script>
 <script>
     document.getElementById('contact').addEventListener('input', function (e) {
-        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
-    });
-</script>
+    this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+});
 
-<script src="report/script.js"></script>
+const cameraIcon = document.getElementById('camera-icon');
+const cameraContainer = document.getElementById('camera-container');
+const video = document.getElementById('camera');
+const takePhotoButton = document.getElementById('take-photo');
+const imagePreviewContainer = document.getElementById('image-preview-container');
+const imagePreview = document.getElementById('image-preview');
+const imageDataInput = document.getElementById('image-data');
+const removeImageButton = document.getElementById('remove-image');
+
+cameraIcon.addEventListener('click', async () => {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            cameraContainer.classList.remove('d-none');
+        } catch (error) {
+            console.error('Error accessing the camera', error);
+        }
+    } else {
+        alert('Camera access not supported');
+    }
+});
+
+takePhotoButton.addEventListener('click', () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dataURL = canvas.toDataURL('image/png');
+    imagePreview.src = dataURL;
+    imageDataInput.value = dataURL;
+    imagePreviewContainer.classList.remove('d-none');
+    cameraContainer.classList.add('d-none');
+    video.srcObject.getTracks().forEach(track => track.stop());
+});
+
+removeImageButton.addEventListener('click', () => {
+    imagePreviewContainer.classList.add('d-none');
+    imagePreview.src = '';
+    imageDataInput.value = '';
+});
+</script>
