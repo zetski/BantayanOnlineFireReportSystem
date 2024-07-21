@@ -167,38 +167,76 @@ Class Master extends DBConnection {
 			}
 		}
 	
-		// Handle file upload
-		$image_path = null;
-		if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-			$fileTmpPath = $_FILES['image']['tmp_name'];
-			$fileName = $_FILES['image']['name'];
-			$fileSize = $_FILES['image']['size'];
-			$fileType = $_FILES['image']['type'];
-			$fileNameCmps = explode(".", $fileName);
-			$fileExtension = strtolower(end($fileNameCmps));
-	
-			$allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
-			if (in_array($fileExtension, $allowedfileExtensions)) {
-				$uploadFileDir = '../uploads/';
-				if (!is_dir($uploadFileDir)) {
-					mkdir($uploadFileDir, 0777, true);
-				}
-				$newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-				$dest_path = $uploadFileDir . $newFileName;
-	
-				if (move_uploaded_file($fileTmpPath, $dest_path)) {
-					$_POST['image'] = $dest_path;
-				} else {
-					$resp['status'] = 'failed';
-					$resp['err'] = 'Failed to move uploaded file.';
-					return json_encode($resp);
-				}
-			} else {
-				$resp['status'] = 'failed';
-				$resp['err'] = 'Invalid file extension.';
-				return json_encode($resp);
-			}
-		}
+		<?php
+// Handle file upload or webcam image
+$image_path = null;
+if (isset($_POST['image_data']) && !empty($_POST['image_data'])) {
+    // Handle webcam image (base64 string)
+    $base64_image = $_POST['image_data'];
+    $image_parts = explode(";base64,", $base64_image);
+    $image_type_aux = explode("image/", $image_parts[0]);
+    $image_type = $image_type_aux[1];
+    $image_base64 = base64_decode($image_parts[1]);
+    $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
+
+    if (in_array($image_type, $allowedfileExtensions)) {
+        $uploadFileDir = '../uploads/';
+        if (!is_dir($uploadFileDir)) {
+            mkdir($uploadFileDir, 0777, true);
+        }
+        $newFileName = md5(time() . uniqid()) . '.' . $image_type;
+        $dest_path = $uploadFileDir . $newFileName;
+
+        if (file_put_contents($dest_path, $image_base64)) {
+            $_POST['image'] = $dest_path;
+        } else {
+            $resp['status'] = 'failed';
+            $resp['err'] = 'Failed to save the captured image.';
+            return json_encode($resp);
+        }
+    } else {
+        $resp['status'] = 'failed';
+        $resp['err'] = 'Invalid image type.';
+        return json_encode($resp);
+    }
+} else if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    // Handle file upload
+    $fileTmpPath = $_FILES['image']['tmp_name'];
+    $fileName = $_FILES['image']['name'];
+    $fileSize = $_FILES['image']['size'];
+    $fileType = $_FILES['image']['type'];
+    $fileNameCmps = explode(".", $fileName);
+    $fileExtension = strtolower(end($fileNameCmps));
+
+    $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
+    if (in_array($fileExtension, $allowedfileExtensions)) {
+        $uploadFileDir = '../uploads/';
+        if (!is_dir($uploadFileDir)) {
+            mkdir($uploadFileDir, 0777, true);
+        }
+        $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+        $dest_path = $uploadFileDir . $newFileName;
+
+        if (move_uploaded_file($fileTmpPath, $dest_path)) {
+            $_POST['image'] = $dest_path;
+        } else {
+            $resp['status'] = 'failed';
+            $resp['err'] = 'Failed to move uploaded file.';
+            return json_encode($resp);
+        }
+    } else {
+        $resp['status'] = 'failed';
+        $resp['err'] = 'Invalid file extension.';
+        return json_encode($resp);
+    }
+} else {
+    $resp['status'] = 'failed';
+    $resp['err'] = 'No image provided.';
+    return json_encode($resp);
+}
+
+// Continue processing other form fields and save to database
+
 	
 		// Prepare data for insertion or update
 		extract($_POST);
