@@ -211,17 +211,6 @@ Class Master extends DBConnection {
 			}
 		}
 	
-		// Prepare data for insertion or update
-		extract($_POST);
-		$data = "";
-		foreach ($_POST as $k => $v) {
-			if (!in_array($k, array('id'))) {
-				if (!empty($data)) $data .= ",";
-				$v = $this->conn->real_escape_string($v);
-				$data .= " `{$k}`='{$v}' ";
-			}
-		}
-	
 		// Insert or update data in the database
 		if (empty($id)) {
 			$sql = "INSERT INTO `request_list` SET {$data}";
