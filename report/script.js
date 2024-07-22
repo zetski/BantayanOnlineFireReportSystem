@@ -1,16 +1,12 @@
 $(function(){
-    console.log(_base_url_);
     $('#request-form').submit(function(e){
         e.preventDefault();
         var _this = $(this);
         $('.err-msg').remove();
         start_loader();
-        var formData = new FormData(this);
-        console.log("Form Data:", formData);
-
         $.ajax({
-            url: _base_url_ + "classes/Master.php?f=save_request",
-            data: formData,
+            url: _base_url_+"classes/Master.php?f=save_request",
+            data: new FormData(this),
             cache: false,
             contentType: false,
             processData: false,
@@ -18,12 +14,11 @@ $(function(){
             type: 'POST',
             dataType: 'json',
             error: function(err) {
-                console.log("AJAX error:", err);
+                console.log(err);
                 alert_toast("An error occurred",'error');
                 end_loader();
             },
             success: function(resp) {
-                console.log("AJAX response:", resp);
                 if (typeof resp == 'object' && resp.status == 'success') {
                     location.reload();
                 } else if (resp.status == 'failed' && !!resp.msg) {
@@ -36,7 +31,7 @@ $(function(){
                 } else {
                     alert_toast("An error occurred",'error');
                     end_loader();
-                    console.log("Unexpected response:", resp);
+                    console.log(resp);
                 }
             }
         });
