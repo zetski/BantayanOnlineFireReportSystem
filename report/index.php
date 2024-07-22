@@ -148,7 +148,35 @@
 <script>
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+        document.getElementById('request-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch('report/index.php', {
+        method: 'POST',
+        body: formData
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              Swal.fire({
+                  icon: 'success',
+                  title: 'Success!',
+                  text: 'Your report has been sent successfully.',
+              });
+          } else {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!',
+              });
+          }
+      }).catch(error => {
+          console.error('Error:', error);
+      });
+});
+
     });
 </script>
 
-<script src="report/script.js"></script>
+<!-- <script src="report/script.js"></script> -->
