@@ -144,6 +144,17 @@ Class Master extends DBConnection {
 	// 		return json_encode($resp);
 	// }
 	function save_request() {
+		// Enable error reporting
+		ini_set('display_errors', 1);
+		ini_set('display_startup_errors', 1);
+		error_reporting(E_ALL);
+	
+		// Create a log file for debugging
+		$logFile = '../logs/request_log.txt';
+		if (!file_exists($logFile)) {
+			file_put_contents($logFile, "Log File Created\n", FILE_APPEND);
+		}
+	
 		// Sanitize input
 		if (isset($_POST['message'])) {
 			$_POST['message'] = addslashes(htmlspecialchars($_POST['message']));
@@ -191,11 +202,13 @@ Class Master extends DBConnection {
 				} else {
 					$resp['status'] = 'failed';
 					$resp['err'] = 'Failed to move uploaded file.';
+					file_put_contents($logFile, "Error: " . $resp['err'] . "\n", FILE_APPEND);
 					return json_encode($resp);
 				}
 			} else {
 				$resp['status'] = 'failed';
 				$resp['err'] = 'Invalid file extension.';
+				file_put_contents($logFile, "Error: " . $resp['err'] . "\n", FILE_APPEND);
 				return json_encode($resp);
 			}
 		}
@@ -232,10 +245,13 @@ Class Master extends DBConnection {
 		} else {
 			$resp['status'] = 'failed';
 			$resp['err'] = $this->conn->error . "[{$sql}]";
+			file_put_contents($logFile, "DB Error: " . $resp['err'] . "\n", FILE_APPEND);
 		}
 	
+		file_put_contents($logFile, "Response: " . print_r($resp, true) . "\n", FILE_APPEND);
 		return json_encode($resp);
 	}
+	
 	
 	function delete_request(){
 		extract($_POST);
