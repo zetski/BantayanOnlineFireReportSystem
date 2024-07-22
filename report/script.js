@@ -5,7 +5,7 @@ $(function(){
         $('.err-msg').remove();
         start_loader();
         $.ajax({
-            url: _base_url_+"../classes/Master.php?f=save_request",
+            url: _base_url_+"classes/Master.php?f=save_request",
             data: new FormData(this),
             cache: false,
             contentType: false,
