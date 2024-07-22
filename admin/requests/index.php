@@ -129,26 +129,26 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
         });
     });
 
-    function delete_request($id) {
-        start_loader();
-        $.ajax({
-            url: _base_url_ + "classes/Master.php?f=delete_request",
-            method: "POST",
-            data: { id: $id },
-            dataType: "json",
-            error: err => {
-                console.log(err);
-                alert_toast("An error occured.", 'error');
-                end_loader();
-            },
-            success: function(resp) {
-                if (typeof resp == 'object' && resp.status == 'success') {
-                    location.reload();
-                } else {
-                    alert_toast("An error occured.", 'error');
-                    end_loader();
-                }
-            }
-        });
-    }
+    // function delete_request($id) {
+    //     start_loader();
+    //     $.ajax({
+    //         url: _base_url_ + "classes/Master.php?f=delete_request",
+    //         method: "POST",
+    //         data: { id: $id },
+    //         dataType: "json",
+    //         error: err => {
+    //             console.log(err);
+    //             alert_toast("An error occured.", 'error');
+    //             end_loader();
+    //         },
+    //         success: function(resp) {
+    //             if (typeof resp == 'object' && resp.status == 'success') {
+    //                 location.reload();
+    //             } else {
+    //                 alert_toast("An error occured.", 'error');
+    //                 end_loader();
+    //             }
+    //         }
+    //     });
+    // }
 </script>
