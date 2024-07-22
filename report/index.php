@@ -74,10 +74,6 @@
                                         <option value="Ticad">Ticad</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 d-none" id="sitio-street-group">
-                                    <label for="sitio_street" class="control-label">Sitio/Street <small class="text-danger">*</small></label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="sitio_street" id="sitio_street" required="required">
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -152,15 +148,6 @@
 <script>
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
-    });
-
-    document.getElementById('location').addEventListener('change', function (e) {
-        var sitioStreetGroup = document.getElementById('sitio-street-group');
-        if (this.value) {
-            sitioStreetGroup.classList.remove('d-none');
-        } else {
-            sitioStreetGroup.classList.add('d-none');
-        }
     });
 </script>
 
