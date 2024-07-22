@@ -15,12 +15,22 @@ $(function(){
             dataType: 'json',
             error: function(err) {
                 console.log(err);
-                alert_toast("An error occurred",'error');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred',
+                });
                 end_loader();
             },
             success: function(resp) {
                 if (typeof resp == 'object' && resp.status == 'success') {
-                    location.reload();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Request saved successfully',
+                    }).then(function() {
+                        location.reload();
+                    });
                 } else if (resp.status == 'failed' && !!resp.msg) {
                     var el = $('<div>');
                     el.addClass("alert alert-danger err-msg").text(resp.msg);
@@ -29,7 +39,11 @@ $(function(){
                     $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
                     end_loader();
                 } else {
-                    alert_toast("An error occurred",'error');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred',
+                    });
                     end_loader();
                     console.log(resp);
                 }
