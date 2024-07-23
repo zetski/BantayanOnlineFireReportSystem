@@ -60,30 +60,30 @@
                     alert_toast("An error occurred", 'error');
                     end_loader();
                 },
-                success: function(resp){
-                    if(typeof resp === 'object' && resp.status === 'success'){
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Information updated successfully!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(() => {
-                            location.replace('./?page=system_settings');
-                        });
-                    } else if(resp.status === 'failed' && resp.msg){
-                        var el = $('<div>');
-                        el.addClass("alert alert-danger err-msg").text(resp.msg);
-                        _this.prepend(el);
-                        el.show('slow');
-                        $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
-                        end_loader();
-                    } else {
-                        alert_toast("An error occurred", 'error');
-                        end_loader();
-                        console.log(resp);
-                    }
-                }
+                // success: function(resp){
+                //     if(typeof resp === 'object' && resp.status === 'success'){
+                //         Swal.fire({
+                //             icon: 'success',
+                //             title: 'Success',
+                //             text: 'Information updated successfully!',
+                //             showConfirmButton: false,
+                //             timer: 1500
+                //         }).then(() => {
+                //             location.replace('./?page=system_settings');
+                //         });
+                //     } else if(resp.status === 'failed' && resp.msg){
+                //         var el = $('<div>');
+                //         el.addClass("alert alert-danger err-msg").text(resp.msg);
+                //         _this.prepend(el);
+                //         el.show('slow');
+                //         $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
+                //         end_loader();
+                //     } else {
+                //         alert_toast("An error occurred", 'error');
+                //         end_loader();
+                //         console.log(resp);
+                //     }
+                // }
             });
         });
 
