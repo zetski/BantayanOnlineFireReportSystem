@@ -12,7 +12,6 @@
   }
   .navbar-brand,
   .navbar-nav {
-    font-size: 20px
     margin-left: -70px; /* Adjust this value to move more or less */
   }
 </style>
