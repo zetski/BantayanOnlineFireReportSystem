@@ -1,7 +1,7 @@
 $(function(){
     $('#request-form').submit(function(e){
         e.preventDefault();
-        var _this = $(this);
+        var formData = $(this).serialize();
         $('.err-msg').remove();
         start_loader();
         $.ajax({
