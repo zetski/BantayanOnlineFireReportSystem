@@ -232,13 +232,10 @@ Class Master extends DBConnection {
 		} else {
 			$resp['status'] = 'failed';
 			$resp['err'] = $this->conn->error . "[{$sql}]";
-			// Log the error to a file for debugging
-			error_log("SQL Error: " . $this->conn->error . " in query: " . $sql, 3, "plugins/jquery/jquery.min.js");
 		}
 	
 		return json_encode($resp);
 	}
-	
 	
 	function delete_request(){
 		extract($_POST);
