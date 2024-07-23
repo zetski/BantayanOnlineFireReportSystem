@@ -87,8 +87,6 @@
     </div>
 </section>
 
-<script src="report/script.js"></script>
-
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -152,3 +150,5 @@
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
 </script>
+
+<script src="report/script.js"></script>
