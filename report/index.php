@@ -1,4 +1,3 @@
-<?php require 'classes/Master.php'; ?>
 <section class="py-3">
     <div class="container">
         <div class="content py-3 px-3" style="background-color: #2980B9">
@@ -152,4 +151,4 @@
     });
 </script>
 
-<!-- <script src="report/script.js"></script> -->
+<script src="report/script.js"></script>
