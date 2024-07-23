@@ -179,7 +179,7 @@ Class Master extends DBConnection {
 	
 			$allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
 			if (in_array($fileExtension, $allowedfileExtensions)) {
-				$uploadFileDir = '../uploads/';
+				$uploadFileDir = '../uploads/banner/';
 				if (!is_dir($uploadFileDir)) {
 					mkdir($uploadFileDir, 0777, true);
 				}
