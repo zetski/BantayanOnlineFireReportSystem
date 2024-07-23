@@ -198,8 +198,6 @@ Class Master extends DBConnection {
 				$resp['err'] = 'Invalid file extension.';
 				return json_encode($resp);
 			}
-		} else {
-			error_log('File upload error: ' . $_FILES['image']['error']);
 		}
 	
 		// Prepare data for insertion or update
