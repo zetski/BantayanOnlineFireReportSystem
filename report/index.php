@@ -87,6 +87,8 @@
     </div>
 </section>
 
+<script src="report/script.js"></script>
+
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -101,7 +103,6 @@
     </div>
   </div>
 </div>
-<script src="report/script.js"></script>
 
 <style>
     body {
