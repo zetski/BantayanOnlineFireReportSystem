@@ -9,6 +9,7 @@
                     <div class="card-body">
                         <div class="container-fluid">
                             <?php if($_settings->chk_flashdata('request_sent')): ?>
+                            <script src="report/script.js"></script>
                             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                             <script>
                                 Swal.fire({
@@ -150,5 +151,3 @@
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
 </script>
-
-<script src="report/script.js"></script>
