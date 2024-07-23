@@ -10,9 +10,6 @@
                         <div class="container-fluid">
                             <?php if($_settings->chk_flashdata('request_sent')): ?>
                             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                            <script src="<?php echo base_url ?>plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="<?php echo base_url ?>plugins/jquery-ui/jquery-ui.min.js"></script>
                             <script>
                                 Swal.fire({
                                     icon: 'success',
