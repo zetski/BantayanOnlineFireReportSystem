@@ -9,7 +9,6 @@
                     <div class="card-body">
                         <div class="container-fluid">
                             <?php if($_settings->chk_flashdata('request_sent')): ?>
-                            <script src="report/script.js"></script>
                             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                             <script>
                                 Swal.fire({
@@ -102,6 +101,7 @@
     </div>
   </div>
 </div>
+<script src="report/script.js"></script>
 
 <style>
     body {
