@@ -19,7 +19,7 @@
                                 });
                             </script>
                             <?php endif;?>
-                            <form action="save_request" id="request-form" enctype="multipart/form-data">
+                            <form action="save_request" id="request-form" enctype="multipart/form-data" method="POST">
                                 <input type="hidden" name="id">
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
                                     <label for="fullname" class="control-label">Fullname <small class="text-danger">*</small></label>
