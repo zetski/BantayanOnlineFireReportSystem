@@ -25,7 +25,7 @@
                 <div id="officer-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="officer1.jpg" class="d-block w-100" alt="Officer 1">
+                            <img src="../img/cont.jpg" class="d-block w-100" alt="Officer 1">
                         </div>
                         <div class="carousel-item">
                             <img src="officer2.jpg" class="d-block w-100" alt="Officer 2">
