@@ -32,15 +32,14 @@
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                                     <div class="position-relative">
-    <button type="button" class="upload-icon" id="capture-image">
-        <i class="fa fa-camera"></i> Take Picture
-    </button>
-    <div id="image-preview-container" class="d-none">
-        <video id="image-preview" autoplay></video>
-        <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
-    </div>
-</div>
-
+                                        <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
+                                        <label class="upload-icon" for="image-upload">
+                                            <i class="fa fa-camera"></i>
+                                        </label>
+                                        <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
+                                        <div id="image-preview-container" class="d-none">
+                                            <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
+                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
                                         </div>
                                     </div>
                                 </div>
