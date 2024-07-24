@@ -36,7 +36,7 @@
                                         <label class="upload-icon" for="image-upload">
                                             <i class="fa fa-camera"></i>
                                         </label>
-                                        <input type="file" class="d-none" id="image-upload" name="image" accept="image/*" capture="environment">
+                                        <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
                                         <div id="image-preview-container" class="d-none">
                                             <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
                                             <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
