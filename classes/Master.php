@@ -154,59 +154,88 @@ Class Master extends DBConnection {
 	
 		// Generate a unique code if id is empty
 		if (empty($_POST['id'])) {
-			$pref = date("Y-");
-			$code = sprintf("%'.05d", mt_rand(1, 99999));
+			$pref = date("Ymd");
+			$code = sprintf("%'.05d", 1);
 			while (true) {
-				$chk = $this->conn->query("SELECT * FROM `fire_report` WHERE `request_code` = '{$pref}{$code}'")->num_rows;
-				if ($chk <= 0) {
-					$_POST['request_code'] = "{$pref}{$code}";
-					break;
+				$check = $this->conn->query("SELECT id FROM `request_list` WHERE `code` = '{$pref}{$code}'")->num_rows;
+				if ($check > 0) {
+					$code = sprintf("%'.05d", abs($code) + 1);
 				} else {
-					$code = sprintf("%'.05d", mt_rand(1, 99999));
+					$_POST['code'] = $pref . $code;
+					break;
 				}
 			}
 		}
 	
-		// Handle image upload
-		if (isset($_POST['image']) && !empty($_POST['image'])) {
-			$data = $_POST['image'];
-			list($type, $data) = explode(';', $data);
-			list(, $data) = explode(',', $data);
-			$data = base64_decode($data);
-			$image_name = 'uploads/' . uniqid() . '.png';
-			file_put_contents($image_name, $data);
-			$_POST['image_path'] = $image_name;
-		}
+		// Handle file upload
+		$image_path = null;
+		if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+			$fileTmpPath = $_FILES['image']['tmp_name'];
+			$fileName = $_FILES['image']['name'];
+			$fileSize = $_FILES['image']['size'];
+			$fileType = $_FILES['image']['type'];
+			$fileNameCmps = explode(".", $fileName);
+			$fileExtension = strtolower(end($fileNameCmps));
 	
-		// Save the report
-		$data = "";
-		foreach ($_POST as $k => $v) {
-			if (!in_array($k, array('id', 'message'))) {
-				if (!empty($data)) $data .= ", ";
-				$data .= "`{$k}`='{$v}'";
+			$allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
+			if (in_array($fileExtension, $allowedfileExtensions)) {
+				$uploadFileDir = '../uploads/';
+				if (!is_dir($uploadFileDir)) {
+					mkdir($uploadFileDir, 0777, true);
+				}
+				$newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+				$dest_path = $uploadFileDir . $newFileName;
+	
+				if (move_uploaded_file($fileTmpPath, $dest_path)) {
+					$_POST['image'] = $dest_path;
+				} else {
+					$resp['status'] = 'failed';
+					$resp['err'] = 'Failed to move uploaded file.';
+					return json_encode($resp);
+				}
+			} else {
+				$resp['status'] = 'failed';
+				$resp['err'] = 'Invalid file extension.';
+				return json_encode($resp);
 			}
 		}
-		if (empty($_POST['id'])) {
-			$sql = "INSERT INTO `fire_report` set {$data}, `message`='{$_POST['message']}'";
-		} else {
-			$sql = "UPDATE `fire_report` set {$data}, `message`='{$_POST['message']}' where id = '{$_POST['id']}'";
+	
+		// Prepare data for insertion or update
+		extract($_POST);
+		$data = "";
+		foreach ($_POST as $k => $v) {
+			if (!in_array($k, array('id'))) {
+				if (!empty($data)) $data .= ",";
+				$v = $this->conn->real_escape_string($v);
+				$data .= " `{$k}`='{$v}' ";
+			}
 		}
+	
+		// Insert or update data in the database
+		if (empty($id)) {
+			$sql = "INSERT INTO `request_list` SET {$data}";
+		} else {
+			$sql = "UPDATE `request_list` SET {$data} WHERE id = '{$id}'";
+		}
+	
 		$save = $this->conn->query($sql);
 		if ($save) {
-			$rid = !empty($_POST['id']) ? $_POST['id'] : $this->conn->insert_id;
+			$tid = !empty($id) ? $id : $this->conn->insert_id;
+			$resp['tid'] = $tid;
 			$resp['status'] = 'success';
-			if (empty($_POST['id'])) {
-				$resp['request_code'] = $_POST['request_code'];
-				$_SESSION['flashdata']['request_sent'] = $_POST['request_code'];
+			if (empty($id)) {
+				$this->settings->set_flashdata('request_sent', $code);
+			} else {
+				$resp['msg'] = "Request successfully updated.";
+				$this->settings->set_flashdata('success', "Request has been updated successfully.");
 			}
 		} else {
 			$resp['status'] = 'failed';
-			$resp['msg'] = 'An error occurred while sending the request. Error: ' . $this->conn->error;
+			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 	
 		return json_encode($resp);
 	}
-	
 	
 	function delete_request(){
 		extract($_POST);
