@@ -70,6 +70,7 @@ CREATE TABLE `request_list` (
   `fullname` text NOT NULL,
   `contact` text NOT NULL,
   `message` text NOT NULL,
+  `image` text NOT NULL,
   `location` text NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 = Pending,\r\n1 = Assigned to Team,\r\n2 = Team on their Way\r\n3 = Relief on progress\r\n4 = Completed',
   `date_created` datetime NOT NULL DEFAULT current_timestamp(),
