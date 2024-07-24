@@ -29,7 +29,7 @@
                                 });
                             </script>
                             <?php endif;?>
-                            <form action="" id="request-form" enctype="multipart/form-data">
+                            <form action="save_request" id="request-form" enctype="multipart/form-data">
                                 <input type="hidden" name="id">
                                 <input type="hidden" name="image" id="image-data">
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
