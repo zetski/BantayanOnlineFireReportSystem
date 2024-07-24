@@ -237,7 +237,6 @@ Class Master extends DBConnection {
 		return json_encode($resp);
 	}
 	
-	
 	function delete_request(){
 		extract($_POST);
 		$del = $this->conn->query("DELETE FROM `request_list` where id = '{$id}'");
