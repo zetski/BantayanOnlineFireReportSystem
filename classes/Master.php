@@ -145,11 +145,11 @@ Class Master extends DBConnection {
 	// }
 	function save_request() {
 		// Sanitize input
-		if (isset($_GET['message'])) {
-			$_GET['message'] = addslashes(htmlspecialchars($_GET['message']));
+		if (isset($_POST['message'])) {
+			$_POST['message'] = addslashes(htmlspecialchars($_POST['message']));
 		}
-		if (isset($_GET['location'])) {
-			$_GET['location'] = addslashes(htmlspecialchars($_GET['location']));
+		if (isset($_POST['location'])) {
+			$_POST['location'] = addslashes(htmlspecialchars($_POST['location']));
 		}
 	
 		// Generate a unique code if id is empty
