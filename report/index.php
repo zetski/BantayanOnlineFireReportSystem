@@ -31,7 +31,8 @@
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
-                                    <div class="position-relative">
+                                    <!-- Remove Camera Icon -->
+                                    <!-- <div class="position-relative">
                                         <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
                                         <label class="upload-icon" for="image-upload">
                                             <i class="fa fa-camera"></i>
@@ -40,7 +41,7 @@
                                         <div id="image-preview-container" class="d-none">
                                             <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
                                             <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -110,7 +111,8 @@
     .position-relative {
         position: relative;
     }
-    .upload-icon {
+    /* Remove Css camera */
+    /* .upload-icon {
         position: absolute;
         right: 10px;
         bottom: 10px;
@@ -142,7 +144,7 @@
         border-radius: 50%;
         cursor: pointer;
         padding: 2px;
-    }
+    } */
 </style>
 
 <script>
