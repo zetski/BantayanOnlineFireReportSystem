@@ -1,203 +1,159 @@
-<?php 
-$from_date = isset($_GET['from_date']) ? $_GET['from_date'] : '2021-01-01';
-$to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
-?>
-<div class="content py-3 px-3" style="color: #fff; background-color: #2980B9">
-    <h2>Daily and Monthly Report</h2>
-</div>
-<div class="row flex-column mt-4 justify-content-center align-items-center mt-lg-n4 mt-md-3 mt-sm-0">
-    <!-- Daily Report Section -->
-    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
-        <div class="card rounded-0 mb-2 shadow">
-            <div class="card-body">
-                <fieldset>
-                    <legend>Filter Daily Report</legend>
-                    <form action="" id="daily-filter-form">
-                        <div class="row align-items-end">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="from_date" class="control-label">From Date</label>
-                                    <input type="date" class="form-control form-control-sm rounded-0" name="from_date" id="from_date" value="<?= isset($_GET['from_date']) ? $_GET['from_date'] : '' ?>" required="required">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="to_date" class="control-label">To Date</label>
-                                    <input type="date" class="form-control form-control-sm rounded-0" name="to_date" id="to_date" value="<?= isset($_GET['to_date']) ? $_GET['to_date'] : '' ?>" required="required">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <button class="btn btn-sm btn-flat btn-primary bg-gradient-primary"><i class="fa fa-filter"></i> Filter Daily</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </fieldset>
-            </div>
+<section class="py-3">
+    <div class="container">
+        <div class="content py-3 px-3" style="background-color: #2980B9">
+            <h2 style="color: #fff">Fire Reporting</h2>
         </div>
-    </div>
-    <!-- Monthly Report Section -->
-    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
-        <div class="card rounded-0 mb-2 shadow">
-            <div class="card-body">
-                <fieldset>
-                    <legend>Filter Monthly Report</legend>
-                    <form action="" id="monthly-filter-form">
-                        <div class="row align-items-end">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="month_year" class="control-label">Month & Year</label>
-                                    <input type="month" class="form-control form-control-sm rounded-0" name="month_year" id="month_year" value="<?= isset($_GET['month_year']) ? $_GET['month_year'] : '' ?>" required="required">
+        <div class="row justify-content-center mt-n3">
+            <div class="col-lg-8 col-md-10 col-sm-12 col-sm-12">
+                <div class="card card-outline rounded-0">
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <?php if($_settings->chk_flashdata('request_sent')): ?>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                            <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    html: 'Your report has been sent successfully. Your request code id: <b><?= $_settings->flashdata('request_sent') ?></b>',
+                                    showConfirmButton: true,
+                                });
+                            </script>
+                            <?php endif;?>
+                            <form action="" id="request-form" enctype="multipart/form-data">
+                                <input type="hidden" name="id">
+                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                    <label for="fullname" class="control-label">Fullname <small class="text-danger">*</small></label>
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="fullname" id="fullname" required="required">
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <button class="btn btn-sm btn-flat btn-primary bg-gradient-primary"><i class="fa fa-filter"></i> Filter Monthly</button>
+                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                    <label for="contact" class="control-label">Contact # <small class="text-danger">*</small></label>
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required" maxlength="11" pattern="\d{11}" title="Please enter 11 digits">
                                 </div>
-                            </div>
-                        </div>
-                    </form>
-                </fieldset>
-            </div>
-        </div>
-    </div>
-    <!-- Report Table -->
-    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
-        <div class="card rounded-0 mb-2 shadow">
-            <div class="card-header py-1">
-                <div class="card-tools">
-                    <button class="btn btn-flat btn-sm btn-light bg-gradient-light border" type="button" id="print"><i class="fa fa-print"></i> Print</button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="container-fluid" id="printout">
-                    <table class="table table-bordered">
-                        <colgroup>
-                            <col width="5%">
-                            <col width="20%">
-                            <col width="15%">
-                            <col width="30%">
-                            <col width="30%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th class="px-1 py-1 text-center">#</th>
-                                <th class="px-1 py-1 text-center">Request Code</th>
-                                <th class="px-1 py-1 text-center">Reported By</th>
-                                <th class="px-1 py-1 text-center">Message</th>
-                                <th class="px-1 py-1 text-center">Location</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                            $g_total = 0;
-                            $i = 1;
-                            $from_date = isset($_GET['from_date']) ? $_GET['from_date'] : null;
-                            $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : null;
-                            $month_year = isset($_GET['month_year']) ? $_GET['month_year'] : null;
-
-                            if ($month_year) {
-                                // Calculate the first and last date of the month
-                                $first_date = date('Y-m-01', strtotime($month_year));
-                                $last_date = date('Y-m-t', strtotime($month_year));
-                                $requests = $conn->query("SELECT * FROM `request_list` WHERE date(date_created) BETWEEN '{$first_date}' AND '{$last_date}' ORDER BY abs(unix_timestamp(date_created)) asc ");
-                            } elseif ($from_date && $to_date) {
-                                $requests = $conn->query("SELECT * FROM `request_list` WHERE date(date_created) BETWEEN '{$from_date}' AND '{$to_date}' ORDER BY abs(unix_timestamp(date_created)) asc ");
-                            } else {
-                                $requests = $conn->query("SELECT * FROM `request_list` ORDER BY abs(unix_timestamp(date_created)) asc ");
-                            }
-
-                            while($row = $requests->fetch_assoc()):
-                            ?>
-                            <tr>
-                                <td class="px-1 py-1 align-middle text-center"><?= $i++ ?></td>
-                                <td class="px-1 py-1 align-middle"><?= $row['code'] ?></td>
-                                <td class="px-1 py-1 align-middle">
-                                    <div line-height="1em">
-                                        <div class="font-weight-bold"><?= $row['fullname'] ?></div>
-                                        <div class="font-weight-light"><?= $row['contact'] ?></div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
+                                    <div class="position-relative">
+                                        <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
+                                        <!-- Removed camera icon -->
+                                        <!-- <label class="upload-icon" for="image-upload">
+                                            <i class="fa fa-camera"></i>
+                                        </label> -->
+                                        <!-- Removed file input -->
+                                        <!-- <input type="file" class="d-none" id="image-upload" name="image" accept="image/*"> -->
+                                        <!-- Removed preview container -->
+                                        <!-- <div id="image-preview-container" class="d-none">
+                                            <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
+                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
+                                        </div> -->
                                     </div>
-                                </td>
-                                <td class="px-1 py-1 align-middle"><?= str_replace(["\r\n", "\r", "\n"] , "<br>", $row['message']) ?></td>
-                                <td class="px-1 py-1 align-middle"><?= str_replace(["\r\n", "\r", "\n"] , "<br>", $row['location']) ?></td>
-                            </tr>
-                            <?php endwhile; ?>
-                            <?php if($requests->num_rows <= 0): ?>
-                                <tr>
-                                    <td class="py-1 text-center" colspan="5">No records found</td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                                </div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
+                                    <select class="form-control form-control-sm rounded-0" name="location" id="location" required="required">
+                                        <option value="">Select Barangay</option>
+                                        <option value="Atop-Atop">Atop-Atop</option>
+                                        <option value="Baigad">Baigad</option>
+                                        <option value="Bantigue">Bantigue</option>
+                                        <option value="Baod">Baod</option>
+                                        <option value="Binaobao">Binaobao</option>
+                                        <option value="Botigues">Botigues</option>
+                                        <option value="Doong">Doong</option>
+                                        <option value="Guiwanon">Guiwanon</option>
+                                        <option value="Hilotongan">Hilotongan</option>
+                                        <option value="Kabac">Kabac</option>
+                                        <option value="Kabangbang">Kabangbang</option>
+                                        <option value="Kampinganon">Kampinganon</option>
+                                        <option value="Kangkaibe">Kangkaibe</option>
+                                        <option value="Lipayran">Lipayran</option>
+                                        <option value="Luyongbay-bay">Luyongbay-bay</option>
+                                        <option value="Mojon">Mojon</option>
+                                        <option value="Oboob">Oboob</option>
+                                        <option value="Patao">Patao</option>
+                                        <option value="Putian">Putian</option>
+                                        <option value="Sillon">Sillon</option>
+                                        <option value="Suba">Suba</option>
+                                        <option value="Sulangan">Sulangan</option>
+                                        <option value="Sungko">Sungko</option>
+                                        <option value="Tamiao">Tamiao</option>
+                                        <option value="Ticad">Ticad</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-footer py-1 text-center">
+                        <button class="btn btn-flat btn-sm btn-primary bg-gradient-primary" form="request-form"><i class="fa fa-paper-plane"></i> Submit</button>
+                        <button class="btn btn-flat btn-sm btn-light bg-gradient-light border" type="reset" form="request-form"><i class="fa fa-times"></i> Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img id="modal-image" src="#" alt="Full-size Image" class="img-fluid">
+      </div>
+    </div>
+  </div>
 </div>
-<noscript id="print-header">
-    <div>
-        <style>
-            html{
-                min-height:unset !important;
-            }
-        </style>
-        <div class="d-flex w-100 align-items-center">
-            <div class="col-2 text-center">
-                <img src="<?= validate_image($_settings->info('logo')) ?>" alt="" class="rounded-circle border" style="width: 5em;height: 5em;object-fit:cover;object-position:center center">
-            </div>
-            <div class="col-8">
-                <div style="line-height:1em">
-                    <div class="text-center font-weight-bold h5 mb-0"><large><?= $_settings->info('name') ?></large></div>
-                    <div class="text-center font-weight-bold h5 mb-0"><large>Daily and Monthly Requests Report</large></div>
-                    <div class="text-center font-weight-bold h5 mb-0">From <?= date("F d, Y", strtotime($from_date)) ?> to <?= date("F d, Y", strtotime($to_date)) ?></div>
-                </div>
-            </div>
-        </div>
-        <hr>
-    </div>
-</noscript>
-<script>
-    function print_r(){
-        var h = $('head').clone()
-        var el = $('#printout').clone()
-        var ph = $($('noscript#print-header').html()).clone()
-        h.find('title').text("Daily and Monthly Report - Print View")
-        var nw = window.open("", "_blank", "width="+($(window).width() * .8)+",left="+($(window).width() * .1)+",height="+($(window).height() * .8)+",top="+($(window).height() * .1))
-            nw.document.querySelector('head').innerHTML = h.html()
-            nw.document.querySelector('body').innerHTML = ph[0].outerHTML
-            nw.document.querySelector('body').innerHTML += el[0].outerHTML
-            nw.document.close()
-            start_loader()
-            setTimeout(() => {
-                nw.print()
-                setTimeout(() => {
-                    nw.close()
-                    end_loader()
-                }, 200);
-            }, 300);
+
+<style>
+    body {
+        padding-top: 10px;
+        margin-top: 40px;
     }
-    $(function(){
-        $('#daily-filter-form').submit(function(e){
-            e.preventDefault()
-            location.href = './?page=reports&'+$(this).serialize()
-        })
-        $('#monthly-filter-form').submit(function(e){
-            e.preventDefault()
-            location.href = './?page=reports&'+$(this).serialize()
-        })
-        $('#print').click(function(){
-            print_r()
-        })
-        
-        // Set min and max dates for the date inputs
-        var today = new Date().toISOString().split('T')[0];
-        var from_date_input = document.getElementById('from_date');
-        var to_date_input = document.getElementById('to_date');
-        var month_year_input = document.getElementById('month_year');
-        
-        from_date_input.max = today;
-        to_date_input.min = today;
-        month_year_input.max = today.substr(0, 7); // Set the month-year input to the current month-year
-    })
+    .position-relative {
+        position: relative;
+    }
+    /* Removed styling for the upload icon */
+    /* .upload-icon {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #6c757d;
+    } */
+    /* Removed styling for image preview */
+    /* #image-preview-container {
+        position: absolute;
+        bottom: 10px;
+        right: 50px;
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    } */
+    /* #image-preview {
+        max-width: 100%;
+        max-height: 100%;
+        cursor: pointer;
+    } */
+    /* .remove-image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        cursor: pointer;
+        padding: 2px;
+    } */
+</style>
+
+<script>
+    document.getElementById('contact').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+    });
 </script>
+
+<script src="report/script.js"></script>
