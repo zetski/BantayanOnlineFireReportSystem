@@ -33,6 +33,14 @@
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                                     <div class="position-relative">
                                         <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
+                                        <label class="upload-icon" for="image-upload">
+                                            <i class="fa fa-camera"></i>
+                                        </label>
+                                        <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
+                                        <div id="image-preview-container" class="d-none">
+                                            <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
+                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -65,11 +73,6 @@
                                         <option value="Tamiao">Tamiao</option>
                                         <option value="Ticad">Ticad</option>
                                     </select>
-                                    <!-- Added text input for street/sitio -->
-                                    <div id="street-container" class="d-none mt-2">
-                                        <label for="street" class="control-label">Street/Sitio <small class="text-danger">*</small></label>
-                                        <input type="text" class="form-control form-control-sm rounded-0" name="street" id="street">
-                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -107,17 +110,15 @@
     .position-relative {
         position: relative;
     }
-    /* Removed styling for the upload icon */
-    /* .upload-icon {
+    .upload-icon {
         position: absolute;
         right: 10px;
         bottom: 10px;
         cursor: pointer;
         font-size: 1.2rem;
         color: #6c757d;
-    } */
-    /* Removed styling for image preview */
-    /* #image-preview-container {
+    }
+    #image-preview-container {
         position: absolute;
         bottom: 10px;
         right: 50px;
@@ -127,13 +128,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-    } */
-    /* #image-preview {
+    }
+    #image-preview {
         max-width: 100%;
         max-height: 100%;
         cursor: pointer;
-    } */
-    /* .remove-image {
+    }
+    .remove-image {
         position: absolute;
         top: 0;
         right: 0;
@@ -141,21 +142,12 @@
         border-radius: 50%;
         cursor: pointer;
         padding: 2px;
-    } */
+    }
 </style>
 
 <script>
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
-    });
-
-    document.getElementById('location').addEventListener('change', function () {
-        const streetContainer = document.getElementById('street-container');
-        if (this.value) {
-            streetContainer.classList.remove('d-none');
-        } else {
-            streetContainer.classList.add('d-none');
-        }
     });
 </script>
 
