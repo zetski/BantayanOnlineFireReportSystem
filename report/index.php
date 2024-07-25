@@ -1,7 +1,7 @@
 <section class="py-3">
     <div class="container">
-        <div class="content py-3 px-3" style="background-color: #2980B9">
-            <h2 style="color: #fff">Fire Reporting</h2>
+        <div class="content py-5 px-3 bg-gradient-danger">
+            <h2>Fire Reporting</h2>
         </div>
         <div class="row justify-content-center mt-n3">
             <div class="col-lg-8 col-md-10 col-sm-12 col-sm-12">
@@ -9,17 +9,11 @@
                     <div class="card-body">
                         <div class="container-fluid">
                             <?php if($_settings->chk_flashdata('request_sent')): ?>
-                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                            <script>
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    html: 'Your report has been sent successfully. Your request code id: <b><?= $_settings->flashdata('request_sent') ?></b>',
-                                    showConfirmButton: true,
-                                });
-                            </script>
+                                <div class="alert alert-success bg-gradient-teal rounded-0">
+                                    <div><?= $_settings->flashdata('request_sent') ?></div>
+                                </div>
                             <?php endif;?>
-                            <form action="" id="request-form" enctype="multipart/form-data">
+                            <form action="" id="request-form">
                                 <input type="hidden" name="id">
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
                                     <label for="fullname" class="control-label">Fullname <small class="text-danger">*</small></label>
@@ -27,21 +21,11 @@
                                 </div>
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
                                     <label for="contact" class="control-label">Contact # <small class="text-danger">*</small></label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required" maxlength="11" pattern="\d{11}" title="Please enter 11 digits">
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required">
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
-                                    <div class="position-relative">
-                                        <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
-                                        <label class="upload-icon" for="image-upload">
-                                            <i class="fa fa-camera"></i>
-                                        </label>
-                                        <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
-                                        <div id="image-preview-container" class="d-none">
-                                            <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
-                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
-                                        </div>
-                                    </div>
+                                    <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required"></textarea>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
@@ -74,6 +58,10 @@
                                         <option value="Ticad">Ticad</option>
                                     </select>
                                 </div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="street-container" style="display: none;">
+                                    <label for="street" class="control-label">Street/Sitio <small class="text-danger">*</small></label>
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="street" id="street">
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -86,69 +74,60 @@
         </div>
     </div>
 </section>
-
-<!-- Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <img id="modal-image" src="#" alt="Full-size Image" class="img-fluid">
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-    body {
-        padding-top: 10px;
-        margin-top: 40px;
-    }
-    .position-relative {
-        position: relative;
-    }
-    .upload-icon {
-        position: absolute;
-        right: 10px;
-        bottom: 10px;
-        cursor: pointer;
-        font-size: 1.2rem;
-        color: #6c757d;
-    }
-    #image-preview-container {
-        position: absolute;
-        bottom: 10px;
-        right: 50px;
-        width: 50px;
-        height: 50px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    #image-preview {
-        max-width: 100%;
-        max-height: 100%;
-        cursor: pointer;
-    }
-    .remove-image {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: rgba(255, 255, 255, 0.7);
-        border-radius: 50%;
-        cursor: pointer;
-        padding: 2px;
-    }
-</style>
-
 <script>
+    $(function(){
+        $('#request-form').submit(function(e){
+            e.preventDefault();
+            var _this = $(this)
+            $('.err-msg').remove();
+            start_loader();
+            $.ajax({
+                url: _base_url_ + "classes/Master.php?f=save_request",
+                data: new FormData($(this)[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: 'POST',
+                type: 'POST',
+                dataType: 'json',
+                error: err => {
+                    console.log(err)
+                    alert_toast("An error occured", 'error');
+                    end_loader();
+                },
+                success: function(resp) {
+                    if (typeof resp == 'object' && resp.status == 'success') {
+                        location.reload()
+                    } else if (resp.status == 'failed' && !!resp.msg) {
+                        var el = $('<div>')
+                        el.addClass("alert alert-danger err-msg").text(resp.msg)
+                        _this.prepend(el)
+                        el.show('slow')
+                        $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
+                        end_loader()
+                    } else {
+                        alert_toast("An error occured", 'error');
+                        end_loader();
+                        console.log(resp)
+                    }
+                }
+            })
+        })
+
+        $('#location').change(function(){
+            var location = $(this).val();
+            if(location){
+                $('#street-container').show();
+                $('#street').attr('required', 'required');
+            } else {
+                $('#street-container').hide();
+                $('#street').removeAttr('required');
+                $('#street').val('');
+            }
+        });
+    });
+
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
 </script>
-
-<script src="report/script.js"></script>
