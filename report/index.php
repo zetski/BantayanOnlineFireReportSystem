@@ -33,14 +33,13 @@
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                                     <div class="position-relative">
                                         <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
-                                        <!-- Remove Camera Icon -->
-                                        <!-- <label class="upload-icon" for="image-upload">
+                                        <label class="upload-icon" for="image-upload">
                                             <i class="fa fa-camera"></i>
                                         </label>
                                         <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
                                         <div id="image-preview-container" class="d-none">
                                             <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
-                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span> -->
+                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
                                         </div>
                                     </div>
                                 </div>
@@ -111,8 +110,7 @@
     .position-relative {
         position: relative;
     }
-    /* Remove CSS Camera */
-    /* .upload-icon {
+    .upload-icon {
         position: absolute;
         right: 10px;
         bottom: 10px;
@@ -144,7 +142,7 @@
         border-radius: 50%;
         cursor: pointer;
         padding: 2px;
-    } */
+    }
 </style>
 
 <script>
