@@ -31,17 +31,17 @@
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
-                                    <!-- Remove Camera Icon -->
-                                    <!-- <div class="position-relative">
+                                    <div class="position-relative">
                                         <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
-                                        <label class="upload-icon" for="image-upload">
+                                        <!-- Remove Camera Icon -->
+                                        <!-- <label class="upload-icon" for="image-upload">
                                             <i class="fa fa-camera"></i>
                                         </label>
                                         <input type="file" class="d-none" id="image-upload" name="image" accept="image/*">
                                         <div id="image-preview-container" class="d-none">
                                             <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
-                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
-                                        </div> -->
+                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span> -->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -111,7 +111,7 @@
     .position-relative {
         position: relative;
     }
-    /* Remove Css camera */
+    /* Remove CSS Camera */
     /* .upload-icon {
         position: absolute;
         right: 10px;
