@@ -12,7 +12,6 @@ $(function(){
             processData: false,
             method: 'POST',
             type: 'POST',
-            data: { id: $id },
             dataType: 'json',
             error: function(err) {
                 console.log(err);
