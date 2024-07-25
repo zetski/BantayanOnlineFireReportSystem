@@ -21,6 +21,7 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                     <col width="10%">
                     <col width="15%">
                     <col width="20%">
+                    <col width="20%">
                     <col width="15%">
                 </colgroup>
                 <thead>
@@ -30,6 +31,7 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                         <th>Code</th>
                         <th>Reported By</th>
                         <th>Message</th>
+                        <th>Image</th>
                         <th>Location</th>
                         <th>Action</th>
                     </tr>
@@ -57,6 +59,7 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                     }
                     $qry = $conn->query("SELECT * FROM `request_list` {$where} ORDER BY abs(unix_timestamp(date_created)) DESC");
                     while ($row = $qry->fetch_assoc()):
+                        $image_src = !empty($row['image']) && file_exists($row['image']) ? $row['image'] : '../uploads/def.jpg';
                     ?>
                         <tr>
                             <td class="text-center"><?php echo $i++; ?></td>
@@ -64,6 +67,7 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                             <td><?php echo $row['code'] ?></td>
                             <td><?php echo $row['fullname'] ?></td>
                             <td><?php echo $row['message'] ?></td>
+                            <td><img src="<?php echo $image_src; ?>" alt="Image" style="width: 40px; height: 40px; cursor: pointer;" data-toggle="modal" data-target="#imageModal" data-src="<?php echo $image_src; ?>"></td>
                             <td><?php echo $row['location'] ?></td>
                             <td align="center">
                                 <button type="button" class="btn btn-flat p-1 btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
@@ -86,6 +90,23 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
     </div>
 </div>
 
+<!-- Modal HTML -->
+<div id="imageModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Image Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" class="img-fluid" alt="Image">
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function() {
         $('.delete_data').click(function() {
@@ -98,6 +119,14 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
             order: [0, 'asc']
         });
         $('.dataTable td, .dataTable th').addClass('py-1 px-2 align-middle');
+
+        // New code for image modal
+        $('#imageModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var src = button.data('src'); // Extract info from data-* attributes
+            var modal = $(this);
+            modal.find('#modalImage').attr('src', src);
+        });
     });
 
     function delete_request($id) {
