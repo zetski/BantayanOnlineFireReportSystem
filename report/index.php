@@ -33,17 +33,6 @@
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                                     <div class="position-relative">
                                         <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
-                                        <!-- Removed camera icon -->
-                                        <!-- <label class="upload-icon" for="image-upload">
-                                            <i class="fa fa-camera"></i>
-                                        </label> -->
-                                        <!-- Removed file input -->
-                                        <!-- <input type="file" class="d-none" id="image-upload" name="image" accept="image/*"> -->
-                                        <!-- Removed preview container -->
-                                        <!-- <div id="image-preview-container" class="d-none">
-                                            <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
-                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
-                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -76,6 +65,11 @@
                                         <option value="Tamiao">Tamiao</option>
                                         <option value="Ticad">Ticad</option>
                                     </select>
+                                    <!-- Added text input for street/sitio -->
+                                    <div id="street-container" class="d-none mt-2">
+                                        <label for="street" class="control-label">Street/Sitio <small class="text-danger">*</small></label>
+                                        <input type="text" class="form-control form-control-sm rounded-0" name="street" id="street">
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -153,6 +147,15 @@
 <script>
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+    });
+
+    document.getElementById('location').addEventListener('change', function () {
+        const streetContainer = document.getElementById('street-container');
+        if (this.value) {
+            streetContainer.classList.remove('d-none');
+        } else {
+            streetContainer.classList.add('d-none');
+        }
     });
 </script>
 
