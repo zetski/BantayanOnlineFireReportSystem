@@ -1,20 +1,24 @@
-$(function() {
-    $('#request-form').submit(function(e) {
+$(function(){
+    $('#request-form').submit(function(e){
         e.preventDefault();
         var _this = $(this);
         $('.err-msg').remove();
         start_loader();
-        
         $.ajax({
-            url: _base_url_ + "classes/Master.php?f=save_request",
+            url: _base_url_+"classes/Master.php?f=save_request",
             data: new FormData(this),
             cache: false,
             contentType: false,
             processData: false,
             method: 'POST',
+            type: 'POST',
             dataType: 'json',
+            error: function(err) {
+                console.log(err);
+                alert_toast("An error occurred",'error');
+                end_loader();
+            },
             success: function(resp) {
-                console.log('Response:', resp); // Debug response
                 if (typeof resp == 'object' && resp.status == 'success') {
                     location.reload();
                 } else if (resp.status == 'failed' && !!resp.msg) {
@@ -25,20 +29,15 @@ $(function() {
                     $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
                     end_loader();
                 } else {
-                    alert_toast("An error occurred", 'error');
+                    alert_toast("An error occurred",'error');
                     end_loader();
-                    console.log('Error Response:', resp); // Debug error response
+                    console.log(resp);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.log('AJAX Error:', xhr, status, error); // Debug AJAX error
-                alert_toast("An error occurred", 'error');
-                end_loader();
             }
         });
     });
 
-    $('#image-upload').change(function() {
+    $('#image-upload').change(function(){
         var input = this;
         if (input.files && input.files[0]) {
             var reader = new FileReader();
