@@ -31,7 +31,7 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                         <th>Code</th>
                         <th>Reported By</th>
                         <th>Message</th>
-                        <!-- <th>Image</th> -->
+                        <th>Image</th>
                         <th>Location</th>
                         <th>Action</th>
                     </tr>
