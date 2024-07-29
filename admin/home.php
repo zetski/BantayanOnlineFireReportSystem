@@ -15,7 +15,9 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <style>
     .notification-container {
       display: inline-block;
-      position: relative;
+      position: absolute;
+      top: 20px;
+      right: 20px;
     }
     .notification-container .fas.fa-bell {
       font-size: 24px;
@@ -27,10 +29,28 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
       font-size: 12px;
       padding: 4px 6px;
     }
-    .dropdown-menu {
-      width: 300px;
-      max-height: 400px;
-      overflow-y: auto;
+    .info-box {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 15px;
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: .25rem;
+    }
+    .info-box-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 24px;
+      background-color: #e9ecef;
+    }
+    .info-box-content {
+      flex: 1;
+      margin-left: 15px;
     }
   </style>
 </head>
@@ -40,18 +60,12 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
       Welcome, <?php echo $_settings->userdata('firstname')." ".$_settings->userdata('lastname') ?>!
     </h3>
     <div class="notification-container">
-      <a href="#" class="text-decoration-none dropdown-toggle" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fas fa-bell"></i>
-        <span class="badge bg-danger" id="notification-count">
+      <a href="./?page=requests&status=0" class="text-decoration-none">
+        <i class="fas fa-bell" style="font-size: 24px;"></i>
+        <span class="badge bg-danger" id="notification-count" style="font-size: 12px;">
           <?php echo format_num($pending_requests); ?>
         </span>
       </a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-        <li><a class="dropdown-item" href="./?page=requests&status=0">View all pending requests</a></li>
-        <!-- Add more notification items as needed -->
-        <li><hr class="dropdown-divider"></li>
-        <li class="dropdown-item">No new notifications</li>
-      </ul>
     </div>
     <hr>
     <div class="row h-100">
