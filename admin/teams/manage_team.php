@@ -25,14 +25,14 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
             <div class="card-body">
                 <div class="container-fluid">
                     <form action="" id="team-form">
-                        <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+                        <input type="hidden" name ="id" value="<?php echo isset($id) ? $id : '' ?>">
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label for="code" class="control-label">Team Code</label>
                             <input type="text" name="code" id="code" class="form-control form-control-sm rounded-0" value="<?php echo isset($code) ? $code : ''; ?>" required/>
                         </div>
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label for="leader_name" class="control-label">TL Name</label>
-                            <input type="text" name="leader_name" id="leader_name" class="form-control form-control-sm rounded-0" value="<?php echo isset($leader_name) ? $leader_name : ''; ?>" required pattern="[A-Za-z\s\p{L}]*" title="Only letters and symbols allowed"/>
+                            <input type="text" name="leader_name" id="leader_name" class="form-control form-control-sm rounded-0" value="<?php echo isset($leader_name) ? $leader_name : ''; ?>" required/>
                         </div>
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label for="leader_contact" class="control-label">TL Contact #</label>
@@ -85,10 +85,6 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 
         $('#leader_contact').on('input', function (e) {
             this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
-        });
-
-        $('#leader_name').on('input', function(e) {
-            this.value = this.value.replace(/[^A-Za-z\s\p{L}]/g, '');
         });
 
         $('#team-form').submit(function(e){
