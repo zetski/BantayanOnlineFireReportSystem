@@ -15,9 +15,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <style>
     .notification-container {
       display: inline-block;
-      position: absolute;
-      top: 20px;
-      right: 20px;
+      position: relative;
     }
     .notification-container .fas.fa-bell {
       font-size: 24px;
@@ -52,6 +50,10 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
       flex: 1;
       margin-left: 15px;
     }
+    .dropdown-menu {
+      max-height: 300px;
+      overflow-y: auto;
+    }
   </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -59,129 +61,48 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
     <h3 style="display: inline-block; margin-right: 20px;">
       Welcome, <?php echo $_settings->userdata('firstname')." ".$_settings->userdata('lastname') ?>!
     </h3>
-    <div class="notification-container">
-      <a href="./?page=requests&status=0" class="text-decoration-none">
+    <div class="notification-container dropdown">
+      <a href="#" class="text-decoration-none dropdown-toggle" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fas fa-bell" style="font-size: 24px;"></i>
         <span class="badge bg-danger" id="notification-count" style="font-size: 12px;">
           <?php echo format_num($pending_requests); ?>
         </span>
       </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+        <!-- Dynamic notification content will be loaded here -->
+      </ul>
     </div>
     <hr>
     <div class="row h-100">
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=teams" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-users"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">Control Teams</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $team = $conn->query("SELECT * FROM team_list where delete_flag = 0")->num_rows;
-                  echo format_num($team);
-                ?>
-              </span>
+      <!-- Info Boxes (unchanged) -->
+      <?php 
+        $statuses = [
+          ['title' => 'Control Teams', 'icon' => 'fas fa-users', 'status' => 'teams', 'bg' => 'bg-gradient-secondary'],
+          ['title' => 'Pending Requests', 'icon' => 'fas fa-hourglass-half', 'status' => 0, 'bg' => 'bg-gradient-secondary'],
+          ['title' => 'Assigned Requests', 'icon' => 'fas fa-tasks', 'status' => 1, 'bg' => 'bg-gradient-secondary'],
+          ['title' => 'Team OTW Requests', 'icon' => 'fas fa-truck', 'status' => 2, 'bg' => 'bg-gradient-secondary'],
+          ['title' => 'On-Progress Requests', 'icon' => 'fas fa-wrench', 'status' => 3, 'bg' => 'bg-gradient-secondary'],
+          ['title' => 'Completed Requests', 'icon' => 'fas fa-check', 'status' => 4, 'bg' => 'bg-gradient-secondary']
+        ];
+        foreach ($statuses as $status) {
+          $count = $status['status'] === 'teams' ? $team : $conn->query("SELECT id FROM request_list WHERE `status` = {$status['status']}")->num_rows;
+          echo "
+            <div class=\"col-12 col-sm-4 col-md-4 mb-3 h-100\">
+              <a href=\"./?page=requests&status={$status['status']}\" class=\"text-decoration-none h-100 d-block\">
+                <div class=\"info-box h-100 d-flex flex-column justify-content-center\">
+                  <span class=\"info-box-icon {$status['bg']}\">
+                    <i class=\"{$status['icon']}\"></i>
+                  </span>
+                  <div class=\"info-box-content\">
+                    <span class=\"info-box-text\">{$status['title']}</span>
+                    <span class=\"info-box-number text-center h5\">" . format_num($count) . "</span>
+                  </div>
+                </div>
+              </a>
             </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=requests&status=0" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-hourglass-half"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">Pending Requests</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $request = $conn->query("SELECT id FROM request_list where `status` = 0")->num_rows;
-                  echo format_num($request);
-                ?>
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=requests&status=1" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-tasks"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">Assigned Requests</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $request = $conn->query("SELECT id FROM request_list where `status` = 1")->num_rows;
-                  echo format_num($request);
-                ?>
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=requests&status=2" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-truck"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">Team OTW Requests</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $request = $conn->query("SELECT id FROM request_list where `status` = 2")->num_rows;
-                  echo format_num($request);
-                ?>
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=requests&status=3" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-wrench"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">On-Progress Requests</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $request = $conn->query("SELECT id FROM request_list where `status` = 3")->num_rows;
-                  echo format_num($request);
-                ?>
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=requests&status=4" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-check"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">Completed Requests</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $request = $conn->query("SELECT id FROM request_list where `status` = 4")->num_rows;
-                  echo format_num($request);
-                ?>
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
+          ";
+        }
+      ?>
     </div>
     <div class="row">
       <div class="col-12 col-md-6">
@@ -198,23 +119,27 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Example AJAX call to update notification count
-    function updateNotificationCount() {
+    // Example AJAX call to update notification count and content
+    function updateNotifications() {
       $.ajax({
-        url: 'get_notification_count.php', // Replace with your endpoint
+        url: 'get_notifications.php', // Replace with your endpoint
         method: 'GET',
         success: function(response) {
           $('#notification-count').text(response.count);
+          $('.dropdown-menu').empty();
+          response.notifications.forEach(function(notification) {
+            $('.dropdown-menu').append('<li><a class="dropdown-item" href="#">' + notification.message + '</a></li>');
+          });
         },
         error: function(xhr, status, error) {
-          console.error('Error fetching notification count');
+          console.error('Error fetching notifications');
         }
       });
     }
 
     // Call the function initially and every few seconds (example)
-    updateNotificationCount(); // Initial call
-    setInterval(updateNotificationCount, 10000); // Repeat every 10 seconds
+    updateNotifications(); // Initial call
+    setInterval(updateNotifications, 10000); // Repeat every 10 seconds
 
     // Data for charts
     var barData = {
