@@ -109,7 +109,7 @@ while ($row = $notifications_result->fetch_assoc()) {
     // Fetch and update notifications
     function fetchNotifications() {
       $.ajax({
-        url: 'get_notifications.php', // Replace with your endpoint to fetch notifications
+        url: './get_notifications.php', // Replace with your endpoint to fetch notifications
         method: 'GET',
         success: function(response) {
           $('#notificationList').empty(); // Clear existing notifications
@@ -141,7 +141,7 @@ while ($row = $notifications_result->fetch_assoc()) {
       var id = $(this).data('id');
       // Fetch and show notification details
       $.ajax({
-        url: 'get_notification_details.php', // Replace with your endpoint to fetch notification details
+        url: './get_notification_details.php', // Replace with your endpoint to fetch notification details
         method: 'GET',
         data: { id: id },
         success: function(response) {
