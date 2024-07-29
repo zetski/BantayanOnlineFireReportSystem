@@ -15,7 +15,9 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <style>
     .notification-container {
       display: inline-block;
-      position: relative;
+      position: absolute;
+      top: 20px;
+      right: 20px;
     }
     .notification-container .fas.fa-bell {
       font-size: 24px;
@@ -26,38 +28,6 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
       right: -10px;
       font-size: 12px;
       padding: 4px 6px;
-    }
-    .notification-dropdown {
-      display: none;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      width: 300px;
-      max-height: 400px;
-      overflow-y: auto;
-      background-color: #fff;
-      border: 1px solid #dee2e6;
-      border-radius: .25rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
-    .notification-item {
-      padding: 10px;
-      border-bottom: 1px solid #dee2e6;
-    }
-    .notification-item:last-child {
-      border-bottom: none;
-    }
-    .notification-item a {
-      color: #000;
-      text-decoration: none;
-    }
-    .notification-item a:hover {
-      text-decoration: underline;
-    }
-    .notification-item .timestamp {
-      font-size: 0.75rem;
-      color: #6c757d;
     }
     .info-box {
       display: flex;
@@ -90,28 +60,12 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
       Welcome, <?php echo $_settings->userdata('firstname')." ".$_settings->userdata('lastname') ?>!
     </h3>
     <div class="notification-container">
-      <i class="fas fa-bell" id="notification-bell"></i>
-      <span class="badge bg-danger" id="notification-count" style="font-size: 12px;">
-        <?php echo format_num($pending_requests); ?>
-      </span>
-      <div class="notification-dropdown" id="notification-dropdown">
-        <?php
-        // Fetch notifications
-        $result = $conn->query("SELECT * FROM request_list WHERE `status` = 0 ORDER BY created_at DESC");
-        if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
-            echo '<div class="notification-item">
-                    <a href="./?page=requests&status=0&id='.$row['id'].'">
-                      <strong>New Request</strong><br>
-                      <span class="timestamp">'.date('F j, Y, g:i a', strtotime($row['created_at'])).'</span>
-                    </a>
-                  </div>';
-          }
-        } else {
-          echo '<div class="notification-item">No new notifications.</div>';
-        }
-        ?>
-      </div>
+      <a href="./?page=requests&status=0" class="text-decoration-none">
+        <i class="fas fa-bell" style="font-size: 24px;"></i>
+        <span class="badge bg-danger" id="notification-count" style="font-size: 12px;">
+          <?php echo format_num($pending_requests); ?>
+        </span>
+      </a>
     </div>
     <hr>
     <div class="row h-100">
@@ -229,24 +183,113 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
         </a>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <canvas id="barChart"></canvas>
+      </div>
+      <div class="col-12 col-md-6">
+        <canvas id="lineChart"></canvas>
+      </div>
+    </div>
   </div>
 
   <!-- Latest Bootstrap 5.3.0 JS and Popper.js -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    $(document).ready(function() {
-      $('#notification-bell').on('click', function() {
-        $('#notification-dropdown').toggle();
-      });
-
-      // Optional: Close dropdown if clicked outside
-      $(document).on('click', function(event) {
-        if (!$(event.target).closest('.notification-container').length) {
-          $('#notification-dropdown').hide();
+    // Example AJAX call to update notification count
+    function updateNotificationCount() {
+      $.ajax({
+        url: 'get_notification_count.php', // Replace with your endpoint
+        method: 'GET',
+        success: function(response) {
+          $('#notification-count').text(response.count);
+        },
+        error: function(xhr, status, error) {
+          console.error('Error fetching notification count');
         }
       });
-    });
+    }
+
+    // Call the function initially and every few seconds (example)
+    updateNotificationCount(); // Initial call
+    setInterval(updateNotificationCount, 10000); // Repeat every 10 seconds
+
+    // Data for charts
+    var barData = {
+      labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
+      datasets: [{
+        label: 'Number of Requests',
+        data: [
+          <?php echo $team; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 0")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 1")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 2")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 3")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 4")->fetch_row()[0]; ?>
+        ],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    var lineData = {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [{
+        label: 'Requests Over Time',
+        data: [12, 19, 3, 5, 2, 3, 9], // Example data, replace with your actual data
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1,
+        fill: true
+      }]
+    };
+
+    // Bar chart configuration
+    var barConfig = {
+      type: 'bar',
+      data: barData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // Line chart configuration
+    var lineConfig = {
+      type: 'line',
+      data: lineData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // Render charts
+    var barChart = new Chart(document.getElementById('barChart'), barConfig);
+    var lineChart = new Chart(document.getElementById('lineChart'), lineConfig);
   </script>
 </body>
 </html>
