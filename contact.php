@@ -196,17 +196,6 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes slideIn {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-        .carousel-item-next, .carousel-item-prev {
-            animation: slideIn 0.5s ease-in-out, slideOut 0.5s ease-in-out;
-        }
     </style>
 </head>
 <body>
@@ -246,19 +235,19 @@
                     <h3 class="text-center">How to Use Fire Extinguisher</h3>
                     <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
                     <div class="instruction-step">
-                        <img src="img/prero.jpg" alt="Pull the pin">
+                        <img src="img/prero.jpg">
                         <p>Pull the pin in the handle</p>
                     </div>
                     <div class="instruction-step">
-                        <img src="img/singko.jpg" alt="Aim the nozzle">
+                        <img src="img/singko.jpg">
                         <p>Aim the nozzle at the base of the fire</p>
                     </div>
                     <div class="instruction-step">
-                        <img src="img/aim.jpg" alt="Squeeze the lever">
+                        <img src="img/aim.jpg">
                         <p>Squeeze the lever slowly</p>
                     </div>
                     <div class="instruction-step">
-                        <img src="img/swep.jpg" alt="Sweep">
+                        <img src="img/swep.jpg">
                         <p>Sweep from side to side</p>
                     </div>
                 </div>
