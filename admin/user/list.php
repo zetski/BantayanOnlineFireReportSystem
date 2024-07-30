@@ -1,6 +1,6 @@
 <?php if($_settings->chk_flashdata('success')): ?>
 <script>
-	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
+	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success');
 </script>
 <?php endif;?>
 <style>
@@ -85,35 +85,49 @@
 <script>
 	$(document).ready(function(){
 		$('.delete_data').click(function(){
-			_conf("Are you sure to delete this User permanently?","delete_user",[$(this).attr('data-id')])
-		})
+			var id = $(this).attr('data-id');
+			Swal.fire({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					delete_user(id);
+				}
+			});
+		});
 		$('.table').dataTable({
 			columnDefs: [
 					{ orderable: false, targets: [6] }
 			],
 			order:[0,'asc']
 		});
-		$('.dataTable td,.dataTable th').addClass('py-1 px-2 align-middle')
-	})
-	function delete_user($id){
+		$('.dataTable td,.dataTable th').addClass('py-1 px-2 align-middle');
+	});
+
+	function delete_user(id){
 		start_loader();
 		$.ajax({
 			url:_base_url_+"classes/Users.php?f=delete",
 			method:"POST",
-			data:{id: $id},
+			data:{id: id},
 			error:err=>{
-				console.log(err)
-				alert_toast("An error occured.",'error');
+				console.log(err);
+				alert_toast("An error occurred.",'error');
 				end_loader();
 			},
 			success:function(resp){
 				if(resp == 1){
 					location.reload();
 				}else{
-					alert_toast("An error occured.",'error');
+					alert_toast("An error occurred.",'error');
 					end_loader();
 				}
 			}
-		})
+		});
 	}
 </script>
