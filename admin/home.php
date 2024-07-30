@@ -1,6 +1,6 @@
 <?php
 // Define and assign value to $pending_requests before using it
-$pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 0")->fetch_row()[0];
+$pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0")->fetch_row()[0];
 ?>
 
 <!DOCTYPE html>
@@ -98,7 +98,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
               <span class="info-box-text">Pending Requests</span>
               <span class="info-box-number text-center h5">
                 <?php 
-                  $request = $conn->query("SELECT id FROM request_list where `status` = 0")->num_rows;
+                  $request = $conn->query("SELECT id FROM request_list where status = 0")->num_rows;
                   echo format_num($request);
                 ?>
               </span>
@@ -117,7 +117,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
               <span class="info-box-text">Assigned Requests</span>
               <span class="info-box-number text-center h5">
                 <?php 
-                  $request = $conn->query("SELECT id FROM request_list where `status` = 1")->num_rows;
+                  $request = $conn->query("SELECT id FROM request_list where status = 1")->num_rows;
                   echo format_num($request);
                 ?>
               </span>
@@ -136,7 +136,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
               <span class="info-box-text">Team OTW Requests</span>
               <span class="info-box-number text-center h5">
                 <?php 
-                  $request = $conn->query("SELECT id FROM request_list where `status` = 2")->num_rows;
+                  $request = $conn->query("SELECT id FROM request_list where status = 2")->num_rows;
                   echo format_num($request);
                 ?>
               </span>
@@ -155,7 +155,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
               <span class="info-box-text">On-Progress Requests</span>
               <span class="info-box-number text-center h5">
                 <?php 
-                  $request = $conn->query("SELECT id FROM request_list where `status` = 3")->num_rows;
+                  $request = $conn->query("SELECT id FROM request_list where status = 3")->num_rows;
                   echo format_num($request);
                 ?>
               </span>
@@ -174,7 +174,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
               <span class="info-box-text">Completed Requests</span>
               <span class="info-box-number text-center h5">
                 <?php 
-                  $request = $conn->query("SELECT id FROM request_list where `status` = 4")->num_rows;
+                  $request = $conn->query("SELECT id FROM request_list where status = 4")->num_rows;
                   echo format_num($request);
                 ?>
               </span>
@@ -223,11 +223,11 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
         label: 'Number of Requests',
         data: [
           <?php echo $team; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 0")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 1")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 2")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 3")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 4")->fetch_row()[0]; ?>
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 1")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 2")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 3")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 4")->fetch_row()[0]; ?>
         ],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
