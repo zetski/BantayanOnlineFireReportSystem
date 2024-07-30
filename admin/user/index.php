@@ -6,7 +6,7 @@ foreach($user->fetch_array() as $k =>$v){
 ?>
 <?php if($_settings->chk_flashdata('success')): ?>
 <script>
-	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success');
+	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
 </script>
 <?php endif;?>
 <div class="card card-outline rounded-0 card-danger">
@@ -34,7 +34,7 @@ foreach($user->fetch_array() as $k =>$v){
 				<div class="form-group">
 					<label for="password">Password</label>
 					<input type="password" name="password" id="password" class="form-control" value="" autocomplete="off">
-					<small><i>Leave this blank if you don't want to change the password.</i></small>
+					<small><i>Leave this blank if you dont want to change the password.</i></small>
 				</div>
 				<div class="form-group">
 					<label for="" class="control-label">Avatar</label>
@@ -50,12 +50,12 @@ foreach($user->fetch_array() as $k =>$v){
 		</div>
 	</div>
 	<div class="card-footer">
-		<div class="col-md-12">
-			<div class="row">
-				<button class="btn btn-sm btn-primary" form="manage-user">Update</button>
+			<div class="col-md-12">
+				<div class="row">
+					<button class="btn btn-sm btn-primary" form="manage-user">Update</button>
+				</div>
 			</div>
 		</div>
-	</div>
 </div>
 <style>
 	img#cimg{
@@ -74,13 +74,13 @@ foreach($user->fetch_array() as $k =>$v){
 	        }
 
 	        reader.readAsDataURL(input.files[0]);
-	    } else {
+	    }else{
 			$('#cimg').attr('src', "<?php echo validate_image(isset($meta['avatar']) ? $meta['avatar'] :'') ?>");
 		}
 	}
 	$('#manage-user').submit(function(e){
 		e.preventDefault();
-		start_loader();
+		start_loader()
 		$.ajax({
 			url:_base_url_+'classes/Users.php?f=save',
 			data: new FormData($(this)[0]),
@@ -90,22 +90,14 @@ foreach($user->fetch_array() as $k =>$v){
 		    method: 'POST',
 		    type: 'POST',
 			success:function(resp){
-				if(resp == 1){
-					Swal.fire({
-						title: 'Success!',
-						text: 'Profile updated successfully.',
-						icon: 'success',
-						confirmButtonText: 'Ok'
-					}).then((result) => {
-						if (result.isConfirmed) {
-							location.reload();
-						}
-					});
+				if(resp ==1){
+					location.reload()
 				}else{
-					$('#msg').html('<div class="alert alert-danger">Username already exists</div>');
-					end_loader();
+					$('#msg').html('<div class="alert alert-danger">Username already exist</div>')
+					end_loader()
 				}
 			}
-		});
-	});
+		})
+	})
+
 </script>
