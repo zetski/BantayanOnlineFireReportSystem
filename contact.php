@@ -127,10 +127,6 @@
             object-fit: contain !important;
             height: 100%;
             width: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-item>img:hover {
-            transform: scale(1.05);
         }
         #carouselExampleControls .carousel-inner {
             height: 35em !important;
@@ -164,8 +160,6 @@
         .carousel-control-prev-icon, .carousel-control-next-icon {
             background-color: #000;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
         }
         .instruction-card {
             border: 1px;
@@ -189,65 +183,18 @@
             width: 50px;
             height: 50px;
             margin-right: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 50%;
+            transition: transform 0.3s;
         }
         .instruction-step img:hover {
             transform: scale(1.2);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
         .instruction-step p {
             margin: 0;
             font-size: 1.1em;
-            color: #333;
-            font-weight: 500;
-        }
-        h3 {
-            font-weight: bold;
-            color: #dc3545;
-            text-transform: uppercase;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideIn {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-        .carousel-item-next, .carousel-item-prev {
-            animation: slideIn 0.5s ease-in-out, slideOut 0.5s ease-in-out;
-        }
-        .container {
-            max-width: 1200px;
-        }
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            margin: -1px;
-            padding: 0;
-            overflow: hidden;
-            clip: rect(0,0,0,0);
-            border: 0;
-        }
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-        .card-container .instruction-card {
-            flex: 0 1 48%;
-            margin-bottom: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card-container .instruction-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -284,47 +231,24 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card-container">
-                    <div class="instruction-card">
-                        <h3 class="text-center">How to Use Fire Extinguisher</h3>
-                        <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
-                        <div class="instruction-step">
-                            <img src="img/prero.jpg" alt="Pull the pin">
-                            <p>Pull the pin in the handle</p>
-                        </div>
-                        <div class="instruction-step">
-                            <img src="img/singko.jpg" alt="Aim the nozzle">
-                            <p>Aim the nozzle at the base of the fire</p>
-                        </div>
-                        <div class="instruction-step">
-                            <img src="img/aim.jpg" alt="Squeeze the lever">
-                            <p>Squeeze the lever slowly</p>
-                        </div>
-                        <div class="instruction-step">
-                            <img src="img/swep.jpg" alt="Sweep">
-                            <p>Sweep from side to side</p>
-                        </div>
+                <div class="instruction-card">
+                    <h3 class="text-center">How to Use Fire Extinguisher</h3>
+                    <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
+                    <div class="instruction-step">
+                        <img src="img/prero.jpg">
+                        <p>Pull the pin in the handle</p>
                     </div>
-                    <div class="instruction-card">
-                        <!-- Additional content can go here -->
-                        <h3 class="text-center">Fire Safety Tips</h3>
-                        <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
-                        <div class="instruction-step">
-                            <img src="img/tip1.jpg" alt="Tip 1">
-                            <p>Install smoke alarms on every level of your home</p>
-                        </div>
-                        <div class="instruction-step">
-                            <img src="img/tip2.jpg" alt="Tip 2">
-                            <p>Test smoke alarms every month</p>
-                        </div>
-                        <div class="instruction-step">
-                            <img src="img/tip3.jpg" alt="Tip 3">
-                            <p>Plan and practice a home fire escape plan</p>
-                        </div>
-                        <div class="instruction-step">
-                            <img src="img/tip4.jpg" alt="Tip 4">
-                            <p>Keep flammable items at least three feet away from heat sources</p>
-                        </div>
+                    <div class="instruction-step">
+                        <img src="img/singko.jpg">
+                        <p>Aim the nozzle at the base of the fire</p>
+                    </div>
+                    <div class="instruction-step">
+                        <img src="img/aim.jpg">
+                        <p>Squeeze the lever slowly</p>
+                    </div>
+                    <div class="instruction-step">
+                        <img src="img/swep.jpg">
+                        <p>Sweep from side to side</p>
                     </div>
                 </div>
             </div>
