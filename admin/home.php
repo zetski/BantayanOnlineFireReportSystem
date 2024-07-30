@@ -69,7 +69,119 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
     </div>
     <hr>
     <div class="row h-100">
-      <!-- Existing code for info-boxes -->
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=teams" class="text-decoration-none h-100 d-block">
+          <div class="info-box h-100 d-flex flex-column justify-content-center">
+            <span class="info-box-icon bg-gradient-secondary">
+              <i class="fas fa-users"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Control Teams</span>
+              <span class="info-box-number text-center h5">
+                <?php 
+                  $team = $conn->query("SELECT * FROM team_list where delete_flag = 0")->num_rows;
+                  echo format_num($team);
+                ?>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=requests&status=0" class="text-decoration-none h-100 d-block">
+          <div class="info-box h-100 d-flex flex-column justify-content-center">
+            <span class="info-box-icon bg-gradient-secondary">
+              <i class="fas fa-hourglass-half"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Pending Requests</span>
+              <span class="info-box-number text-center h5">
+                <?php 
+                  $request = $conn->query("SELECT id FROM request_list where status = 0")->num_rows;
+                  echo format_num($request);
+                ?>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=requests&status=1" class="text-decoration-none h-100 d-block">
+          <div class="info-box h-100 d-flex flex-column justify-content-center">
+            <span class="info-box-icon bg-gradient-secondary">
+              <i class="fas fa-tasks"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Assigned Requests</span>
+              <span class="info-box-number text-center h5">
+                <?php 
+                  $request = $conn->query("SELECT id FROM request_list where status = 1")->num_rows;
+                  echo format_num($request);
+                ?>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=requests&status=2" class="text-decoration-none h-100 d-block">
+          <div class="info-box h-100 d-flex flex-column justify-content-center">
+            <span class="info-box-icon bg-gradient-secondary">
+              <i class="fas fa-truck"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Team OTW Requests</span>
+              <span class="info-box-number text-center h5">
+                <?php 
+                  $request = $conn->query("SELECT id FROM request_list where status = 2")->num_rows;
+                  echo format_num($request);
+                ?>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=requests&status=3" class="text-decoration-none h-100 d-block">
+          <div class="info-box h-100 d-flex flex-column justify-content-center">
+            <span class="info-box-icon bg-gradient-secondary">
+              <i class="fas fa-wrench"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">On-Progress Requests</span>
+              <span class="info-box-number text-center h5">
+                <?php 
+                  $request = $conn->query("SELECT id FROM request_list where status = 3")->num_rows;
+                  echo format_num($request);
+                ?>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=requests&status=4" class="text-decoration-none h-100 d-block">
+          <div class="info-box h-100 d-flex flex-column justify-content-center">
+            <span class="info-box-icon bg-gradient-secondary">
+              <i class="fas fa-check"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Completed Requests</span>
+              <span class="info-box-number text-center h5">
+                <?php 
+                  $request = $conn->query("SELECT id FROM request_list where status = 4")->num_rows;
+                  echo format_num($request);
+                ?>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
     <div class="row">
       <div class="col-12 col-md-6">
@@ -179,86 +291,5 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
     var barChart = new Chart(document.getElementById('barChart'), barConfig);
     var lineChart = new Chart(document.getElementById('lineChart'), lineConfig);
   </script>
-  <script>
-    function markAsRead(notificationId) {
-        // Send AJAX request to mark notification as read
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'mark_as_read.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Reload the notification bell after marking as read
-                    var form = document.createElement('form');
-                    form.setAttribute('method', 'post');
-                    form.setAttribute('action', 'message_form.php?id=' + notificationId); // Corrected syntax
-
-                    // Create an input field to hold the message ID
-                    var input = document.createElement('input');
-                    input.setAttribute('type', 'hidden');
-                    input.setAttribute('name', 'message_id');
-                    input.setAttribute('value', notificationId);
-
-                    // Append the input field to the form
-                    form.appendChild(input);
-
-                    // Append the form to the document body and submit it
-                    document.body.appendChild(form);
-                    form.submit();
-                } else {
-                    console.error('Error marking notification as read');
-                }
-            }
-        };
-        xhr.send('notification_id=' + notificationId);
-    }
-  </script>
-<div class="noti__item js-item-menu">
-    <i class="zmdi zmdi-notifications"></i>
-    <?php
-    include 'include/config.php';          
-
-    // Get user ID from session
-    $id = $_SESSION['main_id'];
-
-    // Count the number of unread notifications specific to the user
-    $unreadQuery = "SELECT COUNT(*) AS unread_count FROM notifications WHERE main_id = ? AND status = 'unread'";
-    $unreadStmt = $bd->prepare($unreadQuery);
-    $unreadStmt->bind_param('i', $id);
-    $unreadStmt->execute();
-    $unreadResult = $unreadStmt->get_result();
-    $unreadData = $unreadResult->fetch_assoc();
-    $unreadCount = $unreadData['unread_count'];
-
-    // Fetch notifications specific to the user
-    $rt = mysqli_query($bd, "SELECT * FROM notifications WHERE main_id = $id ORDER BY timestamp DESC");
-    $num1 = mysqli_num_rows($rt);
-    ?>
-    <span class="quantity"><?php echo htmlentities($unreadCount); ?></span> <!-- Display count of unread notifications -->
-    <div class="notifi-dropdown js-dropdown" style="max-height: 300px; overflow-y: auto;">
-        <div class="notifi__title">
-            <p>You have <?php echo htmlentities($unreadCount); ?> Unread Notifications</p>
-        </div>
-        <?php
-        while ($notification = mysqli_fetch_assoc($rt)) {
-            $class = $notification['status'] == 'read' ? 'read' : 'unread'; // Add 'unread' class for unread notifications
-        ?>
-            <div class="notifi__item <?php echo $class; ?>" id="notification_<?php echo $notification['id']; ?>" onclick="markAsRead(<?php echo $notification['id']; ?>)">
-                <div class="bg-c1 img-cir img-40">
-                    <i class="zmdi zmdi-email-open"></i>
-                </div>
-                <div class="content">
-                    <p><?php echo htmlentities($notification['message']); ?><?php echo htmlentities($notification['clientname']); ?></p>
-                    <span class="date"><?php echo htmlentities($notification['timestamp']); ?></span>
-                </div>
-            </div>
-        <?php
-        }
-        ?>
-        <div class="notifi__footer">
-             <a href="alltasknoti.php?main_id=<?php echo $id; ?>">View All notifications</a>
-        </div>
-    </div>
-</div>
 </body>
 </html>
