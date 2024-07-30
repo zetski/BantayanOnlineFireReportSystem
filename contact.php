@@ -235,6 +235,20 @@
             clip: rect(0,0,0,0);
             border: 0;
         }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .card-container .instruction-card {
+            flex: 0 1 48%;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card-container .instruction-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -270,24 +284,47 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="instruction-card">
-                    <h3 class="text-center">How to Use Fire Extinguisher</h3>
-                    <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
-                    <div class="instruction-step">
-                        <img src="img/prero.jpg" alt="Pull the pin">
-                        <p>Pull the pin in the handle</p>
+                <div class="card-container">
+                    <div class="instruction-card">
+                        <h3 class="text-center">How to Use Fire Extinguisher</h3>
+                        <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
+                        <div class="instruction-step">
+                            <img src="img/prero.jpg" alt="Pull the pin">
+                            <p>Pull the pin in the handle</p>
+                        </div>
+                        <div class="instruction-step">
+                            <img src="img/singko.jpg" alt="Aim the nozzle">
+                            <p>Aim the nozzle at the base of the fire</p>
+                        </div>
+                        <div class="instruction-step">
+                            <img src="img/aim.jpg" alt="Squeeze the lever">
+                            <p>Squeeze the lever slowly</p>
+                        </div>
+                        <div class="instruction-step">
+                            <img src="img/swep.jpg" alt="Sweep">
+                            <p>Sweep from side to side</p>
+                        </div>
                     </div>
-                    <div class="instruction-step">
-                        <img src="img/singko.jpg" alt="Aim the nozzle">
-                        <p>Aim the nozzle at the base of the fire</p>
-                    </div>
-                    <div class="instruction-step">
-                        <img src="img/aim.jpg" alt="Squeeze the lever">
-                        <p>Squeeze the lever slowly</p>
-                    </div>
-                    <div class="instruction-step">
-                        <img src="img/swep.jpg" alt="Sweep">
-                        <p>Sweep from side to side</p>
+                    <div class="instruction-card">
+                        <!-- Additional content can go here -->
+                        <h3 class="text-center">Fire Safety Tips</h3>
+                        <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
+                        <div class="instruction-step">
+                            <img src="img/tip1.jpg" alt="Tip 1">
+                            <p>Install smoke alarms on every level of your home</p>
+                        </div>
+                        <div class="instruction-step">
+                            <img src="img/tip2.jpg" alt="Tip 2">
+                            <p>Test smoke alarms every month</p>
+                        </div>
+                        <div class="instruction-step">
+                            <img src="img/tip3.jpg" alt="Tip 3">
+                            <p>Plan and practice a home fire escape plan</p>
+                        </div>
+                        <div class="instruction-step">
+                            <img src="img/tip4.jpg" alt="Tip 4">
+                            <p>Keep flammable items at least three feet away from heat sources</p>
+                        </div>
                     </div>
                 </div>
             </div>
