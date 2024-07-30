@@ -1,6 +1,6 @@
 <?php if($_settings->chk_flashdata('success')): ?>
 <script>
-	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
+	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success');
 </script>
 <?php endif;?>
 
@@ -132,38 +132,51 @@
 		})
 		_this.siblings('.custom-file-label').html(fnames.join(", "))
 	}
-	function delete_img($path){
-        start_loader()
+	function delete_img(path){
+        start_loader();
         
         $.ajax({
             url: _base_url_+'classes/Master.php?f=delete_img',
-            data:{path:$path},
+            data:{path:path},
             method:'POST',
             dataType:"json",
             error:err=>{
-                console.log(err)
+                console.log(err);
                 alert_toast("An error occured while deleting an Image","error");
-                end_loader()
+                end_loader();
             },
             success:function(resp){
-                $('.modal').modal('hide')
+                $('.modal').modal('hide');
                 if(typeof resp =='object' && resp.status == 'success'){
-                    $('[data-path="'+$path+'"]').closest('.img-item').hide('slow',function(){
-                        $('[data-path="'+$path+'"]').closest('.img-item').remove()
-                    })
+                    $('[data-path="'+path+'"]').closest('.img-item').hide('slow',function(){
+                        $('[data-path="'+path+'"]').closest('.img-item').remove();
+                    });
                     alert_toast("Image Successfully Deleted","success");
                 }else{
-                    console.log(resp)
+                    console.log(resp);
                     alert_toast("An error occured while deleting an Image","error");
                 }
-                end_loader()
+                end_loader();
             }
-        })
+        });
     }
 	$(document).ready(function(){
 		$('.rem_img').click(function(){
-            _conf("Are sure to delete this image permanently?",'delete_img',["'"+$(this).attr('data-path')+"'"])
-        })
+            var path = $(this).attr('data-path');
+			Swal.fire({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					delete_img(path);
+				}
+			});
+        });
 		 $('.summernote').summernote({
 		        height: 200,
 		        toolbar: [
@@ -176,6 +189,6 @@
 		            [ 'table', [ 'table' ] ],
 		            [ 'view', [ 'undo', 'redo', 'fullscreen', 'help' ] ]
 		        ]
-		    })
-	})
+		    });
+	});
 </script>
