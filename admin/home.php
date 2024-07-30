@@ -1,9 +1,6 @@
 <?php
 // Define and assign value to $pending_requests before using it
 $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 0")->fetch_row()[0];
-
-// Example data for the line chart, replace with actual data from your database
-$lineChartData = [12, 19, 3, 5, 2, 3, 9]; // Replace with actual data retrieval logic
 ?>
 
 <!DOCTYPE html>
@@ -256,7 +253,7 @@ $lineChartData = [12, 19, 3, 5, 2, 3, 9]; // Replace with actual data retrieval 
       labels: ["January", "February", "March", "April", "May", "June", "July"],
       datasets: [{
         label: 'Requests Over Time',
-        data: <?php echo json_encode($lineChartData); ?>, // Use actual data from PHP
+        data: [12, 19, 3, 5, 2, 3, 9], // Example data, replace with your actual data
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1,
