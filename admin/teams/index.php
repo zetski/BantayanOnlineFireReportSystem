@@ -1,6 +1,6 @@
 <?php if($_settings->chk_flashdata('success')): ?>
 <script>
-	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
+	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success');
 </script>
 <?php endif;?>
 <style>
@@ -88,25 +88,39 @@
 <script>
 	$(document).ready(function(){
 		$('.delete_data').click(function(){
-			_conf("Are you sure to delete this team permanently?","delete_team",[$(this).attr('data-id')])
-		})
+			var id = $(this).attr('data-id');
+			Swal.fire({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					delete_team(id);
+				}
+			});
+		});
 		$('.table').dataTable({
 			columnDefs: [
 					{ orderable: false, targets: [2,6] }
 			],
 			order:[0,'asc']
 		});
-		$('.dataTable td,.dataTable th').addClass('py-1 px-2 align-middle')
-	})
-	function delete_team($id){
+		$('.dataTable td,.dataTable th').addClass('py-1 px-2 align-middle');
+	});
+
+	function delete_team(id){
 		start_loader();
 		$.ajax({
 			url:_base_url_+"classes/Master.php?f=delete_team",
 			method:"POST",
-			data:{id: $id},
+			data:{id: id},
 			dataType:"json",
 			error:err=>{
-				console.log(err)
+				console.log(err);
 				alert_toast("An error occured.",'error');
 				end_loader();
 			},
@@ -118,6 +132,6 @@
 					end_loader();
 				}
 			}
-		})
+		});
 	}
 </script>
