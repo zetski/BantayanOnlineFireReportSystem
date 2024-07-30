@@ -15,13 +15,11 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <style>
     .notification-container {
       display: inline-block;
-      position: absolute;
-      top: 20px;
-      right: 20px;
+      position: relative;
     }
     .notification-container .fas.fa-bell {
       font-size: 24px;
-      position: relative;
+      cursor: pointer;
     }
     .notification-container .badge {
       position: absolute;
@@ -29,6 +27,11 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
       right: -10px;
       font-size: 12px;
       padding: 4px 6px;
+    }
+    .dropdown-menu {
+      width: 300px;
+      max-height: 400px;
+      overflow-y: auto;
     }
     .info-box {
       display: flex;
@@ -60,13 +63,19 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
     <h3 style="display: inline-block; margin-right: 20px;">
       Welcome, <?php echo $_settings->userdata('firstname')." ".$_settings->userdata('lastname') ?>!
     </h3>
-    <div class="notification-container">
-      <a href="./?page=requests&status=0" class="text-decoration-none">
+    <div class="notification-container dropdown">
+      <a href="#" class="text-decoration-none dropdown-toggle" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fas fa-bell"></i>
         <span class="badge bg-danger" id="notification-count">
           <?php echo format_num($pending_requests); ?>
         </span>
       </a>
+      <ul class="dropdown-menu" aria-labelledby="notificationDropdown">
+        <li class="dropdown-header">Pending Requests</li>
+        <div id="notification-list"></div>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-center" href="./?page=requests&status=0">See All</a></li>
+      </ul>
     </div>
     <hr>
     <div class="row h-100">
@@ -199,98 +208,38 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Example AJAX call to update notification count
-    function updateNotificationCount() {
+    // Function to update notification count and list
+    function updateNotifications() {
       $.ajax({
         url: 'classes/get_notification_count.php', // Replace with your endpoint
         method: 'GET',
         success: function(response) {
           $('#notification-count').text(response.count);
+          $.ajax({
+            url: 'classes/get_notification_list.php', // Replace with your endpoint
+            method: 'GET',
+            success: function(listResponse) {
+              var notificationList = $('#notification-list');
+              notificationList.empty();
+              if (listResponse.length > 0) {
+                listResponse.forEach(function(notification) {
+                  notificationList.append('<li><a class="dropdown-item" href="./?page=requests&id=' + notification.id + '">' + notification.title + '</a></li>');
+                });
+              } else {
+                notificationList.append('<li class="dropdown-item">No new requests</li>');
+              }
+            }
+          });
         },
         error: function(xhr, status, error) {
-          console.error('Error fetching notification count');
+          console.error('Error fetching notifications');
         }
       });
     }
 
     // Call the function initially and every few seconds (example)
-    updateNotificationCount(); // Initial call
-    setInterval(updateNotificationCount, 10000); // Repeat every 10 seconds
-
-    // Data for charts
-    var barData = {
-      labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
-      datasets: [{
-        label: 'Number of Requests',
-        data: [
-          <?php echo $team; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 0")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 1")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 2")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 3")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE `status` = 4")->fetch_row()[0]; ?>
-        ],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
-    };
-
-    var lineData = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      datasets: [{
-        label: 'Requests Over Time',
-        data: [12, 19, 3, 5, 2, 3, 9], // Example data, replace with your actual data
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1,
-        fill: true
-      }]
-    };
-
-    // Bar chart configuration
-    var barConfig = {
-      type: 'bar',
-      data: barData,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    };
-
-    // Line chart configuration
-    var lineConfig = {
-      type: 'line',
-      data: lineData,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    };
-
-    // Render charts
-    var barChart = new Chart(document.getElementById('barChart'), barConfig);
-    var lineChart = new Chart(document.getElementById('lineChart'), lineConfig);
+    updateNotifications(); // Initial call
+    setInterval(updateNotifications, 10000); // Repeat every 10 seconds
   </script>
 </body>
 </html>
