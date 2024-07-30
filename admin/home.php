@@ -21,6 +21,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
     }
     .notification-container .fas.fa-bell {
       font-size: 24px;
+      position: relative;
     }
     .notification-container .badge {
       position: absolute;
@@ -61,8 +62,8 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
     </h3>
     <div class="notification-container">
       <a href="./?page=requests&status=0" class="text-decoration-none">
-        <i class="fas fa-bell" style="font-size: 24px;"></i>
-        <span class="badge bg-danger" id="notification-count" style="font-size: 12px;">
+        <i class="fas fa-bell"></i>
+        <span class="badge bg-danger" id="notification-count">
           <?php echo format_num($pending_requests); ?>
         </span>
       </a>
@@ -201,7 +202,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
     // Example AJAX call to update notification count
     function updateNotificationCount() {
       $.ajax({
-        url: 'get_notification_count.php', // Replace with your endpoint
+        url: 'classes/get_notification_count.php', // Replace with your endpoint
         method: 'GET',
         success: function(response) {
           $('#notification-count').text(response.count);
