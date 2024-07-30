@@ -249,12 +249,11 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
       }]
     };
 
-    // Manually provided data for the line chart
     var lineData = {
       labels: ["January", "February", "March", "April", "May", "June", "July"],
       datasets: [{
         label: 'Requests Over Time',
-        data: [12, 19, 3, 5, 2, 3, 9], // Replace this with actual data if available
+        data: [12, 19, 3, 5, 2, 3, 9], // Example data, replace with your actual data
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1,
