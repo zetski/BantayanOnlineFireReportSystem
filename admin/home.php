@@ -216,6 +216,14 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
     updateNotificationCount(); // Initial call
     setInterval(updateNotificationCount, 10000); // Repeat every 10 seconds
 
+    // Get the current month and year
+    const currentMonth = new Date().getMonth(); // 0-11, where 0 = January
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const monthsToShow = months.slice(0, currentMonth + 1);
+
+    // Example data for line chart
+    const lineChartData = Array(currentMonth + 1).fill().map(() => Math.floor(Math.random() * 100)); // Replace with actual data
+
     // Data for charts
     var barData = {
       labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
@@ -249,11 +257,12 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE `stat
       }]
     };
 
+    // Manually provided data for the line chart
     var lineData = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: monthsToShow,
       datasets: [{
         label: 'Requests Over Time',
-        data: [12, 19, 3, 5, 2, 3, 9], // Example data, replace with your actual data
+        data: lineChartData, // Use actual data here
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1,
