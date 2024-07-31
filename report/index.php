@@ -105,10 +105,9 @@
                 confirmButtonText: 'Okay'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    location.reload(); // Refresh the page
+                    document.getElementById('fullname').focus(); // Focus back to the fullname field
                 }
             });
-            this.focus();
             return;
         }
         this.value = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(' ');
@@ -130,7 +129,7 @@
                 confirmButtonText: 'Okay'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    location.reload(); // Refresh the page
+                    document.getElementById('fullname').focus(); // Focus back to the fullname field
                 }
             });
             e.preventDefault();
