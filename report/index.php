@@ -91,7 +91,7 @@
 </section>
 
 <!-- Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -103,7 +103,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <style>
     body {
