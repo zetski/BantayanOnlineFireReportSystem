@@ -151,6 +151,10 @@
 </style>
 
 <script>
+    document.getElementById('fullname').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+    });
+    
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
