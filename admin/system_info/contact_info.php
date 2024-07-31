@@ -87,11 +87,6 @@
             });
         });
 
-         // Restrict phone input to numbers and parentheses only
-         $('#phone').on('input', function() {
-            this.value = this.value.replace(/[^0-9()]/g, '');
-        });
-
         // Restrict mobile input to numbers only
         $('#mobile').on('input', function() {
             this.value = this.value.replace(/[^0-9]/g, '');
