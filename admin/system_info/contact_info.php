@@ -14,7 +14,7 @@
                     <div id="msg" class="form-group"></div>
                     <div class="form-group">
                         <label for="phone" class="control-label">Telephone #</label>
-                        <input type="text" class="form-control form-control-sm rounded-0" name="phone" id="phone" value="<?php echo $_settings->info('phone') ?>">
+                        <input type="text" class="form-control form-control-sm rounded-0" name="phone" id="phone" value="<?php echo $_settings->info('phone') ?>" maxlength="15" pattern="[\d\(\)\-]+" title="Please enter a valid phone number">
                     </div>
                     <div class="form-group">
                         <label for="mobile" class="control-label">Mobile #</label>
@@ -85,6 +85,11 @@
                 //     }
                 // }
             });
+        });
+
+        // Restrict phone input to numbers, dashes, and parentheses
+        $('#phone').on('input', function() {
+            this.value = this.value.replace(/[^0-9\(\)\-]/g, '');
         });
 
         // Restrict mobile input to numbers only
