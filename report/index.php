@@ -158,6 +158,22 @@
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
+
+    function validateFullname() {
+        const fullname = document.getElementById('fullname').value.trim();
+        const nameParts = fullname.split(/\s+/);
+        if (nameParts.length < 3) {
+            alert('Please enter your first name, middle name, and last name.');
+            return false;
+        }
+        for (let i = 0; i < nameParts.length; i++) {
+            if (nameParts[i].charAt(0) !== nameParts[i].charAt(0).toUpperCase()) {
+                alert('Each part of your name must start with a capital letter.');
+                return false;
+            }
+        }
+        return true;
+    }
 </script>
 
 <script src="report/script.js"></script>
