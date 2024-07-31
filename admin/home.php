@@ -250,7 +250,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
     };
 
     var lineData = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: ["January", "February", "March", "April", "May", "June", "July", "Aug"],
       datasets: [{
         label: 'Requests Over Time',
         data: [12, 19, 3, 5, 2, 3, 9], // Example data, replace with your actual data
