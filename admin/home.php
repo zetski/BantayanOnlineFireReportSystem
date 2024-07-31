@@ -253,7 +253,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
       labels: ["January", "February", "March", "April", "May", "June", "July", "Aug"],
       datasets: [{
         label: 'Requests Over Time',
-        data: [12, 19, 3, 5, 2, 3, 9], // Example data, replace with your actual data
+        data: [12, 19, 3, 5, 2, 3, 9, 0], // Example data, replace with your actual data
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1,
