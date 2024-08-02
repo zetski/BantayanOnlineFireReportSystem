@@ -71,7 +71,7 @@
                     </div>
                     <div class="card-footer py-1 text-center">
                         <button class="btn btn-flat btn-sm btn-primary bg-gradient-primary" form="request-form"><i class="fa fa-paper-plane"></i> Submit</button>
-                        <button class="btn btn-flat btn-sm btn-light bg-gradient-light border" type="reset" form="request-form"><i class="fa fa-times"></i> Cancel</button>
+                        <button class="btn btn-flat btn-sm btn-light bg-gradient-light border" id="cancel-btn"><i class="fa fa-times"></i> Cancel</button>
                     </div>
                 </div>
             </div>
@@ -97,6 +97,19 @@
 
     document.getElementById('fullname').addEventListener('blur', function (e) {
         const parts = this.value.trim().split(' ');
+        if (parts.length >= 3) {
+            this.value = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(' ');
+        }
+    });
+
+    document.getElementById('contact').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+    });
+
+    document.getElementById('request-form').addEventListener('submit', function (e) {
+        const fullname = document.getElementById('fullname').value.trim();
+        const parts = fullname.split(' ');
+
         if (parts.length < 3) {
             Swal.fire({
                 icon: 'error',
@@ -108,33 +121,30 @@
                     document.getElementById('fullname').focus(); // Focus back to the fullname field
                 }
             });
-            return;
+            e.preventDefault();
         }
-        this.value = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(' ');
     });
 
-    document.getElementById('contact').addEventListener('input', function (e) {
-        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+    document.getElementById('cancel-btn').addEventListener('click', function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, cancel it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('request-form').reset();
+                Swal.fire(
+                    'Cancelled!',
+                    'Your form has been reset.',
+                    'success'
+                ).then(() => {
+                    window.location.href = 'home_page_url'; // Replace with your actual home page URL
+                });
+            }
+        });
     });
-
-    // document.getElementById('request-form').addEventListener('submit', function (e) {
-    //     const fullname = document.getElementById('fullname').value.trim();
-    //     const parts = fullname.split(' ');
-
-    //     if (parts.length < 3) {
-    //         Swal.fire({
-    //             icon: 'error',
-    //             title: 'Invalid Fullname',
-    //             text: 'Please enter your first name, middle initial, and last name.',
-    //             confirmButtonText: 'Okay'
-    //         }).then((result) => {
-    //             if (result.isConfirmed) {
-    //                 document.getElementById('fullname').focus(); // Focus back to the fullname field
-    //             }
-    //         });
-    //         e.preventDefault();
-    //     }
-    // });
 </script>
-
-<script src="report/script.js"></script>
