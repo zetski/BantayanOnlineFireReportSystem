@@ -3,7 +3,7 @@
       color: #ffffff !important;
   }
   .bg-maroon {
-      background-color: #2980B9 !important;
+      background-color: #ff4600 !important;
   }
 </style>
 <!-- Main Sidebar Container -->
