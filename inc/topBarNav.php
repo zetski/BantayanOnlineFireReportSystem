@@ -16,7 +16,7 @@
   }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#2980B9">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#ff4600">
   <div class="container px-4 px-lg-5">
     <button class="navbar-toggler btn btn-sm" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

@@ -8,7 +8,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
     }
 }
 ?>
-<div class="content py-3 px-3" style="background-color: #2980B9; color: #fff">
+<div class="content py-3 px-3" style="background-color: #ff4600; color: #fff">
 	<h2><b>Team Details</b></h2>
 </div>
 <div class="row mt-lg-n4 mt-md-n4 justify-content-center">
