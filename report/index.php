@@ -117,24 +117,24 @@
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
 
-    document.querySelector('.btn[type="reset"]').addEventListener('click', function (e) {
-        e.preventDefault();
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, cancel it!',
-            cancelButtonText: 'No, keep it'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('request-form').reset();
-                Swal.fire(
-                    'Cancelled!',
-                    'Your form has been reset.',
-                    'success'
-                );
-            }
-        });
-    });
+    // document.getElementById('request-form').addEventListener('submit', function (e) {
+    //     const fullname = document.getElementById('fullname').value.trim();
+    //     const parts = fullname.split(' ');
+
+    //     if (parts.length < 3) {
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: 'Invalid Fullname',
+    //             text: 'Please enter your first name, middle initial, and last name.',
+    //             confirmButtonText: 'Okay'
+    //         }).then((result) => {
+    //             if (result.isConfirmed) {
+    //                 document.getElementById('fullname').focus(); // Focus back to the fullname field
+    //             }
+    //         });
+    //         e.preventDefault();
+    //     }
+    // });
 </script>
+
+<script src="report/script.js"></script>
