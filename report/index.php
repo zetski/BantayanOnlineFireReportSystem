@@ -117,24 +117,14 @@
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
 
-    // document.getElementById('request-form').addEventListener('submit', function (e) {
-    //     const fullname = document.getElementById('fullname').value.trim();
-    //     const parts = fullname.split(' ');
-
-    //     if (parts.length < 3) {
-    //         Swal.fire({
-    //             icon: 'error',
-    //             title: 'Invalid Fullname',
-    //             text: 'Please enter your first name, middle initial, and last name.',
-    //             confirmButtonText: 'Okay'
-    //         }).then((result) => {
-    //             if (result.isConfirmed) {
-    //                 document.getElementById('fullname').focus(); // Focus back to the fullname field
-    //             }
-    //         });
-    //         e.preventDefault();
-    //     }
-    // });
+    document.getElementById('request-form').addEventListener('reset', function (e) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Form Reset',
+            text: 'The form has been reset.',
+            confirmButtonText: 'Okay'
+        });
+    });
 </script>
 
 <script src="report/script.js"></script>
