@@ -33,7 +33,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 </style>
 <section class="py-3">
     <div class="container">
-        <div class="content py-3 px-3" style="background-color: #2980B9; color: #fff">
+        <div class="content py-3 px-3" style="background-color: #ff4600; color: #fff">
             <h2><b><?= isset($code) ? $code : '' ?> Request</b></h2>
         </div>
         <div class="row flex-column mt-lg-n4 mt-md-n4 justify-content-center align-items-center">

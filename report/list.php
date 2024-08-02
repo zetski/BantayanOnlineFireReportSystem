@@ -6,7 +6,7 @@
 </style>
 <section class="py-3">
     <div class="container">
-        <div class="content py-3 px-3" style="background-color: #2980B9; color: #fff">
+        <div class="content py-3 px-3" style="background-color: #ff4600; color: #fff">
             <h2>Search Result against '<?= $_GET['search'] ?>'</h2>
         </div>
         <div class="row mt-lg-n4 mt-md-n3 mt-sm-n2 justify-content-center">
