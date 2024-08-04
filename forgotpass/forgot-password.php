@@ -25,7 +25,7 @@
     <div class="card card-danger my-2">
       <div class="card-body">
         <p class="login-box-msg">Enter your email to reset your password</p>
-        <form id="forgot-password-frm" action="forgot-password-process.php" method="post">
+        <form id="forgot-password-frm" action="../forgotpass/forgot-password-process.php" method="post">
           <div class="input-group mb-3">
             <input type="email" class="form-control" name="email" placeholder="Email" required>
             <div class="input-group-append">
