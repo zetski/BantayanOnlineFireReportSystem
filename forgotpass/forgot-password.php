@@ -41,7 +41,7 @@
           </div>
         </form>
         <p class="mb-1 mt-3">
-          <a href="login.php">Back to Login</a>
+          <a href="./admin/login.php">Back to Login</a>
         </p>
       </div>
     </div>
