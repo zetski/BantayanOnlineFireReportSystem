@@ -1,4 +1,3 @@
-<?php require_once('../config.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +46,7 @@
         }
     </style>
 
-    <title>Online Fire Report System</title>
+    <title>Forgot Password</title>
 </head>
 <body>
     <div class="container">
@@ -59,7 +58,7 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
             <p class="mb-1 mt-3 text-center">
-            <a href="<?php echo base_url ?>">Back to Login</a>
+                <a href="login.php" class="btn btn-link">Back to Login</a>
             </p>
         </form>
     </div>
