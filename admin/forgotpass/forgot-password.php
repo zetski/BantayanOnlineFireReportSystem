@@ -1,60 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Online Fire Reporting System</title>
-  </head>
-  <body class="hold-transition login-page">
-  <script>
-    start_loader()
-  </script>
-  <style>
-    body {
-      background-image: url("<?php echo validate_image($_settings->info('cover')) ?>");
-      background-size: cover;
-      background-repeat: no-repeat;
-      backdrop-filter: contrast(1);
-    }
-    #page-title {
-      text-shadow: 6px 4px 7px black;
-      font-size: 3.5em;
-      color: #fff4f4 !important;
-      background: #8080801c;
-    }
-  </style>
-  <h1 class="text-center text-white px-4 py-5" id="page-title"><b><?php echo $_settings->info('name') ?></b></h1>
-  <div class="login-box">
-    <div class="card card-danger my-2">
-      <div class="card-body">
-        <p class="login-box-msg">Enter your email to reset your password</p>
-        <form id="forgot-password-frm" action="forgot-password-process.php" method="post">
-          <div class="input-group mb-3">
-            <input type="email" class="form-control" name="email" placeholder="Email" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
-            </div>
-          </div>
-        </form>
-        <p class="mb-1 mt-3">
+    <title>Forgot Password</title>
+</head>
+<body>
+    <h2>Forgot Password</h2>
+    <form action="forgot_password_process.php" method="post">
+        <label for="email">Enter your email address:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Send Reset Link</button>
+    </form>
+    <p class="mb-1 mt-3">
           <a href="login.php">Back to Login</a>
         </p>
-      </div>
-    </div>
-  </div>
-  <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/jquery/jquery.min.js"></script>
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="dist/js/adminlte.min.js"></script>
   <script>
