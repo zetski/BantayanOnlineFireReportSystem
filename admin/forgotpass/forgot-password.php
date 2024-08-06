@@ -58,7 +58,7 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
             <p class="mb-1 mt-3 text-center">
-                <a href="admin/login.php" class="btn btn-link">Back to Login</a>
+                <a href="./admin/login.php" class="btn btn-link">Back to Login</a>
             </p>
         </form>
     </div>
