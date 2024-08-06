@@ -57,10 +57,10 @@
                 <input type="email" id="email" name="email" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
-            <p class="mb-1 mt-3 text-center">
-            <a href="<?php echo base_url ?>">Back to Login</a>
-            </p>
         </form>
+        <p class="mb-1 mt-3">
+          <a href="<?php echo base_url ?>">Back to Login</a>
+        </p>
     </div>
 
     <!-- Bootstrap JS Bundle -->
