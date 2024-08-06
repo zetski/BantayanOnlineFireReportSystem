@@ -1,6 +1,6 @@
 <section class="py-3">
     <div class="container">
-        <div class="content py-3 px-3" style="background-color: #ff4600">
+        <div class="content py-3 px-3" style="background-color: #FF4600">
             <h2 style="color: #fff">Fire Reporting</h2>
         </div>
         <div class="row justify-content-center mt-n3">
@@ -33,6 +33,17 @@
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                                     <div class="position-relative">
                                         <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
+                                        <!-- Removed camera icon -->
+                                        <!-- <label class="upload-icon" for="image-upload">
+                                            <i class="fa fa-camera"></i>
+                                        </label> -->
+                                        <!-- Removed file input -->
+                                        <!-- <input type="file" class="d-none" id="image-upload" name="image" accept="image/*"> -->
+                                        <!-- Removed preview container -->
+                                        <!-- <div id="image-preview-container" class="d-none">
+                                            <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
+                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -71,13 +82,28 @@
                     </div>
                     <div class="card-footer py-1 text-center">
                         <button class="btn btn-flat btn-sm btn-primary bg-gradient-primary" form="request-form"><i class="fa fa-paper-plane"></i> Submit</button>
-                        <button class="btn btn-flat btn-sm btn-light bg-gradient-light border" id="cancel-btn"><i class="fa fa-times"></i> Cancel</button>
+                        <button class="btn btn-flat btn-sm btn-light bg-gradient-light border" type="reset" form="request-form"><i class="fa fa-times"></i> Cancel</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img id="modal-image" src="#" alt="Full-size Image" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</div>
 
 <style>
     body {
@@ -87,64 +113,47 @@
     .position-relative {
         position: relative;
     }
+    /* Removed styling for the upload icon */
+    /* .upload-icon {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #6c757d;
+    } */
+    /* Removed styling for image preview */
+    /* #image-preview-container {
+        position: absolute;
+        bottom: 10px;
+        right: 50px;
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    } */
+    /* #image-preview {
+        max-width: 100%;
+        max-height: 100%;
+        cursor: pointer;
+    } */
+    /* .remove-image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        cursor: pointer;
+        padding: 2px;
+    } */
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.getElementById('fullname').addEventListener('input', function (e) {
-        this.value = this.value.replace(/[^a-zA-Z\s.]/g, '').replace(/\s+/g, ' '); // Allow alphabetic characters, spaces, and periods
-    });
-
-    document.getElementById('fullname').addEventListener('blur', function (e) {
-        const parts = this.value.trim().split(' ');
-        if (parts.length >= 3) {
-            this.value = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(' ');
-        }
-    });
-
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
-
-    document.getElementById('request-form').addEventListener('submit', function (e) {
-        const fullname = document.getElementById('fullname').value.trim();
-        const parts = fullname.split(' ');
-
-        if (parts.length < 3) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Invalid Fullname',
-                text: 'Please enter your first name, middle initial, and last name.',
-                confirmButtonText: 'Okay'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('fullname').focus(); // Focus back to the fullname field
-                }
-            });
-            e.preventDefault();
-        }
-    });
-
-    document.getElementById('cancel-btn').addEventListener('click', function (e) {
-        e.preventDefault();
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, cancel it!',
-            cancelButtonText: 'No, keep it'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('request-form').reset();
-                Swal.fire(
-                    'Cancelled!',
-                    'Your form has been reset.',
-                    'success'
-                ).then(() => {
-                    window.location.href = 'home_page_url'; // Replace with your actual home page URL
-                });
-            }
-        });
-    });
 </script>
+
+<script src="report/script.js"></script>
