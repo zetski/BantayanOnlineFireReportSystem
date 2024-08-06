@@ -46,7 +46,7 @@
         }
     </style>
 
-    <title>Forgot Password</title>
+    <title>Online Fire Report System</title>
 </head>
 <body>
     <div class="container">
