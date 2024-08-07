@@ -52,9 +52,6 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
       flex: 1;
       margin-left: 15px;
     }
-    #map {
-      height: 400px; /* Adjust as needed */
-    }
   </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -72,19 +69,18 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
     </div>
     <hr>
     <div class="row h-100">
-      <div class="col-12 col-md-4 mb-3 h-100">
-        <a href="./?page=municipalities&municipality=Santa%20Fe" class="text-decoration-none h-100 d-block">
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=teams" class="text-decoration-none h-100 d-block">
           <div class="info-box h-100 d-flex flex-column justify-content-center">
             <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-city"></i>
+              <i class="fas fa-users"></i>
             </span>
             <div class="info-box-content">
-              <span class="info-box-text">Santa Fe</span>
+              <span class="info-box-text">Control Teams</span>
               <span class="info-box-number text-center h5">
                 <?php 
-                  // Replace with actual data query for Santa Fe
-                  $santa_fe_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE municipality = 'Santa Fe'")->fetch_row()[0];
-                  echo format_num($santa_fe_requests);
+                  $team = $conn->query("SELECT * FROM team_list where delete_flag = 0")->num_rows;
+                  echo format_num($team);
                 ?>
               </span>
             </div>
@@ -92,19 +88,18 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
         </a>
       </div>
 
-      <div class="col-12 col-md-4 mb-3 h-100">
-        <a href="./?page=municipalities&municipality=Bantayan" class="text-decoration-none h-100 d-block">
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=requests&status=0" class="text-decoration-none h-100 d-block">
           <div class="info-box h-100 d-flex flex-column justify-content-center">
             <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-city"></i>
+              <i class="fas fa-hourglass-half"></i>
             </span>
             <div class="info-box-content">
-              <span class="info-box-text">Bantayan</span>
+              <span class="info-box-text">Pending Requests</span>
               <span class="info-box-number text-center h5">
                 <?php 
-                  // Replace with actual data query for Bantayan
-                  $bantayan_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE municipality = 'Bantayan'")->fetch_row()[0];
-                  echo format_num($bantayan_requests);
+                  $request = $conn->query("SELECT id FROM request_list where status = 0")->num_rows;
+                  echo format_num($request);
                 ?>
               </span>
             </div>
@@ -112,19 +107,75 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
         </a>
       </div>
 
-      <div class="col-12 col-md-4 mb-3 h-100">
-        <a href="./?page=municipalities&municipality=Madridejos" class="text-decoration-none h-100 d-block">
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=requests&status=1" class="text-decoration-none h-100 d-block">
           <div class="info-box h-100 d-flex flex-column justify-content-center">
             <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-city"></i>
+              <i class="fas fa-tasks"></i>
             </span>
             <div class="info-box-content">
-              <span class="info-box-text">Madridejos</span>
+              <span class="info-box-text">Assigned Requests</span>
               <span class="info-box-number text-center h5">
                 <?php 
-                  // Replace with actual data query for Madridejos
-                  $madridejos_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE municipality = 'Madridejos'")->fetch_row()[0];
-                  echo format_num($madridejos_requests);
+                  $request = $conn->query("SELECT id FROM request_list where status = 1")->num_rows;
+                  echo format_num($request);
+                ?>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=requests&status=2" class="text-decoration-none h-100 d-block">
+          <div class="info-box h-100 d-flex flex-column justify-content-center">
+            <span class="info-box-icon bg-gradient-secondary">
+              <i class="fas fa-truck"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Team OTW Requests</span>
+              <span class="info-box-number text-center h5">
+                <?php 
+                  $request = $conn->query("SELECT id FROM request_list where status = 2")->num_rows;
+                  echo format_num($request);
+                ?>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=requests&status=3" class="text-decoration-none h-100 d-block">
+          <div class="info-box h-100 d-flex flex-column justify-content-center">
+            <span class="info-box-icon bg-gradient-secondary">
+              <i class="fas fa-wrench"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">On-Progress Requests</span>
+              <span class="info-box-number text-center h5">
+                <?php 
+                  $request = $conn->query("SELECT id FROM request_list where status = 3")->num_rows;
+                  echo format_num($request);
+                ?>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+        <a href="./?page=requests&status=4" class="text-decoration-none h-100 d-block">
+          <div class="info-box h-100 d-flex flex-column justify-content-center">
+            <span class="info-box-icon bg-gradient-secondary">
+              <i class="fas fa-check"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Completed Requests</span>
+              <span class="info-box-number text-center h5">
+                <?php 
+                  $request = $conn->query("SELECT id FROM request_list where status = 4")->num_rows;
+                  echo format_num($request);
                 ?>
               </span>
             </div>
@@ -132,12 +183,12 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
         </a>
       </div>
     </div>
-    
-    <!-- Map of Bantayan Island -->
     <div class="row">
-      <div class="col-12">
-        <h4>Bantayan Island Map</h4>
-        <div id="map"></div>
+      <div class="col-12 col-md-6">
+        <canvas id="barChart"></canvas>
+      </div>
+      <div class="col-12 col-md-6">
+        <canvas id="lineChart"></canvas>
       </div>
     </div>
   </div>
@@ -146,7 +197,6 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script> <!-- Replace with your API key -->
   <script>
     // Example AJAX call to update notification count
     function updateNotificationCount() {
@@ -166,20 +216,80 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
     updateNotificationCount(); // Initial call
     setInterval(updateNotificationCount, 10000); // Repeat every 10 seconds
 
-    // Initialize the map
-    function initMap() {
-      var bantayan = {lat: 11.1264, lng: 123.1611}; // Coordinates for Bantayan Island
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: bantayan
-      });
-      var marker = new google.maps.Marker({
-        position: bantayan,
-        map: map
-      });
-    }
+    // Data for charts
+    var barData = {
+      labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
+      datasets: [{
+        label: 'Number of Requests',
+        data: [
+          <?php echo $team; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 1")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 2")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 3")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 4")->fetch_row()[0]; ?>
+        ],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
 
-    initMap();
+    var lineData = {
+      labels: ["January", "February", "March", "April", "May", "June", "July", "Aug"],
+      datasets: [{
+        label: 'Requests Over Time',
+        data: [12, 19, 3, 5, 2, 3, 9, 0], // Example data, replace with your actual data
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1,
+        fill: true
+      }]
+    };
+
+    // Bar chart configuration
+    var barConfig = {
+      type: 'bar',
+      data: barData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // Line chart configuration
+    var lineConfig = {
+      type: 'line',
+      data: lineData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // Render charts
+    var barChart = new Chart(document.getElementById('barChart'), barConfig);
+    var lineChart = new Chart(document.getElementById('lineChart'), lineConfig);
   </script>
 </body>
 </html>
