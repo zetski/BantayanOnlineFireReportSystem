@@ -152,20 +152,29 @@ Class Master extends DBConnection {
 			$_POST['location'] = addslashes(htmlspecialchars($_POST['location']));
 		}
 	
-		// Generate a unique code if id is empty
+				// Generate a unique code if id is empty
 		if (empty($_POST['id'])) {
-			$pref = date("Ymd");
-			$code = sprintf("%'.05d", 1);
+			$datePrefix = date("Ymd");  // Use the current date in YYYYMMDD format
+			$sequenceNumber = 1;       // Start with an initial sequence number
+
 			while (true) {
-				$check = $this->conn->query("SELECT id FROM `request_list` WHERE `code` = '{$pref}{$code}'")->num_rows;
+				// Generate a candidate code using a sequence number
+				$candidateCode = sprintf("%s-%04d", $datePrefix, $sequenceNumber);
+				
+				// Check if the candidate code already exists in the database
+				$check = $this->conn->query("SELECT id FROM `request_list` WHERE `code` = '{$candidateCode}'")->num_rows;
+				
 				if ($check > 0) {
-					$code = sprintf("%'.05d", abs($code) + 1);
+					// If the code exists, increment the sequence number and try again
+					$sequenceNumber++;
 				} else {
-					$_POST['code'] = $pref . $code;
+					// If the code does not exist, set it and break the loop
+					$_POST['code'] = $candidateCode;
 					break;
 				}
 			}
 		}
+
 	
 		// Handle file upload
 		$image_path = null;
