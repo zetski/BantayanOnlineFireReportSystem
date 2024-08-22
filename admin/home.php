@@ -1,8 +1,4 @@
 <?php
-// Define and assign value to $pending_requests before using it
-$pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0")->fetch_row()[0];
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,22 +9,6 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
-    .notification-container {
-      display: inline-block;
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
-    .notification-container .fas.fa-bell {
-      font-size: 24px;
-    }
-    .notification-container .badge {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      font-size: 12px;
-      padding: 4px 6px;
-    }
     .info-box {
       display: flex;
       align-items: center;
@@ -59,14 +39,6 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
     <h3 style="display: inline-block; margin-right: 20px;">
       Welcome, <?php echo $_settings->userdata('firstname')." ".$_settings->userdata('lastname') ?>!
     </h3>
-    <div class="notification-container">
-      <a href="./?page=requests&status=0" class="text-decoration-none">
-        <i class="fas fa-bell" style="font-size: 24px;"></i>
-        <span class="badge bg-danger" id="notification-count" style="font-size: 12px;">
-          <?php echo format_num($pending_requests); ?>
-        </span>
-      </a>
-    </div>
     <hr>
     <div class="row h-100">
       <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
@@ -198,24 +170,6 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Example AJAX call to update notification count
-    function updateNotificationCount() {
-      $.ajax({
-        url: 'get_notification_count.php', // Replace with your endpoint
-        method: 'GET',
-        success: function(response) {
-          $('#notification-count').text(response.count);
-        },
-        error: function(xhr, status, error) {
-          console.error('Error fetching notification count');
-        }
-      });
-    }
-
-    // Call the function initially and every few seconds (example)
-    updateNotificationCount(); // Initial call
-    setInterval(updateNotificationCount, 10000); // Repeat every 10 seconds
-
     // Data for charts
     var barData = {
       labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
@@ -250,46 +204,70 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
     };
 
     var lineData = {
-      labels: ["January", "February", "March", "April", "May", "June", "July", "Aug"],
+      labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
       datasets: [{
-        label: 'Requests Over Time',
-        data: [12, 19, 3, 5, 2, 3, 9, 0], // Example data, replace with your actual data
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1,
-        fill: true
+        label: 'Number of Requests Over Time',
+        data: [
+          <?php echo $team; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 1")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 2")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 3")->fetch_row()[0]; ?>,
+          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 4")->fetch_row()[0]; ?>
+        ],
+        fill: false,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        tension: 0.1
       }]
     };
 
-    // Bar chart configuration
+    // Configs for bar chart
     var barConfig = {
       type: 'bar',
       data: barData,
       options: {
-        scales: {
-          y: {
-            beginAtZero: true
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Request Statistics'
           }
         }
-      }
+      },
     };
 
-    // Line chart configuration
+    // Configs for line chart
     var lineConfig = {
       type: 'line',
       data: lineData,
       options: {
-        scales: {
-          y: {
-            beginAtZero: true
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Requests Over Time'
           }
         }
-      }
+      },
     };
 
-    // Render charts
-    var barChart = new Chart(document.getElementById('barChart'), barConfig);
-    var lineChart = new Chart(document.getElementById('lineChart'), lineConfig);
+    // Rendering the charts
+    var barChart = new Chart(
+      document.getElementById('barChart'),
+      barConfig
+    );
+
+    var lineChart = new Chart(
+      document.getElementById('lineChart'),
+      lineConfig
+    );
   </script>
 </body>
 </html>
+?>
