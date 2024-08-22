@@ -36,6 +36,28 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
       flex: 1;
       margin-left: 15px;
     }
+    .chart-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom right, #f0f4ff, #e3ebff);
+    border-radius: 15px;
+    padding: 15px;
+  }
+  
+  canvas {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 15px;
+  }
+
+  /* Customize the tooltips */
+  .chartjs-tooltip {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+  }
   </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -219,35 +241,127 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
       }]
     };
 
-    // Bar chart configuration
     var barConfig = {
-      type: 'bar',
-      data: barData,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+    type: 'bar',
+    data: barData,
+    options: {
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            color: '#333',
+            font: {
+              size: 14
+            }
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          titleColor: '#fff',
+          bodyColor: '#fff',
+          borderColor: '#fff',
+          borderWidth: 1
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(200, 200, 200, 0.2)'
+          },
+          ticks: {
+            color: '#666',
+            font: {
+              size: 12
+            }
+          }
+        },
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            color: '#666',
+            font: {
+              size: 12
+            }
           }
         }
-      }
-    };
-
-    // Line chart configuration
-    var lineConfig = {
-      type: 'line',
-      data: lineData,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+      },
+      elements: {
+        bar: {
+          borderRadius: 5
         }
       }
-    };
+    }
+  };
 
-    // Render charts
-    var barChart = new Chart(document.getElementById('barChart'), barConfig);
-    var lineChart = new Chart(document.getElementById('lineChart'), lineConfig);
+  var lineConfig = {
+    type: 'line',
+    data: lineData,
+    options: {
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            color: '#333',
+            font: {
+              size: 14
+            }
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          titleColor: '#fff',
+          bodyColor: '#fff',
+          borderColor: '#fff',
+          borderWidth: 1
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(200, 200, 200, 0.2)'
+          },
+          ticks: {
+            color: '#666',
+            font: {
+              size: 12
+            }
+          }
+        },
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            color: '#666',
+            font: {
+              size: 12
+            }
+          }
+        }
+      },
+      elements: {
+        line: {
+          tension: 0.4,
+          borderWidth: 3
+        },
+        point: {
+          radius: 4,
+          backgroundColor: '#fff',
+          borderWidth: 2
+        }
+      }
+    }
+  };
+  
+  // Initialize the charts
+  var barChart = new Chart(document.getElementById('barChart'), barConfig);
+  var lineChart = new Chart(document.getElementById('lineChart'), lineConfig);
   </script>
 </body>
 </html>
