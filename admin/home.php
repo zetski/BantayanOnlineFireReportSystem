@@ -13,22 +13,6 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
-    .notification-container {
-      display: inline-block;
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
-    .notification-container .fas.fa-bell {
-      font-size: 24px;
-    }
-    .notification-container .badge {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      font-size: 12px;
-      padding: 4px 6px;
-    }
     .info-box {
       display: flex;
       align-items: center;
@@ -59,15 +43,6 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
     <h3 style="display: inline-block; margin-right: 20px;">
       Welcome, <?php echo $_settings->userdata('firstname')." ".$_settings->userdata('lastname') ?>!
     </h3>
-    <div class="notification-container">
-      <a href="./?page=requests&status=0" class="text-decoration-none">
-        <i class="fas fa-bell" style="font-size: 24px;"></i>
-        <span class="badge bg-danger" id="notification-count" style="font-size: 12px;">
-          <?php echo format_num($pending_requests); ?>
-        </span>
-      </a>
-    </div>
-    <hr>
     <div class="row h-100">
       <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
         <a href="./?page=teams" class="text-decoration-none h-100 d-block">
@@ -197,25 +172,8 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
   <script>
-    // Example AJAX call to update notification count
-    function updateNotificationCount() {
-      $.ajax({
-        url: 'get_notification_count.php', // Replace with your endpoint
-        method: 'GET',
-        success: function(response) {
-          $('#notification-count').text(response.count);
-        },
-        error: function(xhr, status, error) {
-          console.error('Error fetching notification count');
-        }
-      });
-    }
-
-    // Call the function initially and every few seconds (example)
-    updateNotificationCount(); // Initial call
-    setInterval(updateNotificationCount, 10000); // Repeat every 10 seconds
-
     // Data for charts
     var barData = {
       labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
