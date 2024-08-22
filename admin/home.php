@@ -36,6 +36,11 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
       flex: 1;
       margin-left: 15px;
     }
+        #barChart, #lineChart {
+      background-color: rgba(240, 240, 240, 0.8); /* Light gray with slight transparency */
+      border-radius: 10px; /* Optional: adds rounded corners */
+    }
+
   </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -172,7 +177,7 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+
   <script>
     // Data for charts
     var barData = {
@@ -187,13 +192,13 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
           <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 3")->fetch_row()[0]; ?>,
           <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 4")->fetch_row()[0]; ?>
         ],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+                backgroundColor: [
+          'rgba(255, 99, 132, 0.5)',  // Slightly more opaque red
+          'rgba(54, 162, 235, 0.5)',  // Slightly more opaque blue
+          'rgba(255, 206, 86, 0.5)',  // Slightly more opaque yellow
+          'rgba(75, 192, 192, 0.5)',  // Slightly more opaque teal
+          'rgba(153, 102, 255, 0.5)', // Slightly more opaque purple
+          'rgba(255, 159, 64, 0.5)'   // Slightly more opaque orange
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -219,31 +224,46 @@ $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE statu
       }]
     };
 
-    // Bar chart configuration
-    var barConfig = {
-      type: 'bar',
-      data: barData,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+   // Bar chart configuration
+var barConfig = {
+  type: 'bar',
+  data: barData,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: 'rgba(0, 0, 0, 0.8)' // Adjust the legend text color if needed
         }
       }
-    };
+    }
+  }
+};
 
-    // Line chart configuration
-    var lineConfig = {
-      type: 'line',
-      data: lineData,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+// Line chart configuration
+var lineConfig = {
+  type: 'line',
+  data: lineData,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: 'rgba(0, 0, 0, 0.8)' // Adjust the legend text color if needed
         }
       }
-    };
+    }
+  }
+};
+
 
     // Render charts
     var barChart = new Chart(document.getElementById('barChart'), barConfig);
