@@ -40,6 +40,7 @@ $new_reports_count = $new_reports_query->num_rows;
     padding: 2px 5px;
     border-radius: 50%;
     font-size: 5px;
+    font-style: bold;
   }
 
   .dropdown-menu {
