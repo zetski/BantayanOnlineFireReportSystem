@@ -6,72 +6,21 @@
     object-fit: cover;
     left: -7%;
     top: -12%;
-  }
+}
 
-  .user-dd:hover {
+.user-dd:hover {
     color: #fff !important;
-  }
-
-  /* Sidebar styling */
-  .sidebar {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1000; /* Ensure it overlays above all content */
-    top: 0;
-    left: 0;
-    background-color: #ff4600;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-  }
-
-  .sidebar a {
-    padding: 10px 15px;
-    text-decoration: none;
-    font-size: 18px;
-    color: white;
-    display: block;
-    transition: 0.3s;
-  }
-
-  .sidebar a:hover {
-    color: #f1f1f1;
-  }
-
-  .sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-  }
-
-  .navbar {
-    background-color: #ff4600 !important;
-  }
+}
 </style>
-
-<!-- Sidebar Structure -->
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="./">Home</a>
-  <a href="./?p=report">Report</a>
-  <a href="javascript:void(0)" id="search_report">View Status</a>
-  <a href="./?p=about">About Us</a>
-  <a href="./?p=contact">Contact Us</a>
-  <a href="./admin">Login</a>
-</div>
-
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#ff4600">
   <div class="container px-4 px-lg-5">
-    <!-- Button to open the sidebar -->
-    <button class="navbar-toggler btn btn-sm" type="button" onclick="openNav()">
-      <span class="navbar-toggler-icon"></span>
-    </button>
     <a class="navbar-brand" href="./">
       <img src="<?php echo validate_image($_settings->info('logo')) ?>" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
       <?php echo $_settings->info('short_name') ?>
     </a>
+    <button class="navbar-toggler btn btn-sm" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
         <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="./">Home</a></li>
@@ -86,7 +35,6 @@
     </div>
   </div>
 </nav>
-
 
 <script>
   $(function() {
