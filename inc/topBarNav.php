@@ -39,34 +39,26 @@
 <script>
   $(function() {
     $('#search_report').click(function() {
-      uni_modal("Search Request Report", "report/search.php");
+        uni_modal("Search Request Report", "report/search.php");
     });
 
     $('#navbarSupportedContent').on('show.bs.collapse', function() {
-      $('.navbar').addClass('navbar-shrink');
+        $('.navbar').addClass('navbar-shrink');
     });
 
     $('#navbarSupportedContent').on('hidden.bs.collapse', function() {
-      if ($(window).scrollTop() === 0) {
-        $('.navbar').removeClass('navbar-shrink');
-      }
+        if ($(window).scrollTop() === 0) {
+            $('.navbar').removeClass('navbar-shrink');
+        }
     });
 
     $('#search-form').submit(function(e) {
-      e.preventDefault();
-      var sTxt = $('[name="search"]').val();
-      if (sTxt != '') {
-        location.href = './?p=products&search=' + sTxt;
-      }
+        e.preventDefault();
+        var sTxt = $('[name="search"]').val();
+        if (sTxt != '') {
+            location.href = './?p=products&search=' + sTxt;
+        }
     });
-  });
+});
 
-  function openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-  }
-
-  function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-  }
 </script>
-
