@@ -1,8 +1,4 @@
 <style>
-    .container{
-        padding-top: 50px;
-        margin-top: 50px;
-    }
     .contact-icon {
         font-size: 1.5em;
         color: #dc3545; /* Bootstrap danger color */
@@ -19,7 +15,7 @@
         margin-left: 2em;
     }
     .content {
-        margin-top: 20px;
+        margin-top: 50px;
     }
 </style>
 
