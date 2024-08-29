@@ -1,4 +1,8 @@
 <style>
+    .container{
+        padding-top: 50px;
+        margin-top: 50px;
+    }
     .contact-icon {
         font-size: 1.5em;
         color: #dc3545; /* Bootstrap danger color */
@@ -18,13 +22,13 @@
         margin-top: 20px;
     }
 </style>
+
 <div class="container">
     <div class="content">
-    </div>
-    <div class="row mt-lg-n4 mt-md-n4 justify-content-center">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="card rounded-0">
-            <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                <div class="card rounded-0 shadow-sm">
+                    <div class="card-body">
                         <h3 class="text-center"><b>Contact Us</b></h3>
                         <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
                         <dl class="contact-details">
@@ -46,11 +50,11 @@
                             <dd><?= $_settings->info('address') ?></dd>
                         </dl>
                     </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    $(function(){
-    })
-</script>
+
+<!-- Include FontAwesome for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
