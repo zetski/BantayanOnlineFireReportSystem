@@ -30,6 +30,13 @@
                         </label>
                         <input type="email" class="form-control form-control-sm rounded-0" name="email" id="email" value="<?php echo $_settings->info('email') ?>">
                     </div>
+                    <!-- New Facebook field with icon -->
+                    <div class="form-group">
+                        <label for="facebook" class="control-label">
+                            <i class="fab fa-facebook-square"></i> Facebook
+                        </label>
+                        <input type="url" class="form-control form-control-sm rounded-0" name="facebook" id="facebook" value="<?php echo $_settings->info('facebook') ?>" placeholder="https://www.facebook.com/yourprofile">
+                    </div>
                     <div class="form-group">
                         <label for="address" class="control-label">
                             <i class="fas fa-map-marker-alt"></i> Address
