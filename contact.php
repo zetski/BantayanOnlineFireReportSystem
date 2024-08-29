@@ -17,6 +17,9 @@
     .content {
         margin-top: 100px;
     }
+    .card-body{
+        width: 100%;
+    }
 </style>
 
 <div class="container">
