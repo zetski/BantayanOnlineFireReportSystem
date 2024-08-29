@@ -1,19 +1,31 @@
 <style>
+    /* Center the contact section vertically and horizontally */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Full viewport height */
+    }
+
     .contact-icon {
         font-size: 1.5em;
         color: #dc3545; /* Bootstrap danger color */
         margin-right: 10px;
     }
+
     .contact-details {
         margin-top: 20px;
     }
+
     .contact-details dt {
         display: flex;
         align-items: center;
     }
+
     .contact-details dd {
         margin-left: 2em;
     }
+
     .content {
         margin-top: 20px;
     }
@@ -24,7 +36,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
                 <div class="card rounded-0 shadow-sm">
-                    <div class="card-body" style="position: center">
+                    <div class="card-body">
                         <h3 class="text-center"><b>Contact Us</b></h3>
                         <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
                         <dl class="contact-details">
