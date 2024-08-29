@@ -24,7 +24,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
                 <div class="card rounded-0 shadow-sm">
-                    <div class="card-body">
+                    <div class="card-body" style="position: center">
                         <h3 class="text-center"><b>Contact Us</b></h3>
                         <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
                         <dl class="contact-details">
