@@ -40,6 +40,11 @@
                                 <i class="fas fa-mobile-alt contact-icon"></i> Mobile #
                             </dt>
                             <dd><?= $_settings->info('mobile') ?></dd>
+                            <!-- New Facebook field with icon -->
+                            <dt class="text-muted">
+                                <i class="fab fa-facebook-square contact-icon"></i> Facebook
+                            </dt>
+                            <dd><?= $_settings->info('facebook') ?></dd>
                             <dt class="text-muted">
                                 <i class="fas fa-map-marker-alt contact-icon"></i> Address
                             </dt>
