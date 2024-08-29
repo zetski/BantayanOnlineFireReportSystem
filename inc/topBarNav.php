@@ -32,7 +32,7 @@
         <li class="nav-item"><a class="nav-link text-white" href="./?p=report">Report</a></li>
         <li class="nav-item"><a class="nav-link text-white" id="search_report" href="javascript:void(0)">View Status</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="./?p=about">About Us</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="./?p=contact">FireSafety</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="./?p=contact">Contact Us</a></li>
       </ul>
       <div class="d-flex align-items-center">
         <a class="font-weight-bolder text-light mx-2 text-decoration-none" href="./admin">Login</a>
