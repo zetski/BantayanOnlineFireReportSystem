@@ -85,6 +85,12 @@
             </div>
         </div>
     </div>
+    <style>
+        body{
+            padding-top: 10px;
+            margin-top: 40px;
+        }
+    </style>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
     const municipalityBarangays = {
