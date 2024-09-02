@@ -15,13 +15,13 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
     <div class="card-body">
         <div class="container-fluid">
             <table class="table table-hover table-striped table-bordered" id="list">
-                <colgroup>
+            <colgroup>
                     <col width="5%">
                     <col width="15%">
-                    <col width="10%">
                     <col width="15%">
-                    <col width="25%">
                     <col width="20%">
+                    <col width="15%">
+                    <col width="15%">
                     <col width="10%">
                 </colgroup>
                 <thead>
@@ -31,7 +31,8 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                         <th>Code</th>
                         <th>Reported By</th>
                         <th>Message</th>
-                        <th>Location</th>
+                        <th>Address</th>
+                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                 </thead>
