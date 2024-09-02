@@ -51,8 +51,8 @@
                                 </div> -->
                                 <!-- Add file upload field if needed -->
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <label for="photo" class="control-label">Choose Photo</label>
-                                    <input type="file" class="form-control form-control-sm rounded-0" name="photo" id="photo">
+                                    <label for="image" class="control-label">Choose Photo</label>
+                                    <input type="file" class="form-control form-control-sm rounded-0" name="image" id="image">
                                 </div>
                                 <!-- Add dropdowns for municipality and barangay -->
                             <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
@@ -71,8 +71,8 @@
                                 </select>
                             </div>
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                    <label for="purok_street" class="control-label">Purok/Street</label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="purok_street" id="purok_street">
+                                    <label for="sitio_street" class="control-label">Sitio/Street</label>
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="sitio_street" id="sitio_street">
                                 </div>
                             </form>
                         </div>
