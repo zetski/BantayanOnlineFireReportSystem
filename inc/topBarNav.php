@@ -14,13 +14,14 @@
     height: 100vh;
     background-color: #ff4600;
     box-shadow: 2px 0 5px rgba(0,0,0,0.3);
-    transition: left 0.5s ease-in-out; /* Smooth transition */
+    transition: transform 0.3s ease; /* Smooth transition for slide in/out */
+    transform: translateX(-100%); /* Initially off-screen */
     z-index: 1000;
     overflow-y: auto; /* Ensure content scrolls if it's too long */
   }
 
   .navbar-collapse.show {
-    left: 0; /* Slide in from the left */
+    transform: translateX(0); /* Slide in from the left */
   }
 
   .navbar-nav {
@@ -45,6 +46,7 @@
       background-color: transparent;
       box-shadow: none;
       transition: none;
+      transform: none; /* Remove transform for larger screens */
     }
 
     .navbar-nav {
@@ -57,7 +59,6 @@
     }
   }
 </style>
-
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#ff4600">
   <div class="container px-4 px-lg-5">
@@ -85,23 +86,21 @@
 
 <script>
   $(function() {
-    $('#search_report').click(function() {
-      uni_modal("Search Request Report", "report/search.php");
-    });
-
+    // Toggle sidebar visibility
     $('.navbar-toggler').click(function() {
       $('#navbarSupportedContent').toggleClass('show');
     });
 
-    // Close sidebar when clicking outside of it
+    // Optional: Close sidebar when clicking outside of it (if desired)
     $(document).click(function(event) {
-      if (!$(event.target).closest('.navbar-collapse, .navbar-toggler').length) {
+      if (!$(event.target).closest('#navbarSupportedContent, .navbar-toggler').length) {
         if ($('#navbarSupportedContent').hasClass('show')) {
           $('#navbarSupportedContent').removeClass('show');
         }
       }
     });
 
+    // Handle form submission
     $('#search-form').submit(function(e) {
       e.preventDefault();
       var sTxt = $('[name="search"]').val();
@@ -110,6 +109,5 @@
     });
   });
 </script>
-
 
 
