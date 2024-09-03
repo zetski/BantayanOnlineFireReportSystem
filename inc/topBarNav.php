@@ -2,6 +2,7 @@
   /* Logo circular styling */
   .navbar-brand img {
     border-radius: 50%;
+    margin-right: 10px; /* Space between logo and label */
   }
 
   /* Sidebar styling for navbar on mobile */
@@ -13,7 +14,7 @@
     height: 100vh;
     background-color: #ff4600;
     box-shadow: 2px 0 5px rgba(0,0,0,0.3);
-    transition: left 0.3s ease-in-out;
+    transition: left 0.5s ease-in-out; /* Smooth transition */
     z-index: 1000;
     overflow-y: auto; /* Ensure content scrolls if it's too long */
   }
@@ -59,9 +60,9 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#ff4600">
   <div class="container px-4 px-lg-5">
-    <a class="navbar-brand" href="./">
+    <a class="navbar-brand d-flex align-items-center" href="./">
       <img src="<?php echo validate_image($_settings->info('logo')) ?>" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-      <?php echo $_settings->info('short_name') ?>
+      <span><?php echo $_settings->info('short_name') ?></span> <!-- Label next to the logo -->
     </a>
     <button class="navbar-toggler btn btn-sm" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -99,4 +100,5 @@
     });
   });
 </script>
+
 
