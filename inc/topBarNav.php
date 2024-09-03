@@ -6,46 +6,12 @@
     object-fit: cover;
     left: -7%;
     top: -12%;
-  }
+}
 
-  .navbar-toggler {
-    border: none;
-  }
-
-  .navbar-nav {
-    flex-direction: column;
-  }
-
-  .navbar-collapse {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100vh;
-    background-color: #ff4600;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
-  }
-
-  .navbar-collapse.show {
-    transform: translateX(0);
-  }
-
-  .navbar-collapse .nav-link {
-    color: white;
-  }
-
-  .navbar-collapse .nav-link:hover {
+.user-dd:hover {
     color: #fff !important;
-  }
-
-  .navbar-brand img {
-    border-radius: 50%;
-  }
+}
 </style>
-
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#ff4600">
   <div class="container px-4 px-lg-5">
     <a class="navbar-brand" href="./">
@@ -70,14 +36,20 @@
   </div>
 </nav>
 
+
 <script>
   $(function() {
     $('#search_report').click(function() {
       uni_modal("Search Request Report", "report/search.php");
     });
 
-    $('.navbar-toggler').click(function() {
-      $('#navbarSupportedContent').toggleClass('show');
+    $('#navbarResponsive').on('show.bs.collapse', function() {
+      $('#mainNav').addClass('navbar-shrink');
+    });
+
+    $('#navbarResponsive').on('hidden.bs.collapse', function() {
+      if ($('body').offset.top == 0)
+        $('#mainNav').removeClass('navbar-shrink');
     });
 
     $('#search-form').submit(function(e) {
