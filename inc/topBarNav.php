@@ -1,17 +1,62 @@
 <style>
-  .user-img {
-    position: absolute;
-    height: 27px;
-    width: 27px;
-    object-fit: cover;
-    left: -7%;
-    top: -12%;
-}
+  /* Logo circular styling */
+  .navbar-brand img {
+    border-radius: 50%;
+  }
 
-.user-dd:hover {
+  /* Sidebar styling for navbar on mobile */
+  .navbar-collapse {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Initially off-screen */
+    width: 250px;
+    height: 100vh;
+    background-color: #ff4600;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto; /* Ensure content scrolls if it's too long */
+  }
+
+  .navbar-collapse.show {
+    left: 0; /* Slide in from the left */
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .navbar-nav .nav-link {
+    color: white;
+    padding: 15px;
+  }
+
+  .navbar-nav .nav-link:hover {
     color: #fff !important;
-}
+  }
+
+  @media (min-width: 992px) {
+    .navbar-collapse {
+      position: static;
+      width: auto;
+      height: auto;
+      background-color: transparent;
+      box-shadow: none;
+      transition: none;
+    }
+
+    .navbar-nav {
+      flex-direction: row;
+      margin-top: 0;
+    }
+
+    .navbar-nav .nav-link {
+      padding: 15px 20px;
+    }
+  }
 </style>
+
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#ff4600">
   <div class="container px-4 px-lg-5">
     <a class="navbar-brand" href="./">
@@ -36,20 +81,14 @@
   </div>
 </nav>
 
-
 <script>
   $(function() {
     $('#search_report').click(function() {
       uni_modal("Search Request Report", "report/search.php");
     });
 
-    $('#navbarResponsive').on('show.bs.collapse', function() {
-      $('#mainNav').addClass('navbar-shrink');
-    });
-
-    $('#navbarResponsive').on('hidden.bs.collapse', function() {
-      if ($('body').offset.top == 0)
-        $('#mainNav').removeClass('navbar-shrink');
+    $('.navbar-toggler').click(function() {
+      $('#navbarSupportedContent').toggleClass('show');
     });
 
     $('#search-form').submit(function(e) {
@@ -60,3 +99,4 @@
     });
   });
 </script>
+
