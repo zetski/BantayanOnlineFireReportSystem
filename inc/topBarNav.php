@@ -58,6 +58,7 @@
   }
 </style>
 
+
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#ff4600">
   <div class="container px-4 px-lg-5">
     <a class="navbar-brand d-flex align-items-center" href="./">
@@ -92,6 +93,15 @@
       $('#navbarSupportedContent').toggleClass('show');
     });
 
+    // Close sidebar when clicking outside of it
+    $(document).click(function(event) {
+      if (!$(event.target).closest('.navbar-collapse, .navbar-toggler').length) {
+        if ($('#navbarSupportedContent').hasClass('show')) {
+          $('#navbarSupportedContent').removeClass('show');
+        }
+      }
+    });
+
     $('#search-form').submit(function(e) {
       e.preventDefault();
       var sTxt = $('[name="search"]').val();
@@ -100,5 +110,6 @@
     });
   });
 </script>
+
 
 
