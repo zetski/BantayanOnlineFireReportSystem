@@ -45,31 +45,25 @@
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                                     <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required"></textarea>
                                 </div>
-                                <!-- <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
-                                    <textarea rows="3" class="form-control form-control-sm rounded-0" name="location" id="location" required="required"></textarea>
-                                </div> -->
-                                <!-- Add file upload field if needed -->
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="image" class="control-label">Choose Photo</label>
                                     <input type="file" class="form-control form-control-sm rounded-0" name="image" id="image">
                                 </div>
-                                <!-- Add dropdowns for municipality and barangay -->
-                            <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                <label for="municipality" class="control-label">Municipality</label>
-                                <select class="form-control form-control-sm rounded-0" name="municipality" id="municipality">
-                                    <option value="">Select Municipality</option>
-                                    <option value="bantayan">Bantayan</option>
-                                    <option value="santa_fe">Santa Fe</option>
-                                    <option value="madridejos">Madridejos</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                <label for="barangay" class="control-label">Barangay</label>
-                                <select class="form-control form-control-sm rounded-0" name="barangay" id="barangay">
-                                    <option value="">Select Barangay</option>
-                                </select>
-                            </div>
+                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                    <label for="municipality" class="control-label">Municipality</label>
+                                    <select class="form-control form-control-sm rounded-0" name="municipality" id="municipality">
+                                        <option value="">Select Municipality</option>
+                                        <option value="bantayan">Bantayan</option>
+                                        <option value="santa_fe">Santa Fe</option>
+                                        <option value="madridejos">Madridejos</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                    <label for="barangay" class="control-label">Barangay</label>
+                                    <select class="form-control form-control-sm rounded-0" name="barangay" id="barangay">
+                                        <option value="">Select Barangay</option>
+                                    </select>
+                                </div>
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
                                     <label for="sitio_street" class="control-label">Sitio/Street</label>
                                     <input type="text" class="form-control form-control-sm rounded-0" name="sitio_street" id="sitio_street">
@@ -86,92 +80,56 @@
         </div>
     </div>
     <style>
-        body{
+        body {
             padding-top: 10px;
             margin-top: 40px;
         }
     </style>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const municipalityBarangays = {
-        'bantayan': [
-            { value: 'Atop-Atop', text: 'Atop-Atop' },
-            { value: 'Baigad', text: 'Baigad' },
-            { value: 'Bantigue', text: 'Bantigue' },
-            { value: 'Baod', text: 'Baod' },
-            { value: 'Binaobao', text: 'Binaobao' },
-            { value: 'Botigues', text: 'Botigues' },
-            { value: 'Doong', text: 'Doong' },
-            { value: 'Guiwanon', text: 'Guiwanon' },
-            { value: 'Hilotongan', text: 'Hilotongan' },
-            { value: 'Kabac', text: 'Kabac' },
-            { value: 'Kabangbang', text: 'Kabangbang' },
-            { value: 'Kampinganon', text: 'Kampinganon' },
-            { value: 'Kangkaibe', text: 'Kangkaibe' },
-            { value: 'Lipayran', text: 'Lipayran' },
-            { value: 'Luyongbay-bay', text: 'Luyongbay-bay' },
-            { value: 'Mojon', text: 'Mojon' },
-            { value: 'Oboob', text: 'Oboob' },
-            { value: 'Patao', text: 'Patao' },
-            { value: 'Putian', text: 'Putian' },
-            { value: 'Sillon', text: 'Sillon' },
-            { value: 'Suba', text: 'Suba' },
-            { value: 'Sulangan', text: 'Sulangan' },
-            { value: 'Sungko', text: 'Sungko' },
-            { value: 'Tamiao', text: 'Tamiao' },
-            { value: 'Ticad', text: 'Ticad' }
-        ],
-        'santa_fe': [
-            // Example barangays for Santa Fe
-            { value: 'Balidbid', text: 'Balidbid' },
-            { value: 'Hagdan', text: 'Hagdan' },
-            { value: 'Hilantagaan', text: 'Hilantagaan' },
-            { value: 'Kinatarkan', text: 'Kinatarkan' },
-            { value: 'Langub', text: 'Langub' },
-            { value: 'Maricaban', text: 'Maricaban' },
-            { value: 'Okoy', text: 'Okoy' },
-            { value: 'Poblacion', text: 'Poblacion' },
-            { value: 'Pooc', text: 'Pooc' },
-            { value: 'Talisay', text: 'Talisay' }
-        ],
-        'madridejos': [
-            // Example barangays for Madridejos
-            { value: 'Bunakan', text: 'Bunakan' },
-            { value: 'Kangwayan', text: 'Kangwayan' },
-            { value: 'Kaongkod', text: 'Kaongkod' },
-            { value: 'Kodia', text: 'Kodia' },
-            { value: 'Maalat', text: 'Maalat' },
-            { value: 'Malbago', text: 'Malbago' },
-            { value: 'Mancilang', text: 'Mancilang' },
-            { value: 'Pili', text: 'Pili' },
-            { value: 'Poblacion', text: 'Poblacion' },
-            { value: 'San Agustin', text: 'San Agustin' },
-            { value: 'Tabagak', text: 'Tabagak' },
-            { value: 'Talangnan', text: 'Talangnan' },
-            { value: 'Tarong', text: 'Tarong' },
-            { value: 'Tugas', text: 'Tugas' }
-        ]
-    };
+        document.addEventListener('DOMContentLoaded', function() {
+            const municipalityBarangays = {
+                'bantayan': [...],
+                'santa_fe': [...],
+                'madridejos': [...]
+            };
 
-    const municipalitySelect = document.getElementById('municipality');
-    const barangaySelect = document.getElementById('barangay');
+            const municipalitySelect = document.getElementById('municipality');
+            const barangaySelect = document.getElementById('barangay');
 
-    municipalitySelect.addEventListener('change', function() {
-        const selectedMunicipality = this.value;
-        const barangays = municipalityBarangays[selectedMunicipality] || [];
+            municipalitySelect.addEventListener('change', function() {
+                const selectedMunicipality = this.value;
+                const barangays = municipalityBarangays[selectedMunicipality] || [];
 
-        // Clear existing options
-        barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
+                barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
 
-        // Populate barangay options
-        barangays.forEach(barangay => {
-            const option = document.createElement('option');
-            option.value = barangay.value;
-            option.textContent = barangay.text;
-            barangaySelect.appendChild(option);
+                barangays.forEach(barangay => {
+                    const option = document.createElement('option');
+                    option.value = barangay.value;
+                    option.textContent = barangay.text;
+                    barangaySelect.appendChild(option);
+                });
+            });
+
+            // Validation for Lastname, Firstname, Middlename (letters only, capitalize first letter)
+            const nameFields = ['lastname', 'firstname', 'middlename'];
+            nameFields.forEach(field => {
+                const inputField = document.getElementById(field);
+                inputField.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+                    this.value = this.value.replace(/\b\w/g, function(char) {
+                        return char.toUpperCase();
+                    });
+                });
+            });
+
+            // Validation for Contact Number (numbers only, 11 digits)
+            const contactField = document.getElementById('contact');
+            contactField.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if (this.value.length > 11) {
+                    this.value = this.value.slice(0, 11);
+                }
+            });
         });
-    });
-});
-</script>
+    </script>
 </section>
-<script src="report/scripts.js"></script>
