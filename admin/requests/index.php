@@ -15,13 +15,13 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
     <div class="card-body">
         <div class="container-fluid">
             <table class="table table-hover table-striped table-bordered" id="list">
-                <colgroup>
+            <colgroup>
                     <col width="5%">
                     <col width="15%">
-                    <col width="10%">
                     <col width="15%">
-                    <col width="25%">
                     <col width="20%">
+                    <col width="15%">
+                    <col width="15%">
                     <col width="10%">
                 </colgroup>
                 <thead>
@@ -31,7 +31,8 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                         <th>Code</th>
                         <th>Reported By</th>
                         <th>Message</th>
-                        <th>Location</th>
+                        <th>Address</th>
+                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -59,24 +60,68 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                     $qry = $conn->query("SELECT * FROM `request_list` {$where} ORDER BY abs(unix_timestamp(date_created)) DESC");
                     while ($row = $qry->fetch_assoc()):
                     ?>
-                        <tr>
+                       <tr>
                             <td class="text-center"><?php echo $i++; ?></td>
                             <td><?php echo date("Y-m-d H:i", strtotime($row['date_created'])) ?></td>
-                            <td><?php echo $row['code'] ?></td>
-                            <td><?php echo $row['fullname'] ?></td>
-                            <td><?php echo $row['message'] ?></td>
-                            <td><?php echo $row['location'] ?></td>
+                            <td><?php echo $row['code']; ?></td>
+                            <td>
+                                <?php echo $row['lastname'] . ', ' . $row['firstname'] . ' ' . $row['middlename']; ?><br>
+                                <small><?php echo $row['contact']; ?></small>
+                            </td>
+                            <td>
+                                <span>Subject: <?php echo $row['subject']; ?></span><br>
+                                <span><?php echo $row['message']; ?></span>
+                            </td>
+                            <td>
+                                <?php 
+                                    echo $row['purok_street'] . ', ' . $row['barangay'] . ', ' . ucwords(str_replace('_', ' ', $row['municipality']));
+                                ?>
+                            </td>
+                            <td>
+                            <?php
+                            // Define the base directory where images are stored
+                            $baseDir = '../uploads/';
+
+                            // Check if the photo field is not empty and if the file exists
+                            $imagePath = !empty($row['image']) && file_exists($baseDir . $row['image']) 
+                                        ? $baseDir . $row['image'] 
+                                        : $baseDir . 'default-image.jpg';
+                            ?>
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#imageModal<?php echo $i; ?>">
+                                <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Image" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                            </a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="imageModal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel<?php echo $i; ?>" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="imageModalLabel<?php echo $i; ?>">Image Preview</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Image" class="img-fluid">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </td>
                             <td align="center">
                                 <button type="button" class="btn btn-flat p-1 btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
                                     Action
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <div class="dropdown-menu" role="menu">
-                                    <a class="dropdown-item" href="./?page=requests/view_request&id=<?php echo $row['id'] ?>"><span class="fa fa-eye text-dark"></span> View</a>
+                                    <a class="dropdown-item" href="./?page=requests/view_request&id=<?php echo $row['id']; ?>"><span class="fa fa-eye text-dark"></span> View</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="./?page=requests/manage_request&id=<?php echo $row['id'] ?>"><span class="fa fa-edit text-primary"></span> Edit</a>
+                                    <a class="dropdown-item" href="./?page=requests/manage_request&id=<?php echo $row['id']; ?>"><span class="fa fa-edit text-primary"></span> Edit</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Delete</a>
+                                    <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id']; ?>"><span class="fa fa-trash text-danger"></span> Delete</a>
                                 </div>
                             </td>
                         </tr>
