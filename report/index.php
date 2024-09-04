@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
                                     <label for="contact" class="control-label">Contact # <small class="text-danger">*</small></label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required">
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required" maxlength="11">
                                 </div>
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
                                     <label for="subject" class="control-label">Subject <small class="text-danger">*</small></label>
@@ -87,48 +87,28 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const municipalityBarangays = {
-                'bantayan': [...],
-                'santa_fe': [...],
-                'madridejos': [...]
-            };
-
-            const municipalitySelect = document.getElementById('municipality');
-            const barangaySelect = document.getElementById('barangay');
-
-            municipalitySelect.addEventListener('change', function() {
-                const selectedMunicipality = this.value;
-                const barangays = municipalityBarangays[selectedMunicipality] || [];
-
-                barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
-
-                barangays.forEach(barangay => {
-                    const option = document.createElement('option');
-                    option.value = barangay.value;
-                    option.textContent = barangay.text;
-                    barangaySelect.appendChild(option);
+            // Validation for Lastname, Firstname, Middlename
+            document.getElementById('lastname').addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
                 });
             });
 
-            // Validation for Lastname, Firstname, Middlename (letters only, capitalize first letter)
-            const nameFields = ['lastname', 'firstname', 'middlename'];
-            nameFields.forEach(field => {
-                const inputField = document.getElementById(field);
-                inputField.addEventListener('input', function() {
-                    this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
-                    this.value = this.value.replace(/\b\w/g, function(char) {
-                        return char.toUpperCase();
-                    });
+            document.getElementById('firstname').addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
                 });
             });
 
-            // Validation for Contact Number (numbers only, 11 digits)
-            const contactField = document.getElementById('contact');
-            contactField.addEventListener('input', function() {
-                this.value = this.value.replace(/[^0-9]/g, '');
-                if (this.value.length > 11) {
-                    this.value = this.value.slice(0, 11);
-                }
+            document.getElementById('middlename').addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
+                });
+            });
+
+            // Validation for Contact Number (numbers only, max 11 digits)
+            document.getElementById('contact').addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 11);
             });
         });
     </script>
