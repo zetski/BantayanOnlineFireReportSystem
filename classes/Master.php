@@ -90,137 +90,52 @@ Class Master extends DBConnection {
 		return json_encode($resp);
 
 	}
-	// function save_request(){
-	// 	if(isset($_POST['message']))
-	// 	$_POST['message'] = addslashes(htmlspecialchars($_POST['message']));
-		
-	// 	if(isset($_POST['location']))
-	// 	$_POST['location'] = addslashes(htmlspecialchars($_POST['location']));
 
-	// 	if(empty($_POST['id'])){
-	// 		$pref = date("Ymd");
-	// 		$code = sprintf("%'.05d", 1);
-	// 		while(true){
-	// 			$check = $this->conn->query("SELECT id FROM `request_list` where `code` = '{$pref}{$code}'")->num_rows;
-	// 			if($check > 0){
-	// 				$code = sprintf("%'.05d", abs($code) + 1);
-	// 			}else{
-	// 				$_POST['code'] = $pref.$code;
-	// 				break;
-	// 			}
-	// 		}
-	// 	}
-	// 	extract($_POST);
-	// 	$data = "";
-	// 	foreach($_POST as $k =>$v){
-	// 		if(!in_array($k,array('id'))){
-	// 			if(!empty($data)) $data .=",";
-	// 			$v = $this->conn->real_escape_string($v);
-	// 			$data .= " `{$k}`='{$v}' ";
-	// 		}
-	// 	}
-	// 	if(empty($id)){
-	// 		$sql = "INSERT INTO `request_list` set {$data} ";
-	// 	}else{
-	// 		$sql = "UPDATE `request_list` set {$data} where id = '{$id}' ";
-	// 	}
-	// 		$save = $this->conn->query($sql);
-	// 	if($save){
-	// 		$tid = !empty($id) ? $id : $this->conn->insert_id;
-	// 		$resp['tid'] = $tid;
-	// 		$resp['status'] = 'success';
-	// 		if(empty($id)){
-	// 			$this->settings->set_flashdata('request_sent', "Your report has been sent successfully. Your request code id: <b>{$code}</b>");
-	// 		}else{
-	// 			$resp['msg'] = " request successfully updated.";
-	// 			$this->settings->set_flashdata('success', "Request has been updated successfully.");
-	// 		}
-
-	// 	}else{
-	// 		$resp['status'] = 'failed';
-	// 		$resp['err'] = $this->conn->error."[{$sql}]";
-	// 	}
-	
-	// 		return json_encode($resp);
-	// }
 	function save_request() {
-		// Sanitize input
+		// Sanitize inputs
 		if (isset($_POST['message'])) {
 			$_POST['message'] = addslashes(htmlspecialchars($_POST['message']));
 		}
-		if (isset($_POST['location'])) {
-			$_POST['location'] = addslashes(htmlspecialchars($_POST['location']));
-		}
 	
-				// Generate a unique code if id is empty
-		if (empty($_POST['id'])) {
-			$datePrefix = date("Ymd");  // Use the current date in YYYYMMDD format
-			$sequenceNumber = 1;       // Start with an initial sequence number
-
-			while (true) {
-				// Generate a candidate code using a sequence number
-				$candidateCode = sprintf("%s-%04d", $datePrefix, $sequenceNumber);
-				
-				// Check if the candidate code already exists in the database
-				$check = $this->conn->query("SELECT id FROM `request_list` WHERE `code` = '{$candidateCode}'")->num_rows;
-				
-				if ($check > 0) {
-					// If the code exists, increment the sequence number and try again
-					$sequenceNumber++;
-				} else {
-					// If the code does not exist, set it and break the loop
-					$_POST['code'] = $candidateCode;
-					break;
-				}
-			}
-		}
-
+		// Handle file upload for photo
+		$photo_path = '';
+		if (isset($_FILES['photo']) && $_FILES['photo']['error'] == UPLOAD_ERR_OK) {
+			$photo_tmp_name = $_FILES['photo']['tmp_name'];
+			$photo_name = $_FILES['photo']['name'];
+			$photo_ext = pathinfo($photo_name, PATHINFO_EXTENSION);
+			$unique_name = uniqid() . '.' . $photo_ext;
+			$photo_path = '../uploads/' . $unique_name;
 	
-		// Handle file upload
-		$image_path = null;
-		if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-			$fileTmpPath = $_FILES['image']['tmp_name'];
-			$fileName = $_FILES['image']['name'];
-			$fileSize = $_FILES['image']['size'];
-			$fileType = $_FILES['image']['type'];
-			$fileNameCmps = explode(".", $fileName);
-			$fileExtension = strtolower(end($fileNameCmps));
-	
-			$allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
-			if (in_array($fileExtension, $allowedfileExtensions)) {
-				$uploadFileDir = '../uploads/';
-				if (!is_dir($uploadFileDir)) {
-					mkdir($uploadFileDir, 0777, true);
-				}
-				$newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-				$dest_path = $uploadFileDir . $newFileName;
-	
-				if (move_uploaded_file($fileTmpPath, $dest_path)) {
-					$_POST['image'] = $dest_path;
-				} else {
-					$resp['status'] = 'failed';
-					$resp['err'] = 'Failed to move uploaded file.';
-					return json_encode($resp);
-				}
+			if (move_uploaded_file($photo_tmp_name, $photo_path)) {
+				// Only save the file name in the database, without the '../uploads/' prefix
+				$photo_path = $unique_name;
 			} else {
-				$resp['status'] = 'failed';
-				$resp['err'] = 'Invalid file extension.';
-				return json_encode($resp);
+				$photo_path = ''; // If the upload fails, reset the path
 			}
 		}
 	
-		// Prepare data for insertion or update
+		// Generate a unique request code if id is not provided
+		if (empty($_POST['id'])) {
+			$pref = date("Ymd") . '-';
+			$code = '0001';
+			while ($this->conn->query("SELECT id FROM `request_list` WHERE `code` = '{$pref}{$code}'")->num_rows > 0) {
+				$code = str_pad((int)$code + 1, 4, '0', STR_PAD_LEFT);
+			}
+			$_POST['code'] = $pref . $code;
+		}
+		
 		extract($_POST);
-		$data = "";
-		foreach ($_POST as $k => $v) {
-			if (!in_array($k, array('id'))) {
-				if (!empty($data)) $data .= ",";
-				$v = $this->conn->real_escape_string($v);
-				$data .= " `{$k}`='{$v}' ";
-			}
+		$data = implode(', ', array_map(function($k, $v) {
+			return "`$k`='{$this->conn->real_escape_string($v)}'";
+		}, array_keys($_POST), $_POST));
+		
+	
+		// Include photo path in the data if it exists
+		if ($photo_path) {
+			if (!empty($data)) $data .= ",";
+			$data .= " `photo`='{$photo_path}' ";
 		}
 	
-		// Insert or update data in the database
 		if (empty($id)) {
 			$sql = "INSERT INTO `request_list` SET {$data}";
 		} else {
@@ -233,7 +148,7 @@ Class Master extends DBConnection {
 			$resp['tid'] = $tid;
 			$resp['status'] = 'success';
 			if (empty($id)) {
-				$this->settings->set_flashdata('request_sent', $code);
+				$this->settings->set_flashdata('request_sent', "Your report has been sent successfully. Your request code id: <b>{$code}</b>");
 			} else {
 				$resp['msg'] = "Request successfully updated.";
 				$this->settings->set_flashdata('success', "Request has been updated successfully.");
