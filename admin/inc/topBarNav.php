@@ -1,6 +1,6 @@
 <?php
 // Assuming $conn is your database connection
-$new_reports_query = $conn->query("SELECT id, lastname, date_created FROM `request_list` WHERE `status` = 0 ORDER BY `date_created` DESC");
+$new_reports_query = $conn->query("SELECT id, lastname, firstname, middlename, date_created FROM `request_list` WHERE `status` = 0 ORDER BY `date_created` DESC");
 $new_reports_count = $new_reports_query->num_rows;
 ?>
 
