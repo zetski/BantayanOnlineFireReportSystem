@@ -49,9 +49,9 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
                         <colgroup>
                             <col width="5%">
                             <col width="20%">
-                            <col width="15%">
-                            <col width="30%">
-                            <col width="30%">
+                            <col width="25%">
+                            <col width="25%">
+                            <col width="25%">
                         </colgroup>
                         <thead>
                             <tr>
@@ -59,7 +59,7 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
                                 <th class="px-1 py-1 text-center">Request Code</th>
                                 <th class="px-1 py-1 text-center">Reported By</th>
                                 <th class="px-1 py-1 text-center">Message</th>
-                                <th class="px-1 py-1 text-center">Location</th>
+                                <th class="px-1 py-1 text-center">Address</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,15 +79,23 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
                             ?>
                             <tr>
                                 <td class="px-1 py-1 align-middle text-center"><?= $i++ ?></td>
-                                <td class="px-1 py-1 align-middle"><?= $row['code'] ?></td>
+                                <td class="px-1 py-1 align-middle"><?= htmlspecialchars($row['code']) ?></td>
                                 <td class="px-1 py-1 align-middle">
-                                    <div line-height="1em">
-                                        <div class="font-weight-bold"><?= $row['fullname'] ?></div>
-                                        <div class="font-weight-light"><?= $row['contact'] ?></div>
-                                    </div>
+                                <strong><?= htmlspecialchars($row['lastname']) ?>, </strong>
+                                <strong><?= htmlspecialchars($row['firstname']) ?> </strong>
+                                <strong><?= htmlspecialchars($row['middlename']) ?><br></strong>
+                                    <?= htmlspecialchars($row['contact']) ?>
                                 </td>
-                                <td class="px-1 py-1 align-middle"><?= str_replace(["\r\n", "\r", "\n"] , "<br>", $row['message']) ?></td>
-                                <td class="px-1 py-1 align-middle"><?= str_replace(["\r\n", "\r", "\n"] , "<br>", $row['location']) ?></td>
+                                <td class="px-1 py-1 align-middle">
+                                    Subject: <?= htmlspecialchars($row['subject']) ?>
+                                    <br>
+                                    <?= nl2br(htmlspecialchars($row['message'])) ?>
+                                </td>
+                                <td class="px-1 py-1 align-middle">
+                                    <?= $sitio_street ?>, 
+                                    <?= $barangay ?>, 
+                                    <?= $municipality ?>
+                                </td>
                             </tr>
                             <?php endwhile; ?>
                             <?php if($requests->num_rows <= 0): ?>
