@@ -79,7 +79,7 @@ $new_reports_count = $new_reports_query->num_rows;
         <?php while($report = $new_reports_query->fetch_assoc()): ?>
           <a href="./?page=requests/view_request&id=<?php echo $report['id']; ?>" class="dropdown-item">
             <i class="fas fa-fire mr-2"></i>
-            <?php echo $report['lastname']; ?>
+            <?php echo $report['lastname'] . ', ' . $report['firstname'] . ', ' . $report['middlename']; ?>
             <span class="float-right text-muted text-sm"><?php echo date('Y-m-d', strtotime($report['date_created'])); ?></span>
           </a>
           <div class="dropdown-divider"></div>
