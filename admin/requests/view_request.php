@@ -60,25 +60,45 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                         <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($date_created) ? date('M d, Y h:i A', strtotime($date_created)) : '' ?></div>
                     </div>
                     <div class="d-flex w-100 mb-2">
-                        <div class="col-auto pr-1">Request By:</div>
-                        <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($fullname) ? $fullname : '' ?></div>
+                        <div class="col-auto pr-1">Lastname:</div>
+                        <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($lastname) ? $lastname : '' ?></div>
+                    </div>
+                    <div class="d-flex w-100 mb-2">
+                        <div class="col-auto pr-1">Firstname:</div>
+                        <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($firstname) ? $firstname : '' ?></div>
+                    </div>
+                    <div class="d-flex w-100 mb-2">
+                        <div class="col-auto pr-1">Middlename:</div>
+                        <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($middlename) ? $middlename : '' ?></div>
                     </div>
                     <div class="d-flex w-100 mb-2">
                         <div class="col-auto pr-1">Contact #:</div>
                         <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($contact) ? $contact : '' ?></div>
                     </div>
                     <div class="d-flex w-100 mb-2">
-                        <div class="col-auto pr-1">Message</div>
+                        <div class="col-auto pr-1">Subject:</div>
+                        <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($subject) ? $subject : '' ?></div>
+                    </div>
+                    <div class="d-flex w-100 mb-2">
+                        <div class="col-auto pr-1">Message:</div>
                         <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($message) ? str_replace(["\r\n", "\r", "\n"], '<br>', $message) : '' ?></div>
                     </div>
                     <div class="d-flex w-100 mb-2">
-                        <div class="col-auto pr-1">Location:</div>
-                        <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($location) ? str_replace(["\r\n", "\r", "\n"], '<br>', $location) : '' ?></div>
+                        <div class="col-auto pr-1">Municipality:</div>
+                        <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($municipality) ? str_replace(["\r\n", "\r", "\n"], '<br>', $municipality) : '' ?></div>
+                    </div>
+                    <div class="d-flex w-100 mb-2">
+                        <div class="col-auto pr-1">Barangay:</div>
+                        <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($barangay) ? $barangay : '' ?></div>
+                    </div>
+                    <div class="d-flex w-100 mb-2">
+                        <div class="col-auto pr-1">Sitio/Street:</div>
+                        <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($sitio_street) ? $sitio_street : '' ?></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+		</div>
+	</div>
     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 printout">
         <div class="card rounded-0">
             <div class="card-header">
