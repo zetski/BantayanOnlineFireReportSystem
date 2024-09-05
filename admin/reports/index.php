@@ -92,14 +92,12 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
                                     <?= nl2br(htmlspecialchars($row['message'])) ?>
                                 </td>
                                 <td class="px-1 py-1 align-middle">
-                                    <?= $sitio_street ?>, 
+                                    <?= $purok_street ?>, 
                                     <?= $barangay ?>, 
                                     <?= $municipality ?>
                                 </td>
                             </tr>
-                            <?php endwhile;
-                            else:
-                            ?>
+                            <?php endwhile; ?>
                             <?php if($requests->num_rows <= 0): ?>
                                 <tr>
                                     <td class="py-1 text-center" colspan="5">No records found</td>
