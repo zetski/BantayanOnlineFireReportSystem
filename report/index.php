@@ -1,3 +1,9 @@
+<style>
+    body{
+        padding-top: 10px;
+        margin-top: 40px;
+    }
+</style>
 <section class="py-3">
     <div class="container">
         <div class="content py-3 px-3" style="background-color: #FF4600">
