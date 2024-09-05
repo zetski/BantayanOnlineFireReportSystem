@@ -67,8 +67,8 @@
                                 </select>
                             </div>
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                    <label for="purok_street" class="control-label">Purok/Street</label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="purok_street" id="purok_street">
+                                    <label for="sitio_street" class="control-label">Purok/Street</label>
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="purok_street" id="sitio_street">
                                 </div>
                             </form>
                         </div>
