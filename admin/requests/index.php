@@ -18,10 +18,10 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                 <colgroup>
                     <col width="5%">
                     <col width="15%">
-                    <col width="10%">
                     <col width="15%">
-                    <col width="25%">
                     <col width="20%">
+                    <col width="15%">
+                    <col width="15%">
                     <col width="10%">
                 </colgroup>
                 <thead>
@@ -63,9 +63,53 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                             <td class="text-center"><?php echo $i++; ?></td>
                             <td><?php echo date("Y-m-d H:i", strtotime($row['date_created'])) ?></td>
                             <td><?php echo $row['code'] ?></td>
-                            <td><?php echo $row['fullname'] ?></td>
-                            <td><?php echo $row['message'] ?></td>
-                            <td><?php echo $row['location'] ?></td>
+                            <td>
+                                <?php echo $row['lastname'] . ', ' . $row['firstname'] . ' ' . $row['middlename']; ?><br>
+                                <small><?php echo $row['contact']; ?></small>
+                            </td>
+                            <td>
+                                <span>Subject: <?php echo $row['subject']; ?></span><br>
+                                <span><?php echo $row['message']; ?></span>
+                            </td>
+                            <td>
+                                <?php 
+                                    echo $row['sitio_street'] . ', ' . $row['barangay'] . ', ' . ucwords(str_replace('_', ' ', $row['municipality']));
+                                ?>
+                            </td>
+                            <td>
+                            <?php
+                            // Define the base directory where images are stored
+                            $baseDir = '../uploads/';
+
+                            // Check if the photo field is not empty and if the file exists
+                            $imagePath = !empty($row['image']) && file_exists($baseDir . $row['image']) 
+                                        ? $baseDir . $row['image'] 
+                                        : $baseDir . 'default-image.jpg';
+                            ?>
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#imageModal<?php echo $i; ?>">
+                                <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Image" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                            </a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="imageModal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel<?php echo $i; ?>" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="imageModalLabel<?php echo $i; ?>">Image Preview</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Image" class="img-fluid">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </td>
                             <td align="center">
                                 <button type="button" class="btn btn-flat p-1 btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
                                     Action
