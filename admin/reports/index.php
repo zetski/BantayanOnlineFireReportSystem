@@ -76,19 +76,22 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
                             }
 
                             while($row = $requests->fetch_assoc()):
+                                // Assign values to prevent undefined variable errors
+                                $purok_street = isset($row['purok_street']) ? htmlspecialchars($row['purok_street']) : '';
+                                $barangay = isset($row['barangay']) ? htmlspecialchars($row['barangay']) : '';
+                                $municipality = isset($row['municipality']) ? htmlspecialchars($row['municipality']) : '';
                             ?>
                             <tr>
                                 <td class="px-1 py-1 align-middle text-center"><?= $i++ ?></td>
                                 <td class="px-1 py-1 align-middle"><?= htmlspecialchars($row['code']) ?></td>
                                 <td class="px-1 py-1 align-middle">
-                                <strong><?= htmlspecialchars($row['lastname']) ?>, </strong>
-                                <strong><?= htmlspecialchars($row['firstname']) ?> </strong>
-                                <strong><?= htmlspecialchars($row['middlename']) ?><br></strong>
+                                    <strong><?= htmlspecialchars($row['lastname']) ?>, </strong>
+                                    <strong><?= htmlspecialchars($row['firstname']) ?> </strong>
+                                    <strong><?= htmlspecialchars($row['middlename']) ?><br></strong>
                                     <?= htmlspecialchars($row['contact']) ?>
                                 </td>
                                 <td class="px-1 py-1 align-middle">
-                                    Subject: <?= htmlspecialchars($row['subject']) ?>
-                                    <br>
+                                    Subject: <?= htmlspecialchars($row['subject']) ?><br>
                                     <?= nl2br(htmlspecialchars($row['message'])) ?>
                                 </td>
                                 <td class="px-1 py-1 align-middle">
