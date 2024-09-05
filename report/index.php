@@ -1,9 +1,3 @@
-<style>
-    body{
-        padding-top: 10px;
-        margin-top: 40px;
-    }
-</style>
 <section class="py-3">
     <div class="container">
         <div class="content py-3 px-3" style="background-color: #FF4600">
@@ -25,56 +19,63 @@
                                 });
                             </script>
                             <?php endif;?>
-                            <form action="" id="request-form">
+                            <form action="" id="request-form" enctype="multipart/form-data">
                                 <input type="hidden" name="id">
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                    <label for="lastname" class="control-label">Lastname <small class="text-danger">*</small></label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="lastname" id="lastname" required="required">
-                                </div>
-                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                    <label for="firstname" class="control-label">Firstname <small class="text-danger">*</small></label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="firstname" id="firstname" required="required">
-                                </div>
-                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                    <label for="middlename" class="control-label">Middlename <small class="text-danger">*</small></label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="middlename" id="middlename" required="required">
+                                    <label for="fullname" class="control-label">Fullname <small class="text-danger">*</small></label>
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="fullname" id="fullname" required="required">
                                 </div>
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
                                     <label for="contact" class="control-label">Contact # <small class="text-danger">*</small></label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required">
-                                </div>
-                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                    <label for="subject" class="control-label">Subject <small class="text-danger">*</small></label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="subject" id="subject" required="required">
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required" maxlength="11" pattern="\d{11}" title="Please enter 11 digits">
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
-                                    <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required"></textarea>
+                                    <div class="position-relative">
+                                        <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required" style="padding-right: 40px;"></textarea>
+                                        <!-- Removed camera icon -->
+                                        <!-- <label class="upload-icon" for="image-upload">
+                                            <i class="fa fa-camera"></i>
+                                        </label> -->
+                                        <!-- Removed file input -->
+                                        <!-- <input type="file" class="d-none" id="image-upload" name="image" accept="image/*"> -->
+                                        <!-- Removed preview container -->
+                                        <!-- <div id="image-preview-container" class="d-none">
+                                            <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail">
+                                            <span id="remove-image" class="remove-image"><i class="fa fa-times"></i></span>
+                                        </div> -->
+                                    </div>
                                 </div>
-                                <!-- Add file upload field if needed -->
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <label for="image" class="control-label">Choose Photo</label>
-                                    <input type="file" class="form-control form-control-sm rounded-0" name="image" id="image">
-                                </div>
-                                <!-- Add dropdowns for municipality and barangay -->
-                            <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                <label for="municipality" class="control-label">Municipality</label>
-                                <select class="form-control form-control-sm rounded-0" name="municipality" id="municipality">
-                                    <option value="">Select Municipality</option>
-                                    <option value="bantayan">Bantayan</option>
-                                    <option value="santa_fe">Santa Fe</option>
-                                    <option value="madridejos">Madridejos</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                <label for="barangay" class="control-label">Barangay</label>
-                                <select class="form-control form-control-sm rounded-0" name="barangay" id="barangay">
-                                    <option value="">Select Barangay</option>
-                                </select>
-                            </div>
-                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                    <label for="sitio_street" class="control-label">Purok/Street</label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="purok_street" id="sitio_street">
+                                    <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
+                                    <select class="form-control form-control-sm rounded-0" name="location" id="location" required="required">
+                                        <option value="">Select Barangay</option>
+                                        <option value="Atop-Atop">Atop-Atop</option>
+                                        <option value="Baigad">Baigad</option>
+                                        <option value="Bantigue">Bantigue</option>
+                                        <option value="Baod">Baod</option>
+                                        <option value="Binaobao">Binaobao</option>
+                                        <option value="Botigues">Botigues</option>
+                                        <option value="Doong">Doong</option>
+                                        <option value="Guiwanon">Guiwanon</option>
+                                        <option value="Hilotongan">Hilotongan</option>
+                                        <option value="Kabac">Kabac</option>
+                                        <option value="Kabangbang">Kabangbang</option>
+                                        <option value="Kampinganon">Kampinganon</option>
+                                        <option value="Kangkaibe">Kangkaibe</option>
+                                        <option value="Lipayran">Lipayran</option>
+                                        <option value="Luyongbay-bay">Luyongbay-bay</option>
+                                        <option value="Mojon">Mojon</option>
+                                        <option value="Oboob">Oboob</option>
+                                        <option value="Patao">Patao</option>
+                                        <option value="Putian">Putian</option>
+                                        <option value="Sillon">Sillon</option>
+                                        <option value="Suba">Suba</option>
+                                        <option value="Sulangan">Sulangan</option>
+                                        <option value="Sungko">Sungko</option>
+                                        <option value="Tamiao">Tamiao</option>
+                                        <option value="Ticad">Ticad</option>
+                                    </select>
                                 </div>
                             </form>
                         </div>
@@ -87,152 +88,72 @@
             </div>
         </div>
     </div>
-    <script>
-
-document.addEventListener('DOMContentLoaded', function() {
-            // Validation for Lastname, Firstname, Middlename
-            document.getElementById('lastname').addEventListener('input', function(e) {
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-
-            document.getElementById('firstname').addEventListener('input', function(e) {
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-
-            document.getElementById('middlename').addEventListener('input', function(e) {
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-
-            document.getElementById('subject').addEventListener('input', function(e) {
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-
-            // Validation for Contact Number (numbers only, max 11 digits)
-            document.getElementById('contact').addEventListener('input', function(e) {
-                e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 11);
-            });
-        });
-
-         document.addEventListener('DOMContentLoaded', function() {
-            // Validation for Lastname, Firstname, Middlename
-            document.getElementById('lastname').addEventListener('input', function(e) {
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-
-            document.getElementById('firstname').addEventListener('input', function(e) {
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-
-            document.getElementById('middlename').addEventListener('input', function(e) {
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-
-            document.getElementById('subject').addEventListener('input', function(e) {
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-
-            // Validation for Contact Number (numbers only, max 11 digits)
-            document.getElementById('contact').addEventListener('input', function(e) {
-                e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 11);
-            });
-        });
-
-    document.addEventListener('DOMContentLoaded', function() {
-    const municipalityBarangays = {
-        'bantayan': [
-            { value: 'Atop-Atop', text: 'Atop-Atop' },
-            { value: 'Baigad', text: 'Baigad' },
-            { value: 'Bantigue', text: 'Bantigue' },
-            { value: 'Baod', text: 'Baod' },
-            { value: 'Binaobao', text: 'Binaobao' },
-            { value: 'Botigues', text: 'Botigues' },
-            { value: 'Doong', text: 'Doong' },
-            { value: 'Guiwanon', text: 'Guiwanon' },
-            { value: 'Hilotongan', text: 'Hilotongan' },
-            { value: 'Kabac', text: 'Kabac' },
-            { value: 'Kabangbang', text: 'Kabangbang' },
-            { value: 'Kampinganon', text: 'Kampinganon' },
-            { value: 'Kangkaibe', text: 'Kangkaibe' },
-            { value: 'Lipayran', text: 'Lipayran' },
-            { value: 'Luyongbay-bay', text: 'Luyongbay-bay' },
-            { value: 'Mojon', text: 'Mojon' },
-            { value: 'Oboob', text: 'Oboob' },
-            { value: 'Patao', text: 'Patao' },
-            { value: 'Putian', text: 'Putian' },
-            { value: 'Sillon', text: 'Sillon' },
-            { value: 'Suba', text: 'Suba' },
-            { value: 'Sulangan', text: 'Sulangan' },
-            { value: 'Sungko', text: 'Sungko' },
-            { value: 'Tamiao', text: 'Tamiao' },
-            { value: 'Ticad', text: 'Ticad' }
-        ],
-        'santa_fe': [
-            // Example barangays for Santa Fe
-            { value: 'Balidbid', text: 'Balidbid' },
-            { value: 'Hagdan', text: 'Hagdan' },
-            { value: 'Hilantagaan', text: 'Hilantagaan' },
-            { value: 'Kinatarkan', text: 'Kinatarkan' },
-            { value: 'Langub', text: 'Langub' },
-            { value: 'Maricaban', text: 'Maricaban' },
-            { value: 'Okoy', text: 'Okoy' },
-            { value: 'Poblacion', text: 'Poblacion' },
-            { value: 'Pooc', text: 'Pooc' },
-            { value: 'Talisay', text: 'Talisay' }
-        ],
-        'madridejos': [
-            // Example barangays for Madridejos
-            { value: 'Bunakan', text: 'Bunakan' },
-            { value: 'Kangwayan', text: 'Kangwayan' },
-            { value: 'Kaongkod', text: 'Kaongkod' },
-            { value: 'Kodia', text: 'Kodia' },
-            { value: 'Maalat', text: 'Maalat' },
-            { value: 'Malbago', text: 'Malbago' },
-            { value: 'Mancilang', text: 'Mancilang' },
-            { value: 'Pili', text: 'Pili' },
-            { value: 'Poblacion', text: 'Poblacion' },
-            { value: 'San Agustin', text: 'San Agustin' },
-            { value: 'Tabagak', text: 'Tabagak' },
-            { value: 'Talangnan', text: 'Talangnan' },
-            { value: 'Tarong', text: 'Tarong' },
-            { value: 'Tugas', text: 'Tugas' }
-        ]
-    };
-
-    const municipalitySelect = document.getElementById('municipality');
-    const barangaySelect = document.getElementById('barangay');
-
-    municipalitySelect.addEventListener('change', function() {
-        const selectedMunicipality = this.value;
-        const barangays = municipalityBarangays[selectedMunicipality] || [];
-
-        // Clear existing options
-        barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
-
-        // Populate barangay options
-        barangays.forEach(barangay => {
-            const option = document.createElement('option');
-            option.value = barangay.value;
-            option.textContent = barangay.text;
-            barangaySelect.appendChild(option);
-        });
-    });
-});
-</script>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img id="modal-image" src="#" alt="Full-size Image" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    body {
+        padding-top: 10px;
+        margin-top: 40px;
+    }
+    .position-relative {
+        position: relative;
+    }
+    /* Removed styling for the upload icon */
+    /* .upload-icon {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #6c757d;
+    } */
+    /* Removed styling for image preview */
+    /* #image-preview-container {
+        position: absolute;
+        bottom: 10px;
+        right: 50px;
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    } */
+    /* #image-preview {
+        max-width: 100%;
+        max-height: 100%;
+        cursor: pointer;
+    } */
+    /* .remove-image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        cursor: pointer;
+        padding: 2px;
+    } */
+</style>
+
+<script>
+    document.getElementById('contact').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+    });
+</script>
+
 <script src="report/script.js"></script>
