@@ -97,7 +97,9 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
                                     <?= $municipality ?>
                                 </td>
                             </tr>
-                            <?php endwhile; ?>
+                            <?php endwhile;
+                            else:
+                            ?>
                             <?php if($requests->num_rows <= 0): ?>
                                 <tr>
                                     <td class="py-1 text-center" colspan="5">No records found</td>
