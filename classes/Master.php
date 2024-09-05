@@ -96,15 +96,12 @@ Class Master extends DBConnection {
 		if (isset($_POST['message'])) {
 			$_POST['message'] = addslashes(htmlspecialchars($_POST['message']));
 		}
-		if (isset($_POST['location'])) {
-			$_POST['location'] = addslashes(htmlspecialchars($_POST['location']));
-		}
 	
-				// Generate a unique code if id is empty
+		// Generate a unique code if id is empty
 		if (empty($_POST['id'])) {
 			$datePrefix = date("Ymd");  // Use the current date in YYYYMMDD format
 			$sequenceNumber = 1;       // Start with an initial sequence number
-
+	
 			while (true) {
 				// Generate a candidate code using a sequence number
 				$candidateCode = sprintf("%s-%04d", $datePrefix, $sequenceNumber);
@@ -122,7 +119,6 @@ Class Master extends DBConnection {
 				}
 			}
 		}
-
 	
 		// Handle file upload
 		$image_path = null;
@@ -161,7 +157,8 @@ Class Master extends DBConnection {
 		extract($_POST);
 		$data = "";
 		foreach ($_POST as $k => $v) {
-			if (!in_array($k, array('id'))) {
+			// Exclude the 'id' and 'location' fields
+			if (!in_array($k, array('id', 'location'))) {
 				if (!empty($data)) $data .= ",";
 				$v = $this->conn->real_escape_string($v);
 				$data .= " `{$k}`='{$v}' ";
@@ -193,6 +190,7 @@ Class Master extends DBConnection {
 	
 		return json_encode($resp);
 	}
+	
 	
 	function delete_request(){
 		extract($_POST);

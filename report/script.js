@@ -36,28 +36,4 @@ $(function(){
             }
         });
     });
-
-    $('#image-upload').change(function(){
-        var input = this;
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#image-preview').attr('src', e.target.result);
-                $('#modal-image').attr('src', e.target.result);
-                $('#image-preview-container').removeClass('d-none');
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    });
-
-    $(document).on('click', '#image-preview', function() {
-        $('#imageModal').modal('show');
-    });
-
-    $(document).on('click', '#remove-image', function() {
-        $('#image-upload').val('');
-        $('#image-preview').attr('src', '#');
-        $('#image-preview-container').addClass('d-none');
-        $('#modal-image').attr('src', '#');
-    });
 });
