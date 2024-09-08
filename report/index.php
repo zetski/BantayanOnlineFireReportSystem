@@ -91,20 +91,6 @@
     </div>
 </section>
 
-<!-- Modal 
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <img id="modal-image" src="#" alt="Full-size Image" class="img-fluid">
-      </div>
-    </div>
-  </div>
-</div>-->
 
 <style>
     body {
@@ -117,13 +103,33 @@
 </style>
 
 <script>
+    document.getElementById('lastname').addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
+                });
+            });
+
+            document.getElementById('firstname').addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
+                });
+            });
+
+            document.getElementById('middlename').addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
+                });
+            });
+
     document.getElementById('contact').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
     });
 
     const barangays = {
         "Bantayan": ["Atop-Atop", "Baigad", "Bantigue", "Baod", "Binaobao", "Botigues", "Doong", "Guiwanon", "Hilotongan", "Kabac", "Kabangbang", "Kampinganon", "Kangkaibe", "Lipayran", "Luyongbay-bay", "Mojon", "Oboob", "Patao", "Putian", "Sillon", "Suba", "Sulangan", "Sungko", "Tamiao", "Ticad"],
+
         "Santa Fe": ["Balidbid", "Hagdan", "Hilantagaan", "Kinatarkan", "Langub", "Maricaban", "Okoy", "Poblacion", "Pooc", "Talisay"],
+
         "Madridejos": ["Bunakan", "Kangwayan", "Kaongkod", "Kodia", "Maalat", "Malbago", "Mancilang", "Pili", "Poblacion", "San Agustin", "Tabagak", "Talangnan", "Tarong", "Tugas"]
     };
 
