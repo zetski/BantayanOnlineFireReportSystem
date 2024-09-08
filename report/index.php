@@ -50,8 +50,8 @@
 
                                 <!-- Photo Upload -->
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <label for="photo" class="control-label">Upload Photo (JPEG/JPG only) <small class="text-danger">*</small></label>
-                                    <input type="file" class="form-control form-control-sm rounded-0" name="photo" id="photo" accept=".jpeg, .jpg" required="required">
+                                    <label for="image" class="control-label">Upload Photo (JPEG/JPG only) <small class="text-danger">*</small></label>
+                                    <input type="file" class="form-control form-control-sm rounded-0" name="image" id="image" accept=".jpeg, .jpg" required="required">
                                 </div>
 
                                 <!-- Municipality -->
@@ -75,8 +75,8 @@
 
                                 <!-- Purok/Street -->
                                 <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                                    <label for="purok" class="control-label">Purok/Street <small class="text-danger">*</small></label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="purok" id="purok" required="required">
+                                    <label for="sitio_street" class="control-label">Purok/Street <small class="text-danger">*</small></label>
+                                    <input type="text" class="form-control form-control-sm rounded-0" name="sitio_street" id="sitio_street" required="required">
                                 </div>
                             </form>
                         </div>
@@ -91,7 +91,7 @@
     </div>
 </section>
 
-<!-- Modal -->
+<!-- Modal 
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -104,7 +104,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 
 <style>
     body {
@@ -122,7 +122,7 @@
     });
 
     const barangays = {
-        "Bantayan": ["Barangay 1", "Barangay 2", "Barangay 3"],
+        "Bantayan": ["Atop-Atop", "Baigad", "Bantigue", "Baod", "Binaobao", "Botigues", "Doong", "Guiwanon", "Hilotongan", "Kabac", "Kabangbang", "Kampinganon", "kangkaibe", "Lipayran", "Luyongbay-bay", "Mojon", "Oboob", "Patao", "Putian", "Sillon", "Suba", "Sulangan", "Sungko", "Tamiao", "Ticad"],
         "Santa Fe": ["Barangay A", "Barangay B", "Barangay C"],
         "Madridejos": ["Barangay X", "Barangay Y", "Barangay Z"]
     };
