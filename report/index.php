@@ -122,9 +122,9 @@
     });
 
     const barangays = {
-        "Bantayan": ["Atop-Atop", "Baigad", "Bantigue", "Baod", "Binaobao", "Botigues", "Doong", "Guiwanon", "Hilotongan", "Kabac", "Kabangbang", "Kampinganon", "kangkaibe", "Lipayran", "Luyongbay-bay", "Mojon", "Oboob", "Patao", "Putian", "Sillon", "Suba", "Sulangan", "Sungko", "Tamiao", "Ticad"],
-        "Santa Fe": ["Barangay A", "Barangay B", "Barangay C"],
-        "Madridejos": ["Barangay X", "Barangay Y", "Barangay Z"]
+        "Bantayan": ["Atop-Atop", "Baigad", "Bantigue", "Baod", "Binaobao", "Botigues", "Doong", "Guiwanon", "Hilotongan", "Kabac", "Kabangbang", "Kampinganon", "Kangkaibe", "Lipayran", "Luyongbay-bay", "Mojon", "Oboob", "Patao", "Putian", "Sillon", "Suba", "Sulangan", "Sungko", "Tamiao", "Ticad"],
+        "Santa Fe": ["Balidbid", "Hagdan", "Hilantagaan", "Kinatarkan", "Langub", "Maricaban", "Okoy", "Poblacion", "Pooc", "Talisay"],
+        "Madridejos": ["Bunakan", "Kangwayan", "Kaongkod", "Kodia", "Maalat", "Malbago", "Mancilang", "Pili", "Poblacion", "San Agustin", "Tabagak", "Talangnan", "Tarong", "Tugas"]
     };
 
     document.getElementById('municipality').addEventListener('change', function () {
