@@ -23,21 +23,21 @@
                                 <input type="hidden" name="id">
                                 
                                 <!-- Lastname, Firstname, Middlename -->
-                                <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="lastname" class="control-label">Lastname <small class="text-danger">*</small></label>
                                     <input type="text" class="form-control form-control-sm rounded-0" name="lastname" id="lastname" required="required">
                                 </div>
-                                <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="firstname" class="control-label">Firstname <small class="text-danger">*</small></label>
                                     <input type="text" class="form-control form-control-sm rounded-0" name="firstname" id="firstname" required="required">
                                 </div>
-                                <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="middlename" class="control-label">Middlename</label>
                                     <input type="text" class="form-control form-control-sm rounded-0" name="middlename" id="middlename">
                                 </div>
 
                                 <!-- Contact -->
-                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="contact" class="control-label">Contact # <small class="text-danger">*</small></label>
                                     <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required" maxlength="11" pattern="\d{11}" title="Please enter 11 digits">
                                 </div>
@@ -47,7 +47,7 @@
                                     <label for="subject" class="control-label">Subject <small class="text-danger">*</small></label>
                                     <input type="text" class="form-control form-control-sm rounded-0" name="subject" id="subject" required="required">
                                 </div>
-                                
+
                                 <!-- Message -->
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
@@ -61,7 +61,7 @@
                                 </div>
 
                                 <!-- Municipality -->
-                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="municipality" class="control-label">Municipality <small class="text-danger">*</small></label>
                                     <select class="form-control form-control-sm rounded-0" name="municipality" id="municipality" required="required">
                                         <option value="">Select Municipality</option>
@@ -72,7 +72,7 @@
                                 </div>
 
                                 <!-- Barangay -->
-                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="barangay" class="control-label">Barangay <small class="text-danger">*</small></label>
                                     <select class="form-control form-control-sm rounded-0" name="barangay" id="barangay" required="required">
                                         <option value="">Select Barangay</option>
@@ -80,7 +80,7 @@
                                 </div>
 
                                 <!-- Purok/Street -->
-                                <div class="form-group col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label for="sitio_street" class="control-label">Purok/Street <small class="text-danger">*</small></label>
                                     <input type="text" class="form-control form-control-sm rounded-0" name="sitio_street" id="sitio_street" required="required">
                                 </div>
