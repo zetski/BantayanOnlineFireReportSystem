@@ -77,7 +77,7 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
 
                             while($row = $requests->fetch_assoc()):
                                 // Assign values to prevent undefined variable errors
-                                $purok_street = isset($row['purok_street']) ? htmlspecialchars($row['purok_street']) : '';
+                                $purok_street = isset($row['sitio_street']) ? htmlspecialchars($row['sitio_street']) : '';
                                 $barangay = isset($row['barangay']) ? htmlspecialchars($row['barangay']) : '';
                                 $municipality = isset($row['municipality']) ? htmlspecialchars($row['municipality']) : '';
                             ?>
