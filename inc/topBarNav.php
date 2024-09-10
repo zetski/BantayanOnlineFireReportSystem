@@ -1,17 +1,26 @@
 <style>
-  .user-img {
-    position: absolute;
-    height: 27px;
-    width: 27px;
-    object-fit: cover;
-    left: -7%;
-    top: -12%;
-}
+  /* Make logo image circular */
+  .navbar-brand img {
+    border-radius: 50%; /* This makes the image circular */
+  }
 
-.user-dd:hover {
-    color: #fff !important;
-}
+  /* Hover effect for navbar items */
+  .nav-item .nav-link {
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .nav-item .nav-link:hover {
+    background-color: #fff; /* Light background on hover */
+    color: #ff4600 !important; /* Text color changes to match navbar background */
+  }
+
+  /* Optional: Hover effect for the login button */
+  .d-flex .text-light:hover {
+    color: #ff4600 !important;
+  }
+
 </style>
+
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#ff4600">
   <div class="container px-4 px-lg-5">
     <a class="navbar-brand" href="./">
@@ -36,7 +45,6 @@
   </div>
 </nav>
 
-
 <script>
   $(function() {
     $('#search_report').click(function() {
@@ -48,7 +56,7 @@
     });
 
     $('#navbarResponsive').on('hidden.bs.collapse', function() {
-      if ($('body').offset.top == 0)
+      if ($('body').offset().top == 0)
         $('#mainNav').removeClass('navbar-shrink');
     });
 
