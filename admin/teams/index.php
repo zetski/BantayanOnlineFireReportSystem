@@ -25,6 +25,7 @@
 					<col width="5%">
 					<col width="15%">
 					<col width="10%">
+					<col width="10%">
 					<col width="20%">
 					<col width="25%">
 					<col width="15%">
@@ -35,6 +36,7 @@
 						<th>#</th>
 						<th>Date Created</th>
 						<th>Code</th>
+						<th>District</th>
 						<th>Team Leader</th>
 						<th>Members</th>
 						<th>Status</th>
@@ -51,6 +53,7 @@
 							<td class="text-center"><?php echo $i++; ?></td>
 							<td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
 							<td class=""><?= $row['code'] ?></td>
+							<td class=""><?= $row ['district'] ?></td>
 							<td>
 								<div style="line-height:1em">
 									<div class="font-weight-bold"><?= $row['leader_name'] ?></div>
