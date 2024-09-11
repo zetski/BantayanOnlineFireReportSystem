@@ -17,12 +17,12 @@
                             <table class="table table-hover table-striped table-bordered" id="list">
                                 <colgroup>
                                     <col width="5%">
+                                    <col width="20%">
+                                    <col width="15%">
+                                    <col width="20%">
+                                    <col width="25%">
                                     <col width="15%">
                                     <col width="10%">
-                                    <col width="15%">
-                                    <col width="20%">
-                                    <col width="20%">
-                                    <col width="15%">
                                 </colgroup>
                                 <thead>
                                     <tr>
@@ -31,7 +31,7 @@
                                         <th>Code</th>
                                         <th>Reported By</th>
                                         <th>Message</th>
-                                        <th>Location</th>
+                                        <th>Address</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -39,16 +39,23 @@
                                     <?php 
                                     if(isset($_GET['search'])):
                                     $i = 1;
-                                    $qry = $conn->query("SELECT * from `request_list` where (fullname LIKE '%{$_GET['search']}%' or contact LIKE '%{$_GET['search']}%' or code LIKE '%{$_GET['search']}%') order by abs(unix_timestamp(date_created)) desc ");
+                                    $qry = $conn->query("SELECT *, CONCAT(lastname, ', ', firstname, ' ', middlename, ' ',contact) as reported_by, 
+                                    CONCAT(sitio_street, ', ', barangay, ', ', municipality) as address 
+                                    from `request_list` 
+                                    where (lastname LIKE '%{$_GET['search']}%' or firstname LIKE '%{$_GET['search']}%' or middlename LIKE '%{$_GET['search']}%' or contact LIKE '%{$_GET['search']}%' or code LIKE '%{$_GET['search']}%') 
+                                    order by abs(unix_timestamp(date_created)) desc ");
                                         while($row = $qry->fetch_assoc()):
                                     ?>
                                         <tr>
                                             <td class="text-center"><?php echo $i++; ?></td>
                                             <td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
                                             <td><?php echo $row['code'] ?></td>
-                                            <td><?php echo $row['fullname'] ?></td>
-                                            <td><?php echo $row['message'] ?></td>
-                                            <td><?php echo $row['location'] ?></td>
+                                            <td><?php echo $row['reported_by'] ?></td>
+                                            <td>
+                                                <text>Subject:</text> <?php echo $row['subject'] ?><br>
+                                                <?php echo $row['message'] ?>
+                                            </td>
+                                            <td><?php echo $row['address'] ?></td>
                                             <td align="center">
                                                 <a href="./?p=report/view_report&id=<?= $row['id'] ?>" class="btn btn-flat btn-sm btn-light bg-gradient-light border">
                                                         <i class="fa fa-eye text-dark"></i> View
