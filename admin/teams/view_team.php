@@ -19,6 +19,8 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                     <dl>
                         <dt class="text-muted">Code.</dt>
                         <dd class="pl-4"><?= isset($code) ? $code : "" ?></dd>
+						<dt class="text-muted">District.</dt>
+						<dd class="pl-4"><?= isset ($district) ? $district: "" ?></dd>
                         <dt class="text-muted">TL Name</dt>
                         <dd class="pl-4"><?= isset($leader_name) ? $leader_name : "" ?></dd>
                         <dt class="text-muted">TL Contact #</dt>
