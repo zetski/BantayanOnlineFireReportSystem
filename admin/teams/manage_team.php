@@ -26,15 +26,19 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 <div class="container-fluid">
                     <form action="" id="team-form">
                         <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
-                        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <label for="code" class="control-label">Team Code</label>
                             <input type="text" name="code" id="code" class="form-control form-control-sm rounded-0" value="<?php echo isset($code) ? $code : ''; ?>" required/>
                         </div>
-                        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<label for="district" class="control-label">District</label>
+							<input type="text" name="district" id="district" class="form-control form-control-sm rounded-0" value="<?php echo isset($district) ? $district : ''; ?>"  required/>
+						</div>
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <label for="leader_name" class="control-label">TL Name</label>
                             <input type="text" name="leader_name" id="leader_name" class="form-control form-control-sm rounded-0" value="<?php echo isset($leader_name) ? $leader_name : ''; ?>" required pattern="[A-Za-z\s.,-]*" title="Only letters, commas, periods, and dashes allowed"/>
                         </div>
-                        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <label for="leader_contact" class="control-label">TL Contact #</label>
                             <input type="text" name="leader_contact" id="leader_contact" class="form-control form-control-sm rounded-0" value="<?php echo isset($leader_contact) ? $leader_contact : ''; ?>" required pattern="\d{11}" title="Please enter exactly 11 digits" maxlength="11"/>
                         </div>
