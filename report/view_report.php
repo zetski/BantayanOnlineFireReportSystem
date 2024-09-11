@@ -49,29 +49,38 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                                 <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($code) ? $code : '' ?></div>
                             </div>
                             <div class="d-flex w-100 mb-2">
-                                <div class="col-auto pr-1">Request Date&Time:</div>
+                                <div class="col-auto pr-1">Request Date & Time:</div>
                                 <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($date_created) ? date('M d, Y h:i A', strtotime($date_created)) : '' ?></div>
                             </div>
                             <div class="d-flex w-100 mb-2">
-                                <div class="col-auto pr-1">Request By:</div>
-                                <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($fullname) ? $fullname : '' ?></div>
+                                <div class="col-auto pr-1">Reported By:</div>
+                                <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder">
+                                    <?= isset($lastname) && isset($firstname) && isset($middlename) ? "{$lastname}, {$firstname} {$middlename}" : '' ?>
+                                </div>
                             </div>
                             <div class="d-flex w-100 mb-2">
                                 <div class="col-auto pr-1">Contact #:</div>
                                 <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($contact) ? $contact : '' ?></div>
                             </div>
                             <div class="d-flex w-100 mb-2">
-                                <div class="col-auto pr-1">Message</div>
-                                <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($message) ? str_replace(["\r\n", "\r", "\n"], '<br>', $message) : '' ?></div>
+                                <div class="col-auto pr-1">Subject:</div>
+                                <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($subject) ? $subject : '' ?></div>
                             </div>
                             <div class="d-flex w-100 mb-2">
-                                <div class="col-auto pr-1">Location:</div>
-                                <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($location) ? str_replace(["\r\n", "\r", "\n"], '<br>', $location) : '' ?></div>
+                                <div class="col-auto pr-1">Message:</div>
+                                <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($message) ? nl2br($message) : '' ?></div>
+                            </div>
+                            <div class="d-flex w-100 mb-2">
+                                <div class="col-auto pr-1">Address:</div>
+                                <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder">
+                                    <?= isset($sitio_street) && isset($barangay) && isset($municipality) ? "{$sitio_street}, {$barangay}, {$municipality}" : '' ?>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 printout">
                 <div class="card rounded-0">
                     <div class="card-header">
@@ -94,7 +103,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                                 </div>
                                 <div class="d-flex w-100 mb-2">
                                     <div class="col-auto pr-1">Team Members:</div>
-                                    <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($team['members']) ? str_replace(["\r\n", "\r", "\n"], '<br>', $team['members']) : '' ?></div>
+                                    <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($team['members']) ? nl2br($team['members']) : '' ?></div>
                                 </div>
                             <?php else: ?>
                                 <h4 class="text-center">There's no team assigned to this team yet.</h4>
@@ -103,6 +112,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 printout">
                 <div class="card rounded-0">
                     <div class="card-header">
