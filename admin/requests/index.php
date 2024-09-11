@@ -101,8 +101,8 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body d-flex justify-content-center align-items-center">
-                                            <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Image" class="img-fluid"  style="max-width: 50%; max-height: 50vh;">
+                                        <div class="modal-body">
+                                            <img src="<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" alt="Image" class="img-fluid">
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
