@@ -18,7 +18,7 @@
         .col-md-8{
             position: center;
             padding-top: 20px;
-            margin-top: 20px;
+            margin-top: 50px;
         }
     </style>
 </head>
