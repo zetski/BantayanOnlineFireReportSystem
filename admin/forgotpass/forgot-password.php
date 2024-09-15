@@ -3,67 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>Forgot Password</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- Custom CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            max-width: 400px;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 8px;
+        .forgot-password-card {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
-        .container h2 {
-            margin-bottom: 20px;
+        .forgot-password-img {
+            object-fit: cover;
+            border-radius: 10px 0 0 10px;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-control {
-            border-radius: 4px;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
-        }
-        .back-link {
-            text-align: center;
+        .col-md-8{
+            position: center;
+            padding-top: 20px;
+            margin-top: 20px;
         }
     </style>
-
-    <title>Forgot Password</title>
 </head>
 <body>
-    <div class="container">
-        <h2 class="text-center">Forgot Password</h2>
-        <form action="forgot_password_process.php" method="post">
-            <div class="form-group">
-                <label for="email">Enter your email address:</label>
-                <input type="email" id="email" name="email" class="form-control" required>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card forgot-password-card">
+                    <div class="row g-0">
+                        <!-- Left side image -->
+                        <div class="col-md-6">
+                            <img src="../img/logof.jpg" class="img-fluid forgot-password-img h-100 w-100">
+                        </div>
+                        <!-- Right side form -->
+                        <div class="col-md-6">
+                            <div class="card-body p-4" style="padding-top: 20px; margin-top: 50px">
+                                <h4 class="card-title text-center mb-4">Forgot Password</h4>
+                                <form action="#" method="post">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Enter your email address</label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                                </form>
+                                <div class="text-center mt-3">
+                                    <a href="../login.php" class="text-decoration-none">Back to Login</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
-            <p class="mb-1 mt-3 text-center">
-                <a href="../login.php" class="btn btn-link">Back to Login</a>
-            </p>
-        </form>
+        </div>
     </div>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-0sA6U3Y/IjqH5iWgJ2qVhS5bPUFtmk+8I9E2gEaMHLfbtSMvsq1cdzDdJCBowkZ+" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
