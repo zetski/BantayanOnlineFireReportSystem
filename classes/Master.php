@@ -191,7 +191,6 @@ Class Master extends DBConnection {
 		return json_encode($resp);
 	}
 	
-	
 	function delete_request(){
 		extract($_POST);
 		$del = $this->conn->query("DELETE FROM `request_list` where id = '{$id}'");
@@ -205,6 +204,7 @@ Class Master extends DBConnection {
 		return json_encode($resp);
 
 	}
+	
 	function assign_team(){
 		extract($_POST);
 		$update = $this->conn->query("UPDATE `request_list` set `status`  = 1, team_id = '{$team_id}' where id = '{$id}'");
