@@ -110,7 +110,7 @@
                       </a>
                     </li>
                     <!-- <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=reports/archive" class="nav-link nav-archive">
+                      <a href="</?php echo base_url ?>admin/?page=reports/archive" class="nav-link nav-archive">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
                           Archive
