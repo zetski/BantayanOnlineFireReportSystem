@@ -109,14 +109,14 @@
                         </p>
                       </a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>admin/?page=reports/archive" class="nav-link nav-archive">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
                           Archive
                         </p>
                       </a>
-                    </li>
+                    </li> -->
                     <li class="nav-header">Maintenance</li>
                     <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>admin/?page=user/list" class="nav-link nav-user_list">
