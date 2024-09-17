@@ -2,8 +2,8 @@
 // archive.php
 include_once '../classes/DBConnection.php'; // include your DB connection
 
-// Fetch archived reports
-$qry = $conn->query("SELECT * FROM request_list WHERE status = 5"); // Assuming 5 is the archived status
+// Fetch archived reports where deleted_reports = 1 (mark as deleted)
+$qry = $conn->query("SELECT * FROM request_list WHERE deleted_reports = 1");
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,14 +39,14 @@ $qry = $conn->query("SELECT * FROM request_list WHERE status = 5"); // Assuming 
                 echo '<td>' . $row['date_created'] . '</td>';
                 echo '<td>' . $row['code'] . '</td>';
 
-                // Correct full name display (Lastname, Firstname Middlename)
+                // Display full name (Lastname, Firstname Middlename)
                 echo '<td>' . $row['lastname'] . ', ' . $row['firstname'] . ' ' . $row['middlename'] . '<br>';
                 echo '<small>' . $row['contact'] . '</small></td>';
 
-                // Correct message display (Subject only)
+                // Display the message (Subject only)
                 echo '<td><span>Subject: ' . $row['subject'] . '</span></td>';
 
-                // Correct address display
+                // Display the address
                 echo '<td>' . $row['sitio_street'] . ', ' . $row['barangay'] . ', ' . ucwords($row['municipality']) . '</td>';
 
                 // Restore action
