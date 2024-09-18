@@ -92,7 +92,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                         <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($barangay) ? $barangay : '' ?></div>
                     </div>
                     <div class="d-flex w-100 mb-2">
-                        <div class="col-auto pr-1">Sitio/Street:</div>
+                        <div class="col-auto pr-1">Purok/Street:</div>
                         <div class="col-auto flex-shrink-1 flex-grow-1 font-weight-bolder"><?= isset($sitio_street) ? $sitio_street : '' ?></div>
                     </div>
                 </div>
