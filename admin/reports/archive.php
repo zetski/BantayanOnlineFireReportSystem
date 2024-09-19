@@ -1,12 +1,12 @@
 <?php
 // archive.php
-include_once '../classes/DBConnection.php'; // Include your DB connection
+include_once '../classes/DBConnection.php'; // include your DB connection
 
-// Fetch archived reports with status = 5 (Assumed 5 is the archived status)
-$qry = $conn->query("SELECT * FROM request_list WHERE status = 5"); 
+// Fetch archived reports
+$qry = $conn->query("SELECT * FROM request_list WHERE status = 5"); // Assuming 5 is the archived status
 ?>
 <!DOCTYPE html>
-<html lang="en">   
+<html>
 <style>
   .dataTables_length select {
     width: auto; /* Makes the dropdown width proper */
@@ -57,8 +57,9 @@ $qry = $conn->query("SELECT * FROM request_list WHERE status = 5");
                 <th>Date Created</th>
                 <th>Code</th>
                 <th>Reported By</th>
+                <th>Contact</th>
                 <th>Message</th>
-                <th>Location</th>
+                <th>Address</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -66,13 +67,21 @@ $qry = $conn->query("SELECT * FROM request_list WHERE status = 5");
             <?php
             $i = 1;
             while ($row = $qry->fetch_assoc()) {
+                // Combine lastname, firstname, and middlename
+                $reported_by = $row['lastname'] . ', ' . $row['firstname'] . ' ' . $row['middlename'];
+                // Combine subject and message with the subject on top and the message below
+                $subject_message = "Subject: " . $row['subject'] . "<br>" . $row['message'];
+                // Combine sitio_street, barangay, and municipality for address
+                $address = $row['sitio_street'] . ', ' . $row['barangay'] . ', ' . $row['municipality'];
+
                 echo '<tr>';
                 echo '<td>' . $i++ . '</td>';
                 echo '<td>' . $row['date_created'] . '</td>';
                 echo '<td>' . $row['code'] . '</td>';
-                echo '<td>' . $row['fullname'] . '</td>';
-                echo '<td>' . $row['message'] . '</td>';
-                echo '<td>' . $row['location'] . '</td>';
+                echo '<td>' . $reported_by . '</td>';
+                echo '<td>' . $row['contact'] . '</td>';
+                echo '<td>' . $subject_message . '</td>';
+                echo '<td>' . $address . '</td>';
                 echo '<td>
                     <a class="dropdown-item restore_data" href="javascript:void(0)" data-id="' . $row['id'] . '">
                         <span class="fa fa-undo text-success"></span> Restore
@@ -83,21 +92,8 @@ $qry = $conn->query("SELECT * FROM request_list WHERE status = 5");
             ?>
         </tbody>
     </table>
-
     <script>
     $(document).ready(function(){
-        // Initialize DataTable
-        $('.table').DataTable({
-            columnDefs: [
-                { orderable: false, targets: [6] } // Disable ordering on the 'Action' column
-            ],
-            order: [0, 'asc'] // Default ordering
-        });
-
-        // Add styling to table cells
-        $('.dataTable td, .dataTable th').addClass('py-1 px-2 align-middle');
-
-        // Restore data handler
         $('.restore_data').click(function(){
             var id = $(this).data('id');
             Swal.fire({
@@ -114,9 +110,17 @@ $qry = $conn->query("SELECT * FROM request_list WHERE status = 5");
                 }
             });
         });
+
+        $('.table').DataTable({
+            columnDefs: [
+                { orderable: false, targets: [6] } // Adjust index for action column
+            ],
+            order:[0,'asc']
+        });
+
+        $('.dataTable td,.dataTable th').addClass('py-1 px-2 align-middle');
     });
 
-    // Function to handle the restoration of requests
     function restore_request(id){
         $.ajax({
             url: 'classes/Master.php?f=restore_request',
@@ -124,7 +128,7 @@ $qry = $conn->query("SELECT * FROM request_list WHERE status = 5");
             data: { id: id },
             dataType: 'json',
             beforeSend: function() {
-                // Optional: Show loader while request is being processed
+                // You can show a loader here
             },
             success: function(resp){
                 if (resp.status === 'success') {
