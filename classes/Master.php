@@ -190,21 +190,41 @@ Class Master extends DBConnection {
 	
 		return json_encode($resp);
 	}
-	
-	
+
 	function delete_request(){
 		extract($_POST);
-		$del = $this->conn->query("DELETE FROM `request_list` where id = '{$id}'");
+		
+		// Mark the request as deleted by setting the 'deleted_reports' column
+		$del = $this->conn->query("UPDATE `request_list` SET `deleted_reports` = NOW() WHERE id = '{$id}'");
+		
 		if($del){
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success'," Request successfully deleted.");
+			$this->settings->set_flashdata('success', "Request successfully deleted.");
 		}else{
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
 		}
+		
 		return json_encode($resp);
-
 	}
+	
+	function request_restore(){
+		extract($_POST);
+	
+		// Restore the request by setting 'deleted_reports' to NULL
+		$restore = $this->conn->query("UPDATE `request_list` SET `deleted_reports` = NULL WHERE id = '{$id}'");
+		
+		if($restore){
+			$resp['status'] = 'success';
+			$this->settings->set_flashdata('success', "Request successfully restored.");
+		}else{
+			$resp['status'] = 'failed';
+			$resp['error'] = $this->conn->error;
+		}
+		
+		return json_encode($resp);
+	}
+	
 	function assign_team(){
 		extract($_POST);
 		$update = $this->conn->query("UPDATE `request_list` set `status`  = 1, team_id = '{$team_id}' where id = '{$id}'");
