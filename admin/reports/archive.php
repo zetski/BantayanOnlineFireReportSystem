@@ -1,9 +1,10 @@
 <?php
 // archive.php
-include_once '../classes/DBConnection.php'; // include your DB connection
+require_once '../config.php';
+include_once '../classes/DBConnection.php'; // Include your DB connection
 
-// Fetch archived reports
-$qry = $conn->query("SELECT * FROM request_list WHERE status = 5"); // Assuming 5 is the archived status
+// Fetch archived reports with status = 5 (Assumed 5 is the archived status)
+$qry = $conn->query("SELECT * FROM request_list WHERE status = 5");
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,28 @@ $qry = $conn->query("SELECT * FROM request_list WHERE status = 5"); // Assuming 
     display: flex;
     align-items: center;
   }
-  
+
+  /* Add vertical lines between table columns */
+  .table th, .table td {
+      border-left: 1px solid #dee2e6; /* Light gray vertical lines */
+      border-right: 1px solid #dee2e6;
+  }
+
+  .table th:first-child, .table td:first-child {
+      border-left: none; /* No left border for the first column */
+  }
+
+  .table th:last-child, .table td:last-child {
+      border-right: none; /* No right border for the last column */
+  }
+
+  /* Ensure message and address columns have the same width */
+  .table td:nth-child(5), .table th:nth-child(5), 
+  .table td:nth-child(6), .table th:nth-child(6) {
+      width: 20%; /* Adjust the percentage as needed */
+      word-wrap: break-word; /* Ensures content wraps inside the cell */
+  }
+
   /* Fix sorting arrows for better visibility */
   th.sorting::after, th.sorting_asc::after, th.sorting_desc::after {
     font-family: FontAwesome;
@@ -57,7 +79,6 @@ $qry = $conn->query("SELECT * FROM request_list WHERE status = 5"); // Assuming 
                 <th>Date Created</th>
                 <th>Code</th>
                 <th>Reported By</th>
-                <th>Contact</th>
                 <th>Message</th>
                 <th>Address</th>
                 <th>Action</th>
@@ -67,9 +88,9 @@ $qry = $conn->query("SELECT * FROM request_list WHERE status = 5"); // Assuming 
             <?php
             $i = 1;
             while ($row = $qry->fetch_assoc()) {
-                // Combine lastname, firstname, and middlename
-                $reported_by = $row['lastname'] . ', ' . $row['firstname'] . ' ' . $row['middlename'];
-                // Combine subject and message with the subject on top and the message below
+                // Combine lastname, firstname, middlename, and contact
+                $reported_by = $row['lastname'] . ', ' . $row['firstname'] . ' ' . $row['middlename'] . '<br>' . ' ' . $row['contact'] . '</small>';
+                // Combine subject and message with subject on top and message below
                 $subject_message = "Subject: " . $row['subject'] . "<br>" . $row['message'];
                 // Combine sitio_street, barangay, and municipality for address
                 $address = $row['sitio_street'] . ', ' . $row['barangay'] . ', ' . $row['municipality'];
@@ -79,7 +100,6 @@ $qry = $conn->query("SELECT * FROM request_list WHERE status = 5"); // Assuming 
                 echo '<td>' . $row['date_created'] . '</td>';
                 echo '<td>' . $row['code'] . '</td>';
                 echo '<td>' . $reported_by . '</td>';
-                echo '<td>' . $row['contact'] . '</td>';
                 echo '<td>' . $subject_message . '</td>';
                 echo '<td>' . $address . '</td>';
                 echo '<td>
