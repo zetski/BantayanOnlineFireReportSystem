@@ -1,10 +1,9 @@
 <?php
 // archive.php
-require_once '../config.php';
 include_once '../classes/DBConnection.php'; // Include your DB connection
 
 // Fetch archived reports with status = 5 (Assumed 5 is the archived status)
-$qry = $conn->query("SELECT * FROM request_list WHERE status = 5");
+$qry = $conn->query("SELECT * FROM request_list WHERE deleted_reports IS NOT NULL");
 ?>
 <!DOCTYPE html>
 <html>

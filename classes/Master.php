@@ -193,29 +193,29 @@ Class Master extends DBConnection {
 
 	public function delete_request() {
 		global $conn;
-		$id = $conn->real_escape_string($_POST['id']); // Escaping the id for SQL injection protection
+		$id = $_POST['id'];
 	
 		// Fetch the report details first
 		$qry = $conn->query("SELECT * FROM request_list WHERE id = $id");
 		$row = $qry->fetch_assoc();
 	
 		if ($row) {
-			// Storing the entire row as JSON in deleted_report
+			// Store the entire row as JSON in deleted_report
 			$deleted_reports = $conn->real_escape_string(json_encode($row));
 	
-			// Update the row to mark it as deleted
+			// Mark as deleted and store the original data in deleted_reports
 			$update_qry = $conn->query("UPDATE request_list SET deleted_reports = '$deleted_reports', status = 5 WHERE id = $id");
 	
 			if ($update_qry) {
 				echo json_encode(['status' => 'success']);
 			} else {
-				echo json_encode(['status' => 'error', 'message' => $conn->error]); // Return specific database error
+				echo json_encode(['status' => 'error', 'message' => $conn->error]); // Error reporting
 			}
 		} else {
 			echo json_encode(['status' => 'error', 'message' => 'Report not found.']);
 		}
-	}	
-
+	}
+	
 	public function restore_request() {
 		global $conn;
 		$id = $_POST['id'];
@@ -225,10 +225,10 @@ Class Master extends DBConnection {
 		$row = $qry->fetch_assoc();
 	
 		if ($row && $row['deleted_reports']) {
-			// Decode the deleted_reports JSON to an array
+			// Decode the deleted_reports JSON
 			$deleted_reports = json_decode($row['deleted_reports'], true);
 	
-			// Restore the report with specific details
+			// Restore the report by updating necessary fields
 			$update_qry = $conn->query("UPDATE request_list SET 
 				code = '{$deleted_reports['code']}',
 				date_created = '{$deleted_reports['date_created']}',
@@ -241,11 +241,10 @@ Class Master extends DBConnection {
 				sitio_street = '{$deleted_reports['sitio_street']}',
 				barangay = '{$deleted_reports['barangay']}',
 				municipality = '{$deleted_reports['municipality']}',
-				deleted_reports = NULL,
+				deleted_reports = NULL, -- Clear the deleted reports data
 				status = 0 -- Assuming 0 is the status for active reports
 				WHERE id = $id");
 	
-			// Check if the update was successful
 			if ($update_qry) {
 				echo json_encode(['status' => 'success']);
 			} else {
@@ -254,8 +253,8 @@ Class Master extends DBConnection {
 		} else {
 			echo json_encode(['status' => 'error', 'message' => 'Report not found or already restored.']);
 		}
-	}	
-	
+	}
+
 	function assign_team(){
 		extract($_POST);
 		$update = $this->conn->query("UPDATE `request_list` set `status`  = 1, team_id = '{$team_id}' where id = '{$id}'");
