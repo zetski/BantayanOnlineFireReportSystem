@@ -1,6 +1,6 @@
 <?php if($_settings->chk_flashdata('success')): ?>
 <script>
-	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success');
+	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
 </script>
 <?php endif;?>
 
@@ -15,13 +15,16 @@
 		height: 50vh;
 		width: 100%;
 		object-fit: contain;
+		/* border-radius: 100% 100%; */
 	}
 </style>
-
 <div class="col-lg-12">
 	<div class="card card-outline rounded-0 card-danger">
 		<div class="card-header">
 			<h5 class="card-title">System Information</h5>
+			<!-- <div class="card-tools">
+				<a class="btn btn-block btn-sm btn-default btn-flat border-navy new_department" href="javascript:void(0)"><i class="fa fa-plus"></i> Add New</a>
+			</div> -->
 		</div>
 		<div class="card-body">
 			<form action="" id="system-frm">
@@ -34,56 +37,58 @@
 					<label for="short_name" class="control-label">System Short Name</label>
 					<input type="text" class="form-control form-control-sm" name="short_name" id="short_name" value="<?php echo  $_settings->info('short_name') ?>">
 				</div>
-				<div class="form-group">
-					<label for="" class="control-label">Welcome Content</label>
-					<textarea name="content[welcome]" id="" cols="30" rows="2" class="form-control summernote"><?php echo  is_file(base_app.'welcome.html') ? file_get_contents(base_app.'welcome.html') : "" ?></textarea>
-				</div>
-				<div class="form-group">
-					<label for="" class="control-label">About Us</label>
-					<textarea name="content[about]" id="" cols="30" rows="2" class="form-control summernote"><?php echo  is_file(base_app.'about.html') ? file_get_contents(base_app.'about.html') : "" ?></textarea>
-				</div>
-				<div class="form-group">
-					<label for="" class="control-label">System Logo</label>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input rounded-circle" id="customFile1" name="img" onchange="displayImg(this,$(this))">
-						<label class="custom-file-label" for="customFile1">Choose file</label>
-					</div>
-				</div>
-				<div class="form-group d-flex justify-content-center">
-					<img src="<?php echo validate_image($_settings->info('logo')) ?>" alt="" id="cimg" class="img-fluid img-thumbnail">
-				</div>
-				<div class="form-group">
-					<label for="" class="control-label">Website Cover</label>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input rounded-circle" id="customFile2" name="cover" onchange="displayImg2(this,$(this))">
-						<label class="custom-file-label" for="customFile2">Choose file</label>
-					</div>
-				</div>
-				<div class="form-group d-flex justify-content-center">
-					<img src="<?php echo validate_image($_settings->info('cover')) ?>" alt="" id="cimg2" class="img-fluid img-thumbnail">
-				</div>
-				<div class="form-group">
-					<label for="" class="control-label">Banner Images</label>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input rounded-circle" id="customFile3" name="banners[]" multiple accept=".png,.jpg,.jpeg" onchange="displayImg3(this,$(this))">
-						<label class="custom-file-label" for="customFile3">Choose file</label>
-					</div>
-					<small><i>Choose to upload new banner images</i></small>
-				</div>
-				<?php 
-				$upload_path = "uploads/banner";
-				if(is_dir(base_app.$upload_path)): 
-				$file= scandir(base_app.$upload_path);
-				foreach($file as $img):
-					if(in_array($img,array('.','..')))
-						continue;
-				?>
-				<div class="d-flex w-100 align-items-center img-item">
-					<span><img src="<?php echo base_url.$upload_path.'/'.$img."?v=".(time()) ?>" width="150px" height="100px" style="object-fit:cover;" class="img-thumbnail" alt=""></span>
-					<span class="ml-4"><button class="btn btn-sm btn-default text-danger rem_img" type="button" data-path="<?php echo base_app.$upload_path.'/'.$img ?>"><i class="fa fa-trash"></i></button></span>
-				</div>
-				<?php endforeach; ?>
-				<?php endif; ?>
+			<div class="form-group">
+				<label for="" class="control-label">Welcome Content</label>
+	             <textarea name="content[welcome]" id="" cols="30" rows="2" class="form-control summernote"><?php echo  is_file(base_app.'welcome.html') ? file_get_contents(base_app.'welcome.html') : "" ?></textarea>
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">About Us</label>
+	             <textarea name="content[about]" id="" cols="30" rows="2" class="form-control summernote"><?php echo  is_file(base_app.'about.html') ? file_get_contents(base_app.'about.html') : "" ?></textarea>
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">System Logo</label>
+				<div class="custom-file">
+	              <input type="file" class="custom-file-input rounded-circle" id="customFile1" name="img" onchange="displayImg(this,$(this))">
+	              <label class="custom-file-label" for="customFile1">Choose file</label>
+	            </div>
+			</div>
+			<div class="form-group d-flex justify-content-center">
+				<img src="<?php echo validate_image($_settings->info('logo')) ?>" alt="" id="cimg" class="img-fluid img-thumbnail">
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">Website Cover</label>
+				<div class="custom-file">
+	              <input type="file" class="custom-file-input rounded-circle" id="customFile2" name="cover" onchange="displayImg2(this,$(this))">
+	              <label class="custom-file-label" for="customFile2">Choose file</label>
+	            </div>
+			</div>
+			<div class="form-group d-flex justify-content-center">
+				<img src="<?php echo validate_image($_settings->info('cover')) ?>" alt="" id="cimg2" class="img-fluid img-thumbnail">
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">Banner Images</label>
+				<div class="custom-file">
+	              <input type="file" class="custom-file-input rounded-circle" id="customFile3" name="banners[]" multiple accept=".png,.jpg,.jpeg" onchange="displayImg3(this,$(this))">
+	              <label class="custom-file-label" for="customFile3">Choose file</label>
+	            </div>
+				<small><i>Choose to upload new banner immages</i></small>
+			</div>
+			<?php 
+            $upload_path = "uploads/banner";
+            if(is_dir(base_app.$upload_path)): 
+			$file= scandir(base_app.$upload_path);
+                foreach($file as $img):
+                    if(in_array($img,array('.','..')))
+                        continue;
+                    
+                
+            ?>
+                <div class="d-flex w-100 align-items-center img-item">
+                    <span><img src="<?php echo base_url.$upload_path.'/'.$img."?v=".(time()) ?>" width="150px" height="100px" style="object-fit:cover;" class="img-thumbnail" alt=""></span>
+                    <span class="ml-4"><button class="btn btn-sm btn-default text-danger rem_img" type="button" data-path="<?php echo base_app.$upload_path.'/'.$img ?>"><i class="fa fa-trash"></i></button></span>
+                </div>
+            <?php endforeach; ?>
+            <?php endif; ?>
 			</form>
 		</div>
 		<div class="card-footer">
@@ -93,87 +98,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- New Section for Managing Events -->
-	<div class="card card-outline rounded-0 card-success mt-4">
-		<div class="card-header">
-			<h5 class="card-title">Manage Events</h5>
-		</div>
-		<div class="card-body">
-			<form action="save_event.php" id="event-frm" method="POST" enctype="multipart/form-data">
-				<div id="msg" class="form-group"></div>
-				<div class="form-group">
-					<label for="event_name" class="control-label">Event Name</label>
-					<input type="text" class="form-control form-control-sm" name="event_name" id="event_name" required>
-				</div>
-				<div class="form-group">
-					<label for="event_description" class="control-label">Event Description</label>
-					<textarea name="event_description" id="event_description" cols="30" rows="4" class="form-control form-control-sm" required></textarea>
-				</div>
-				<div class="form-group">
-					<label for="event_date" class="control-label">Event Date</label>
-					<input type="date" class="form-control form-control-sm" name="event_date" id="event_date" required>
-				</div>
-				<div class="form-group">
-					<label for="event_location" class="control-label">Event Location</label>
-					<input type="text" class="form-control form-control-sm" name="event_location" id="event_location" required>
-				</div>
-				<div class="form-group">
-					<label for="event_image" class="control-label">Event Image</label>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" id="customFile3" name="event_image" onchange="displayImg3(this,$(this))">
-						<label class="custom-file-label" for="customFile3">Choose file</label>
-					</div>
-				</div>
-				<div class="form-group d-flex justify-content-center">
-					<img src="" alt="" id="event_image_preview" class="img-fluid img-thumbnail" style="height: 50vh;">
-				</div>
-				<div class="form-group">
-					<button class="btn btn-sm btn-success" type="submit">Save Event</button>
-				</div>
-			</form>
-		</div>
-	</div>
-
-	<!-- List of Existing Events -->
-	<div class="card card-outline rounded-0 card-warning mt-4">
-		<div class="card-header">
-			<h5 class="card-title">Existing Events</h5>
-		</div>
-		<div class="card-body">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Event Name</th>
-						<th>Date</th>
-						<th>Location</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php 
-					$events = $conn->query("SELECT * FROM events_list ORDER BY event_date DESC");
-					$i = 1;
-					while($row = $events->fetch_assoc()): ?>
-					<tr>
-						<td><?php echo $i++; ?></td>
-						<td><?php echo $row['event_name']; ?></td>
-						<td><?php echo date("F d, Y", strtotime($row['event_date'])); ?></td>
-						<td><?php echo $row['event_location']; ?></td>
-						<td>
-							<a href="edit_event.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
-							<a href="delete_event.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this event?')">Delete</a>
-						</td>
-					</tr>
-					<?php endwhile; ?>
-				</tbody>
-			</table>
-		</div>
 	</div>
 </div>
-
 <script>
 	function displayImg(input,_this) {
 	    if (input.files && input.files[0]) {
@@ -182,6 +109,7 @@
 	        	$('#cimg').attr('src', e.target.result);
 	        	_this.siblings('.custom-file-label').html(input.files[0].name)
 	        }
+
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
@@ -192,6 +120,7 @@
 	        	_this.siblings('.custom-file-label').html(input.files[0].name)
 	        	$('#cimg2').attr('src', e.target.result);
 	        }
+
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
@@ -199,57 +128,42 @@
 		var fnames = [];
 		Object.keys(input.files).map(function(k){
 			fnames.push(input.files[k].name)
+
 		})
 		_this.siblings('.custom-file-label').html(fnames.join(", "))
 	}
-
-	function delete_img(path){
-        start_loader();
+	function delete_img($path){
+        start_loader()
         
         $.ajax({
             url: _base_url_+'classes/Master.php?f=delete_img',
-            data:{path:path},
+            data:{path:$path},
             method:'POST',
             dataType:"json",
             error:err=>{
-                console.log(err);
+                console.log(err)
                 alert_toast("An error occured while deleting an Image","error");
-                end_loader();
+                end_loader()
             },
             success:function(resp){
-                $('.modal').modal('hide');
+                $('.modal').modal('hide')
                 if(typeof resp =='object' && resp.status == 'success'){
-                    $('[data-path="'+path+'"]').closest('.img-item').hide('slow',function(){
-                        $('[data-path="'+path+'"]').closest('.img-item').remove();
-                    });
+                    $('[data-path="'+$path+'"]').closest('.img-item').hide('slow',function(){
+                        $('[data-path="'+$path+'"]').closest('.img-item').remove()
+                    })
                     alert_toast("Image Successfully Deleted","success");
                 }else{
-                    console.log(resp);
+                    console.log(resp)
                     alert_toast("An error occured while deleting an Image","error");
                 }
-                end_loader();
+                end_loader()
             }
-        });
+        })
     }
-
 	$(document).ready(function(){
 		$('.rem_img').click(function(){
-            var path = $(this).attr('data-path');
-			Swal.fire({
-				title: 'Are you sure?',
-				text: "You won't be able to revert this!",
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, delete it!'
-			}).then((result) => {
-				if (result.isConfirmed) {
-					delete_img(path);
-				}
-			});
-        });
-
+            _conf("Are sure to delete this image permanently?",'delete_img',["'"+$(this).attr('data-path')+"'"])
+        })
 		 $('.summernote').summernote({
 		        height: 200,
 		        toolbar: [
@@ -262,6 +176,6 @@
 		            [ 'table', [ 'table' ] ],
 		            [ 'view', [ 'undo', 'redo', 'fullscreen', 'help' ] ]
 		        ]
-		    });
-	});
+		    })
+	})
 </script>
