@@ -1,6 +1,10 @@
 <?php
 // Define and assign value to $pending_requests before using it
 $pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0")->fetch_row()[0];
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 ?>
 
 <!DOCTYPE html>
