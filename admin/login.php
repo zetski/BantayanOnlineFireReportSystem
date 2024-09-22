@@ -1,4 +1,24 @@
-<?php require_once('../config.php') ?>
+<?php 
+require_once('../config.php'); 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitize input data
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+    // Prepare statement to prevent SQL injection
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        // User authentication logic here
+    } else {
+        // Invalid login logic here
+    }
+    $stmt->close();
+}
+?>
 <!DOCTYPE html>
 <html lang="en" class="" style="height: auto;">
 <?php require_once('inc/header.php') ?>
@@ -20,14 +40,14 @@
       background: #8080801c;
     }
   </style>
-  <h1 class="text-center text-white px-4 py-5" id="page-title"><b><?php echo $_settings->info('name') ?></b></h1>
+  <h1 class="text-center text-white px-4 py-5" id="page-title"><b><?php echo htmlspecialchars($_settings->info('name')) ?></b></h1>
   <div class="login-box">
     <div class="card card-danger my-2">
       <div class="card-body">
         <p class="login-box-msg">Please enter your credentials</p>
         <form id="login-frm" action="" method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" name="username" autofocus placeholder="Username">
+            <input type="text" class="form-control" name="username" autofocus placeholder="Username" value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -57,6 +77,8 @@
       </div>
     </div>
   </div>
+  
+  <!-- Scripts -->
   <script src="plugins/jquery/jquery.min.js"></script>
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="dist/js/adminlte.min.js"></script>
@@ -65,6 +87,7 @@
       end_loader();
     });
 
+    // Toggle password visibility
     $('#toggle-password').on('click', function() {
       let passwordField = $('#password');
       let passwordFieldType = passwordField.attr('type');
@@ -76,6 +99,16 @@
         $(this).removeClass('fa-eye-slash').addClass('fa-eye');
       }
     });
+
+    // Disable inspect element
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function(e) {
+      if (e.keyCode == 123 || e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0) || 
+          e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0) || 
+          e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+        return false;
+      }
+    };
   </script>
 </body>
 </html>
