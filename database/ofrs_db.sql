@@ -182,7 +182,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `middlename`, `lastname`, `username`, `password`, `avatar`, `last_login`, `type`, `date_added`, `date_updated`) VALUES
-(1, 'Adminstrator', '', 'Admin', 'admin', '0192023a7bbd73250516f069df18b500', 'uploads/avatars/1.png?v=1719555934', NULL, 1, '2021-01-20 14:02:37', '2024-06-28 14:25:34'),
+(1, 'Adminstrator', '', 'Admin', 'M4rkill', '0192023a7bbd73250516f069df18b500', 'uploads/avatars/1.png?v=1719555934', NULL, 1, '2021-01-20 14:02:37', '2024-06-28 14:25:34'),
 (6, 'Mark', 'D', 'Cooper', 'mcooper', 'c7162ff89c647f444fcaa5c635dac8c3', 'uploads/avatars/6.png?v=1653035960', NULL, 2, '2022-05-20 16:39:20', '2022-05-20 16:39:20');
 
 --
