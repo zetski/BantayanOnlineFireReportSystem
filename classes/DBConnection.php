@@ -10,7 +10,7 @@ class DBConnection{
     // private $password = "1Ofrs_db";
     // private $database = "u510162695_ofrs_db";
 
-    LOCALHOST
+    // LOCALHOST
     private $host = DB_SERVER;
     private $username = DB_USERNAME;
     private $password = DB_PASSWORD;
