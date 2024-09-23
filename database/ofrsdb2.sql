@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 23, 2024 at 03:42 PM
+-- Generation Time: Sep 13, 2024 at 02:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -26,23 +26,6 @@ USE `ofrs_db`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `events_list`
---
-
-CREATE TABLE `events_list` (
-  `id` int(11) NOT NULL,
-  `event_name` varchar(255) NOT NULL,
-  `event_description` text NOT NULL,
-  `event_date` date NOT NULL,
-  `event_location` varchar(255) NOT NULL,
-  `event_image` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `history_list`
 --
 
@@ -59,7 +42,10 @@ CREATE TABLE `history_list` (
 --
 
 INSERT INTO `history_list` (`id`, `request_id`, `status`, `remarks`, `date_created`) VALUES
-(117, 77, 1, 'Request has been assign to a fire control team.', '2024-09-19 15:44:03');
+(109, 70, 1, 'Request has been assign to a fire control team.', '2024-09-11 07:44:29'),
+(110, 70, 2, 'will arive in 2 mins', '2024-09-11 07:44:59'),
+(111, 70, 3, 'fire is on progress', '2024-09-11 07:45:25'),
+(112, 70, 4, 'successfully fire relief', '2024-09-11 07:45:47');
 
 -- --------------------------------------------------------
 
@@ -100,19 +86,17 @@ CREATE TABLE `request_list` (
   `sitio_street` varchar(255) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 = Pending,\r\n1 = Assigned to Team,\r\n2 = Team on their Way\r\n3 = Relief on progress\r\n4 = Completed',
   `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `deleted_reports` varchar(255) DEFAULT NULL
+  `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `request_list`
 --
 
-INSERT INTO `request_list` (`id`, `team_id`, `code`, `lastname`, `firstname`, `middlename`, `contact`, `subject`, `message`, `image`, `municipality`, `barangay`, `sitio_street`, `status`, `date_created`, `date_updated`, `deleted_reports`) VALUES
-(73, NULL, '20240913-0001', 'Oflas', 'Mary', 'Ann', '09325247257', 'Flood', 'hello lord', '../uploads/ec380e786054aa3cdd247f583471fe85.jpg', 'Madridejos', 'Pili', 'Purok lubi 2, cahutay srt.', 5, '2024-09-13 16:58:40', '2024-09-19 11:08:04', '{\"id\":\"73\",\"team_id\":null,\"code\":\"20240913-0001\",\"lastname\":\"Oflas\",\"firstname\":\"Mary\",\"middlename\":\"Ann\",\"contact\":\"09325247257\",\"subject\":\"Flood\",\"message\":\"hello lord\",\"image\":\"..\\/uploads\\/ec380e786054aa3cdd247f583471fe85.jpg\",\"municipality\":\"Madridej'),
-(75, NULL, '20240917-0001', 'Durant', 'Kevin', 'James', '09325247257', 'Flood', 'jafhsakdfjksa', '../uploads/4b4cd4a350ebe4090bcf4fdf9bcc40f3.jpeg', 'Bantayan', 'Tamiao', 'Purok Mangga 2', 5, '2024-09-17 10:28:12', '2024-09-19 11:08:23', '{\"id\":\"75\",\"team_id\":null,\"code\":\"20240917-0001\",\"lastname\":\"Durant\",\"firstname\":\"Kevin\",\"middlename\":\"James\",\"contact\":\"09325247257\",\"subject\":\"Flood\",\"message\":\"jafhsakdfjksa\",\"image\":\"..\\/uploads\\/4b4cd4a350ebe4090bcf4fdf9bcc40f3.jpeg\",\"municipality\":\"'),
-(76, NULL, '20240918-0001', 'Lebron', 'James', 'Bron', '09325247257', 'Sunog', 'my house is on fire', '../uploads/c16cbd9d41079ad647a0efbacefcc1f0.jpg', 'Santa Fe', 'Okoy', 'Purok Bakhawan', 5, '2024-09-18 18:02:26', '2024-09-19 11:41:49', '{\"id\":\"76\",\"team_id\":null,\"code\":\"20240918-0001\",\"lastname\":\"Lebron\",\"firstname\":\"James\",\"middlename\":\"Bron\",\"contact\":\"09325247257\",\"subject\":\"Sunog\",\"message\":\"my house is on fire\",\"image\":\"..\\/uploads\\/c16cbd9d41079ad647a0efbacefcc1f0.jpg\",\"municipalit'),
-(77, 2, '20240919-0001', 'Steph', 'Curry', 'Karlitos', '09283239293', 'Flood', 'oracle has on fire', '../uploads/add6466412d7ab2196c8b3f2b92b1f9e.jpg', 'Santa Fe', 'Maricaban', 'Purok Danggit', 1, '2024-09-19 15:43:46', '2024-09-19 15:44:03', NULL);
+INSERT INTO `request_list` (`id`, `team_id`, `code`, `lastname`, `firstname`, `middlename`, `contact`, `subject`, `message`, `image`, `municipality`, `barangay`, `sitio_street`, `status`, `date_created`, `date_updated`) VALUES
+(70, 2, '20240911-0001', 'Hack', 'The', 'Box', '09325247257', NULL, 'helloo', '../uploads/4df3b0d64d552acdfda9a23349423a42.jpg', 'Bantayan', 'Kabangbang', 'sitio quary', 4, '2024-09-11 07:19:17', '2024-09-11 07:45:47'),
+(71, NULL, '20240911-0002', 'Batuigas', 'Jericho', 'Capus', '09325247257', 'Flood', 'Pagdali kay lapit nako gianod', '../uploads/314759e60afb0734468261507d75c302.jpg', 'Bantayan', 'Binaobao', 'Purok Tambis, Bonifacio Street', 0, '2024-09-11 16:04:14', '2024-09-11 16:04:14'),
+(72, NULL, '20240912-0001', 'Vismanos', 'Ivon', 'Santillan', '09945372355', 'Flood', 'hohaiii', '../uploads/91547880f523a6bd214f30e4c811df9a.jpg', 'Madridejos', 'Pili', 'Kilid Karsada ', 0, '2024-09-12 09:48:29', '2024-09-12 09:48:29');
 
 -- --------------------------------------------------------
 
@@ -185,8 +169,6 @@ CREATE TABLE `users` (
   `middlename` text DEFAULT NULL,
   `lastname` varchar(250) NOT NULL,
   `username` text NOT NULL,
-  `district` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
   `password` text NOT NULL,
   `avatar` text DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
@@ -199,19 +181,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `middlename`, `lastname`, `username`, `district`, `email`, `password`, `avatar`, `last_login`, `type`, `date_added`, `date_updated`) VALUES
-(8, 'Jericho', 'C.', 'Gwapo', 'Zenitsu', '', '', '5ebe2294ecd0e0f08eab7690d2a6ee69', 'uploads/avatars/8.png?v=1726270520', NULL, 1, '2024-09-14 07:34:41', '2024-09-14 07:35:20'),
-(9, 'Kaizen', 'Kirk', 'Ukir', 'Ukirk', 'Madridejos', 'ltrafalgar@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'uploads/avatars/9.png?v=1727065272', NULL, 1, '2024-09-23 12:21:12', '2024-09-23 12:22:15');
+INSERT INTO `users` (`id`, `firstname`, `middlename`, `lastname`, `username`, `password`, `avatar`, `last_login`, `type`, `date_added`, `date_updated`) VALUES
+(1, 'Adminstrator', '', 'Admin', 'admin', '0192023a7bbd73250516f069df18b500', 'uploads/avatars/1.png?v=1719555934', NULL, 1, '2021-01-20 14:02:37', '2024-06-28 14:25:34'),
+(6, 'Mark', 'D', 'Cooper', 'mcooper', 'c7162ff89c647f444fcaa5c635dac8c3', 'uploads/avatars/6.png?v=1653035960', NULL, 2, '2022-05-20 16:39:20', '2022-05-20 16:39:20');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `events_list`
---
-ALTER TABLE `events_list`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `history_list`
@@ -256,16 +232,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `events_list`
---
-ALTER TABLE `events_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `history_list`
 --
 ALTER TABLE `history_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `inquiry_list`
@@ -277,7 +247,7 @@ ALTER TABLE `inquiry_list`
 -- AUTO_INCREMENT for table `request_list`
 --
 ALTER TABLE `request_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `system_info`
@@ -295,7 +265,7 @@ ALTER TABLE `team_list`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -461,7 +431,7 @@ CREATE TABLE `pma__recent` (
 --
 
 INSERT INTO `pma__recent` (`username`, `tables`) VALUES
-('root', '[{\"db\":\"ofrs_db\",\"table\":\"users\"},{\"db\":\"ofrs_db\",\"table\":\"team_list\"},{\"db\":\"sunog\",\"table\":\"users\"},{\"db\":\"ofrs_db\",\"table\":\"request_list\"},{\"db\":\"ofrs_db\",\"table\":\"inquiry_list\"},{\"db\":\"ofrs_db\",\"table\":\"history_list\"}]');
+('root', '[{\"db\":\"ofrs_db\",\"table\":\"request_list\"},{\"db\":\"ofrs_db\",\"table\":\"system_info\"}]');
 
 -- --------------------------------------------------------
 
@@ -568,7 +538,7 @@ CREATE TABLE `pma__userconfig` (
 --
 
 INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
-('root', '2024-09-23 13:40:14', '{\"Console\\/Mode\":\"collapse\"}');
+('root', '2024-09-13 00:40:26', '{\"Console\\/Mode\":\"collapse\"}');
 
 -- --------------------------------------------------------
 
@@ -756,304 +726,6 @@ ALTER TABLE `pma__pdf_pages`
 --
 ALTER TABLE `pma__savedsearches`
   MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- Database: `sunog`
---
-CREATE DATABASE IF NOT EXISTS `sunog` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `sunog`;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `events_list`
---
-
-CREATE TABLE `events_list` (
-  `id` int(11) NOT NULL,
-  `event_name` varchar(255) NOT NULL,
-  `event_description` text NOT NULL,
-  `event_date` date NOT NULL,
-  `event_image` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `history_list`
---
-
-CREATE TABLE `history_list` (
-  `id` int(30) NOT NULL,
-  `request_id` int(30) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0,
-  `remarks` text NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `history_list`
---
-
-INSERT INTO `history_list` (`id`, `request_id`, `status`, `remarks`, `date_created`) VALUES
-(1, 1, 1, 'Request has been assign to a fire control team.', '2022-05-21 12:08:58'),
-(2, 1, 2, 'The assigned fire control team is on its way.', '2022-05-21 13:51:02'),
-(3, 1, 3, 'The Fire Control team is in on-progress of putting the fire down.', '2022-05-21 13:54:15'),
-(4, 1, 4, 'Fire has been successfully controlled.', '2022-05-21 13:54:52'),
-(5, 2, 1, 'Request has been assign to a fire control team.', '2022-05-21 14:48:55'),
-(6, 7, 2, 'fasd', '2024-09-19 15:41:38'),
-(7, 7, 1, 'Request has been assign to a fire control team.', '2024-09-19 15:41:44');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `inquiry_list`
---
-
-CREATE TABLE `inquiry_list` (
-  `id` int(30) NOT NULL,
-  `fullname` text NOT NULL,
-  `email` text NOT NULL,
-  `contact` text NOT NULL,
-  `message` text NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `request_list`
---
-
-CREATE TABLE `request_list` (
-  `id` int(30) NOT NULL,
-  `team_id` int(30) DEFAULT NULL,
-  `code` varchar(100) NOT NULL,
-  `fullname` text NOT NULL,
-  `contact` text NOT NULL,
-  `message` text NOT NULL,
-  `location` text NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 = Pending,\r\n1 = Assigned to Team,\r\n2 = Team on their Way\r\n3 = Relief on progress\r\n4 = Completed',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `deleted_report` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `request_list`
---
-
-INSERT INTO `request_list` (`id`, `team_id`, `code`, `fullname`, `contact`, `message`, `location`, `status`, `date_created`, `date_updated`, `deleted_report`) VALUES
-(1, 2, '2022052100001', 'Ella Zane', '09456987455', 'A Residential Area is on Fire.', '2688 Goosetown Drive, Charlotte, North Carolina, 28202', 4, '2022-05-21 10:25:02', '2022-05-21 13:54:52', NULL),
-(2, 1, '2022052100002', 'Dina Santos', '0978945631', 'Sample report only', '4250 Star Trek Drive, Tallahassee, Florida, 32303', 5, '2022-05-21 14:35:12', '2024-09-19 10:56:04', '{\"id\":\"2\",\"team_id\":\"1\",\"code\":\"2022052100002\",\"fullname\":\"Dina Santos\",\"contact\":\"0978945631\",\"message\":\"Sample report only\",\"location\":\"4250 Star Trek Drive, Tallahassee, Florida, 32303\",\"status\":\"1\",\"date_created\":\"2022-05-21 14:35:12\",\"date_updated\":\"'),
-(4, NULL, '2022052100003', 'Martha V Whitten', '562-397-5583', 'Commercial Buiding is on fire.', '3621 Thompson Drive, San Leandro, California(CA), 94578', 5, '2022-05-21 14:51:56', '2024-09-17 07:54:42', '{\"id\":\"4\",\"team_id\":null,\"code\":\"2022052100003\",\"fullname\":\"Martha V Whitten\",\"contact\":\"562-397-5583\",\"message\":\"Commercial Buiding is on fire.\",\"location\":\"3621 Thompson Drive, San Leandro, California(CA), 94578\",\"status\":\"0\",\"date_created\":\"2022-05-21 '),
-(5, NULL, '2024091700001', 'fadas', '09325247257', 'fdsafsa', 'fasfsa', 5, '2024-09-17 09:41:23', '2024-09-17 09:41:51', '{\"id\":\"5\",\"team_id\":null,\"code\":\"2024091700001\",\"fullname\":\"fadas\",\"contact\":\"09325247257\",\"message\":\"fdsafsa\",\"location\":\"fasfsa\",\"status\":\"0\",\"date_created\":\"2024-09-17 09:41:23\",\"date_updated\":\"2024-09-17 09:41:23\",\"deleted_report\":null}'),
-(6, NULL, '2024091700002', 'Jericho C. Batuigas', '09325247257', 'fsadfsa', 'fsadfsa', 5, '2024-09-17 10:31:57', '2024-09-17 10:42:43', '{\"id\":\"6\",\"team_id\":null,\"code\":\"2024091700002\",\"fullname\":\"Jericho C. Batuigas\",\"contact\":\"09325247257\",\"message\":\"fsadfsa\",\"location\":\"fsadfsa\",\"status\":\"5\",\"date_created\":\"2024-09-17 10:31:57\",\"date_updated\":\"2024-09-17 10:42:22\",\"deleted_report\":\"{\"id'),
-(7, 1, '2024091900001', 'jericho', '09325247257', 'fsad', 'fasdf', 1, '2024-09-19 15:41:18', '2024-09-19 15:41:44', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `system_info`
---
-
-CREATE TABLE `system_info` (
-  `id` int(30) NOT NULL,
-  `meta_field` text NOT NULL,
-  `meta_value` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `system_info`
---
-
-INSERT INTO `system_info` (`id`, `meta_field`, `meta_value`) VALUES
-(1, 'name', 'Online Fire Reporting System'),
-(6, 'short_name', 'OFRS - PHP'),
-(11, 'logo', 'uploads/logo.png?v=1653095716'),
-(13, 'user_avatar', 'uploads/user_avatar.jpg'),
-(14, 'cover', 'uploads/cover.png?v=1653095717'),
-(17, 'phone', '456-987-1231'),
-(18, 'mobile', '09123456987 / 094563212222 '),
-(19, 'email', 'info@firedepartment.com'),
-(20, 'address', '7087 Henry St. Clifton Park, NY 12065'),
-(21, 'event_name', 'Fire Drill'),
-(22, 'event_description', 'fadsfas'),
-(23, 'event_date', '2024-09-19'),
-(24, 'event_time', '06:29'),
-(25, 'recurrence', 'monthly'),
-(26, 'event_month', 'February');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `team_list`
---
-
-CREATE TABLE `team_list` (
-  `id` int(30) NOT NULL,
-  `code` varchar(100) NOT NULL,
-  `leader_name` text NOT NULL,
-  `leader_contact` text NOT NULL,
-  `members` text NOT NULL,
-  `delete_flag` tinyint(1) NOT NULL DEFAULT 0,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `team_list`
---
-
-INSERT INTO `team_list` (`id`, `code`, `leader_name`, `leader_contact`, `members`, `delete_flag`, `date_created`, `date_updated`) VALUES
-(1, 'F-623', 'Mark D Cooper', '09456789123', 'John Smith, Mike Ross, Steven Miller, Anthony Wheeler', 0, '2022-05-21 09:31:00', '2022-05-21 09:33:50'),
-(2, 'F-1014', 'Johnny Deep', '09654789123', 'Member 101, Member 102, Member 103, Member 104', 0, '2022-05-21 09:44:15', '2022-05-21 09:44:15');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(50) NOT NULL,
-  `firstname` varchar(250) NOT NULL,
-  `middlename` text DEFAULT NULL,
-  `lastname` varchar(250) NOT NULL,
-  `username` text NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` text NOT NULL,
-  `reset_token_hash` varchar(255) DEFAULT NULL,
-  `reset_token_expires_at` datetime DEFAULT NULL,
-  `avatar` text DEFAULT NULL,
-  `last_login` datetime DEFAULT NULL,
-  `type` tinyint(1) NOT NULL DEFAULT 0,
-  `date_added` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_updated` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='2';
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `firstname`, `middlename`, `lastname`, `username`, `email`, `password`, `reset_token_hash`, `reset_token_expires_at`, `avatar`, `last_login`, `type`, `date_added`, `date_updated`) VALUES
-(1, 'Adminstrator', '', 'Admin', 'admin', '', '0192023a7bbd73250516f069df18b500', NULL, NULL, 'uploads/avatars/1.png?v=1649834664', NULL, 1, '2021-01-20 14:02:37', '2022-05-16 14:17:49'),
-(6, 'Mark', 'D', 'Cooper', 'mcooper', '', 'c7162ff89c647f444fcaa5c635dac8c3', NULL, NULL, 'uploads/avatars/6.png?v=1653035960', NULL, 2, '2022-05-20 16:39:20', '2022-05-20 16:39:20'),
-(9, 'Jericho', 'Capus', 'Gwapo', 'Gwapolang', 'jerichobatuigas66@gmail.com', '5ebe2294ecd0e0f08eab7690d2a6ee69', NULL, NULL, NULL, NULL, 1, '2024-09-15 19:03:18', '2024-09-15 19:03:18');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `events_list`
---
-ALTER TABLE `events_list`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `history_list`
---
-ALTER TABLE `history_list`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `request_id` (`request_id`);
-
---
--- Indexes for table `inquiry_list`
---
-ALTER TABLE `inquiry_list`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `request_list`
---
-ALTER TABLE `request_list`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `team_id_fk_rl` (`team_id`);
-
---
--- Indexes for table `system_info`
---
-ALTER TABLE `system_info`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `team_list`
---
-ALTER TABLE `team_list`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `reset_token_hash` (`reset_token_hash`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `events_list`
---
-ALTER TABLE `events_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `history_list`
---
-ALTER TABLE `history_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `inquiry_list`
---
-ALTER TABLE `inquiry_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `request_list`
---
-ALTER TABLE `request_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `system_info`
---
-ALTER TABLE `system_info`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT for table `team_list`
---
-ALTER TABLE `team_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `history_list`
---
-ALTER TABLE `history_list`
-  ADD CONSTRAINT `request_id_fh_hl` FOREIGN KEY (`request_id`) REFERENCES `request_list` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `request_list`
---
-ALTER TABLE `request_list`
-  ADD CONSTRAINT `team_id_fk_rl` FOREIGN KEY (`team_id`) REFERENCES `team_list` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION;
 --
 -- Database: `test`
 --
