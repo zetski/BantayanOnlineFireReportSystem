@@ -31,13 +31,32 @@ if(isset($_GET['id'])){
 				</div>
 				<div class="form-group">
 					<label for="username">Username</label>
-					<input type="text" name="username" id="username" class="form-control" value="<?php echo isset($meta['username']) ? $meta['username']: '' ?>" required  autocomplete="off">
+					<input type="text" name="username" id="username" class="form-control" value="<?php echo isset($meta['username']) ? $meta['username']: '' ?>" required autocomplete="off">
 				</div>
+
+				<!-- New District Dropdown and Email Field -->
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="district">District</label>
+						<select name="district" id="district" class="form-control" required>
+							<option value="">Select District</option>
+							<option value="Bantayan" <?php echo isset($meta['district']) && $meta['district'] == 'Bantayan' ? 'selected' : '' ?>>Bantayan</option>
+							<option value="Santa Fe" <?php echo isset($meta['district']) && $meta['district'] == 'Santa Fe' ? 'selected' : '' ?>>Santa Fe</option>
+							<option value="Madridejos" <?php echo isset($meta['district']) && $meta['district'] == 'Madridejos' ? 'selected' : '' ?>>Madridejos</option>
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="email">Email</label>
+						<input type="email" name="email" id="email" class="form-control" value="<?php echo isset($meta['email']) ? $meta['email']: '' ?>" required>
+					</div>
+				</div>
+				<!-- End of new fields -->
+
 				<div class="form-group">
 					<label for="password"><?= isset($meta['id']) ? "New" : "" ?> Password</label>
 					<input type="password" name="password" id="password" class="form-control" value="" autocomplete="off">
                     <?php if(isset($meta['id'])): ?>
-					<small><i>Leave this blank if you dont want to change the password.</i></small>
+					<small><i>Leave this blank if you don't want to change the password.</i></small>
                     <?php endif; ?>
 				</div>
                 <div class="form-group">
@@ -105,11 +124,10 @@ if(isset($_GET['id'])){
 				if(resp ==1){
 					location.href='./?page=user/list'
 				}else{
-					$('#msg').html('<div class="alert alert-danger">Username already exist</div>')
+					$('#msg').html('<div class="alert alert-danger">Username already exists</div>')
 					end_loader()
 				}
 			}
 		})
 	})
-
 </script>
