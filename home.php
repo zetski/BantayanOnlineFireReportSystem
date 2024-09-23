@@ -1,5 +1,5 @@
 <style>
-    body{
+    body {
         padding-top: 10px;
         margin-top: 40px;
     }
@@ -19,17 +19,16 @@
                     <div class="carousel-inner">
                         <?php 
                             $upload_path = "uploads/banner";
-                            if(is_dir(base_app.$upload_path)): 
-                            $file= scandir(base_app.$upload_path);
-                            $_i = 0;
-                                foreach($file as $img):
-                                    if(in_array($img,array('.','..')))
+                            if (is_dir(base_app . $upload_path)): 
+                                $file = scandir(base_app . $upload_path);
+                                $_i = 0;
+                                foreach ($file as $img):
+                                    if (in_array($img, array('.', '..')))
                                         continue;
-                            $_i++;
-                                
+                                    $_i++;
                         ?>
                         <div class="carousel-item <?php echo $_i == 1 ? "active" : '' ?>">
-                            <img src="<?php echo validate_image($upload_path.'/'.$img) ?>" class="d-block w-100" alt="<?php echo $img ?>">
+                            <img src="<?php echo validate_image($upload_path . '/' . $img) ?>" class="d-block w-100" alt="<?php echo $img ?>">
                         </div>
                         <?php endforeach; ?>
                         <?php endif; ?>
@@ -46,14 +45,19 @@
             </div>
         </div>
         <div class="row justify-content-center mt-n3">
-            <div class="col-lg-10 col-md-11 col-sm-11 col-sm-11">
+            <div class="col-lg-10 col-md-11 col-sm-11">
                 <div class="card card-outline rounded-0">
                     <div class="card-body">
                         <div class="container-fluid">
                             <center>
                                 <hr class="bg-navy opacity-100" style="width:8em;height:3px;opacity:1">
                             </center>
-                        <?= htmlspecialchars_decode(file_get_contents('./welcome.html')) ?>
+                            <?= htmlspecialchars_decode(file_get_contents('./welcome.html')) ?>
+                            <div class="mt-4">
+                                <h2>Upcoming BFP Events</h2>
+                                <hr>
+                                <?= htmlspecialchars_decode(file_get_contents('./event.html')) ?>
+                            </div>
                         </div>
                     </div>
                 </div>
