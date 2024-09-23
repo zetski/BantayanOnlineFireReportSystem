@@ -1,8 +1,19 @@
-<?php if($_settings->chk_flashdata('success')): ?>
 <script>
-	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success');
+    // Initialize TinyMCE editor
+    tinymce.init({
+        selector: '#welcomeContentEditor',
+        plugins: 'advlist autolink link image lists charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        height: 400,
+        menubar: false,
+        branding: false,
+    });
+
+    // Display toast notification if there's a success message
+    <?php if (isset($_settings) && $_settings->flashdata('success')): ?>
+        alert_toast("<?php echo $_settings->flashdata('success'); ?>", 'success');
+    <?php endif; ?>
 </script>
-<?php endif;?>
 
 <style>
 	img#cimg{
