@@ -134,14 +134,27 @@
                         </p>
                       </a>
                     </li>
-                    <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=system_info" class="nav-link nav-system_info">
+                    <li class="nav-item">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tools"></i>
                         <p>
-                          Settings
+                            Settings
+                            <i class="right fas fa-angle-left"></i>
                         </p>
-                      </a>
-                    </li>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <a href="<?php echo base_url ?>admin/?page=system_info" class="nav-link nav-system_info">
+                                <i class="fas fa-info-circle nav-icon"></i>
+                                <p>System Info</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url ?>admin/?page=system_info/event_info" class="nav-link nav-system_info_event_info">
+                                <i class="fas fa-calendar-alt nav-icon"></i>
+                                <p>Event</p>
+                            </a>
+                        </li>
                     <?php endif; ?>
                   </ul>
                 </nav>
