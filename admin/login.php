@@ -1,20 +1,44 @@
 <?php 
 require_once('../config.php'); 
+
+// Sanitize and validate input
+function sanitize_input($input) {
+    // Strip HTML tags and encode special characters
+    $input = strip_tags($input);
+    $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
+    
+    // Disallow the word "script" to block any malicious input
+    if (preg_match('/script/i', $input)) {
+        die('Invalid input');
+    }
+    return $input;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize input data
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+    $username = sanitize_input($_POST['username']);
+    $password = sanitize_input($_POST['password']);
 
     // Prepare statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-    $stmt->bind_param("ss", $username, $password);
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
     
     if ($result->num_rows > 0) {
-        // User authentication logic here
+        $user = $result->fetch_assoc();
+        
+        // Verify password (assuming the password is hashed in the database)
+        if (password_verify($password, $user['password'])) {
+            // User authenticated successfully
+            echo 'Login successful';
+        } else {
+            // Invalid password
+            echo 'Invalid credentials';
+        }
     } else {
-        // Invalid login logic here
+        // No user found with the given username
+        echo 'Invalid credentials';
     }
     $stmt->close();
 }
@@ -77,11 +101,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </div>
   </div>
-  
+
   <!-- Scripts -->
   <script src="plugins/jquery/jquery.min.js"></script>
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="dist/js/adminlte.min.js"></script>
+
   <script>
     $(document).ready(function(){
       end_loader();
@@ -109,6 +134,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return false;
       }
     };
+
+    // Prevent the word "script" in the username field
+    document.getElementById('login-frm').addEventListener('submit', function(e) {
+      const username = document.querySelector('input[name="username"]').value.toLowerCase();
+      if (username.includes('script')) {
+        alert('Invalid input in username');
+        e.preventDefault(); // Stop the form from submitting
+      }
+    });
   </script>
 </body>
 </html>
