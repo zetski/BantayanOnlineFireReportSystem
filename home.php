@@ -15,7 +15,8 @@
         margin-left: 30px;
         background-color: #f46000;
     }
-    .btn:hover{
+    .btn:focus, .btn:hover{
+        outline: none;
         box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
 </style>
