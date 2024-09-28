@@ -61,8 +61,7 @@
                                 <hr class="bg-navy opacity-100" style="width:8em;height:3px;opacity:1">
                             </center>
                             <?= htmlspecialchars_decode(file_get_contents('./welcome.html')) ?>
-                                <button class="btn">Upcoming Events</button>
-                                <?= htmlspecialchars_decode(file_get_contents('./event.html')) ?>
+                                <button class="btn"><?= htmlspecialchars_decode(file_get_contents('./event.html')) ?>Upcoming Events </button>
                         </div>
                     </div>
                 </div>
