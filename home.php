@@ -10,6 +10,14 @@
     #carouselExampleControls .carousel-inner {
         height: 20em !important; /* Ensure this matches the image height */
     }
+    .btn{
+        color: #fff;
+        margin-left: 30px;
+        background-color: #f46000;
+    }
+    .btn:hover{
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
 </style>
 <section class="py-3">
     <div class="container">
@@ -53,11 +61,8 @@
                                 <hr class="bg-navy opacity-100" style="width:8em;height:3px;opacity:1">
                             </center>
                             <?= htmlspecialchars_decode(file_get_contents('./welcome.html')) ?>
-                            <div class="mt-4">
-                                <h2>Upcoming BFP Events</h2>
-                                <hr>
+                                <button class="btn">Upcoming Events</button>
                                 <?= htmlspecialchars_decode(file_get_contents('./event.html')) ?>
-                            </div>
                         </div>
                     </div>
                 </div>
