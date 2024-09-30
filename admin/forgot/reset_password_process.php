@@ -88,7 +88,7 @@ if (
             $newHashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
             // Update the password in the database
-            $query = "UPDATE user SET pass = ?, reset_token = NULL, token_expiry = NULL WHERE email = ?";
+            $query = "UPDATE users SET pass = ?, reset_token = NULL, token_expiry = NULL WHERE email = ?";
             $stmt = $con->prepare($query);
             $stmt->bind_param("ss", $newHashedPassword, $email);
             if ($stmt->execute()) {
