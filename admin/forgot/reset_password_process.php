@@ -41,16 +41,16 @@ if (
     }
 
     // Fetch the hashed token and expiry time from the database
-    $query = "SELECT reset_token, token_expiry FROM user WHERE email = ?";
+    $query = "SELECT reset_token, token_expiry FROM users WHERE email = ?";
     $stmt = $con->prepare($query);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+    $users = $result->fetch_assoc();
 
-    if ($user) {
-        $hashedToken = $user['reset_token'];
-        $tokenExpiry = $user['token_expiry'];
+    if ($users) {
+        $hashedToken = $users['reset_token'];
+        $tokenExpiry = $users['token_expiry'];
 
         // Check if token has expired
         if (new DateTime() > new DateTime($tokenExpiry)) {
@@ -212,7 +212,7 @@ if (
                 text: 'Invalid request.',
                 confirmButtonText: 'OK'
             }).then(() => {
-                window.location.href = '../?home';
+                window.location.href = 'https://bantayan-bfp.com/';
             });
         </script>
     </body>
