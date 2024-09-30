@@ -109,7 +109,7 @@ if (
                             text: 'Your password has been reset successfully.',
                             confirmButtonText: 'OK'
                         }).then(() => {
-                            window.location.href = '../?home';
+                            window.location.href = 'https://bantayan-bfp.com/';
                         });
                     </script>
                 </body>
@@ -158,7 +158,7 @@ if (
                         text: 'Invalid or expired token.',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        window.location.href = '../?home';
+                        window.location.href = 'https://bantayan-bfp.com/';
                     });
                 </script>
             </body>
@@ -183,7 +183,7 @@ if (
                     text: 'No user found with that email.',
                     confirmButtonText: 'OK'
                 }).then(() => {
-                    window.location.href = '../?home';
+                    window.location.href = 'https://bantayan-bfp.com/';
                 });
             </script>
         </body>
