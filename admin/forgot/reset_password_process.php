@@ -71,7 +71,7 @@ if (
                         text: 'This password reset link has expired.',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        window.location.href = '../?home';
+                        window.location.href = 'https://bantayan-bfp.com/';
                     });
                 </script>
             </body>
