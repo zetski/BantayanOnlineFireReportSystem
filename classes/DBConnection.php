@@ -22,16 +22,16 @@ class DBConnection{
 
         if (!isset($this->conn)) {
             
+            // Attempting to establish a connection to the database
             $this->conn = new mysqli($this->host, $this->username, $this->password, $this->database);
             
-            if (!$this->conn) {
-                echo 'Cannot connect to database server';
-                exit;
-            } 
-                       
+            // Check for connection errors and display detailed error message
+            if ($this->conn->connect_error) {
+                die('Connection failed: ' . $this->conn->connect_error);
+            }
         }    
-        
     }
+
     public function __destruct(){
         $this->conn->close();
     }
