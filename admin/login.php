@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   </style>
   <h1 class="text-center text-white px-4 py-5" id="page-title"><b><?php echo htmlspecialchars($_settings->info('name')) ?></b></h1>
-  <div class="login-box">
+  <div class="login-box" style="height: 100%">
     <div class="card card-danger my-2">
       <div class="card-body">
         <p class="login-box-msg">Please enter your credentials</p>
@@ -126,14 +126,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     });
 
     // Disable inspect element
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.onkeydown = function(e) {
-      if (e.keyCode == 123 || e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0) || 
-          e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0) || 
-          e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-      }
-    };
+    // document.addEventListener('contextmenu', event => event.preventDefault());
+    // document.onkeydown = function(e) {
+    //   if (e.keyCode == 123 || e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0) || 
+    //       e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0) || 
+    //       e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+    //     return false;
+    //   }
+    // };
 
     // Prevent the word "script" in the username field
     document.getElementById('login-frm').addEventListener('submit', function(e) {
