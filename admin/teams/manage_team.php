@@ -31,9 +31,14 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                             <input type="text" name="code" id="code" class="form-control form-control-sm rounded-0" value="<?php echo isset($code) ? $code : ''; ?>" required/>
                         </div>
                         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<label for="district" class="control-label">District</label>
-							<input type="text" name="district" id="district" class="form-control form-control-sm rounded-0" value="<?php echo isset($district) ? $district : ''; ?>"  required/>
-						</div>
+                            <label for="district" class="control-label">District</label>
+                            <select name="district" id="district" class="form-control form-control-sm rounded-0" required>
+                                <option value="">Select District</option>
+                                <option value="Bantayan" <?php echo (isset($district) && $district == 'Bantayan') ? 'selected' : ''; ?>>Bantayan</option>
+                                <option value="Santa Fe" <?php echo (isset($district) && $district == 'Santa Fe') ? 'selected' : ''; ?>>Santa Fe</option>
+                                <option value="Madridejos" <?php echo (isset($district) && $district == 'Madridejos') ? 'selected' : ''; ?>>Madridejos</option>
+                            </select>
+                        </div>
                         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <label for="leader_name" class="control-label">TL Name</label>
                             <input type="text" name="leader_name" id="leader_name" class="form-control form-control-sm rounded-0" value="<?php echo isset($leader_name) ? $leader_name : ''; ?>" required pattern="[A-Za-z\s.,-]*" title="Only letters, commas, periods, and dashes allowed"/>
