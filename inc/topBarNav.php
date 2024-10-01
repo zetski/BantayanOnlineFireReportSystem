@@ -18,7 +18,10 @@
   .d-flex .text-light:hover {
     color: #ff4600 !important;
   }
-
+  button[type="button"]{
+    background-color: transparent !important;
+    font-size: 15px;
+  }
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#ff4600">
