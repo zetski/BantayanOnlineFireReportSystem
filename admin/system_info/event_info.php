@@ -100,11 +100,11 @@
         barangayDropdown.innerHTML = '<option value="" disabled selected>Select Barangay</option>';
 
         if (municipality === 'Santa Fe') {
-            barangayDropdown.innerHTML += '<option value="Barangay 1">Barangay 1</option><option value="Barangay 2">Barangay 2</option>';
+            barangayDropdown.innerHTML += '<option value="Balidbid">Balidbid</option><option value="Hagdan">Hagdan</option><option value="Hilantagaan">Hilantagaan</option><option value="Kinatarkan">Kinatarkan</option><option value="Langub">Langub</option><option value="Maricaban">Maricaban</option><option value="Okoy">Okoy</option><option value="Poblacion">Poblacion</option><option value="Pooc">Pooc</option><option value="Talisay">Talisay</option>';
         } else if (municipality === 'Bantayan') {
-            barangayDropdown.innerHTML += '<option value="Barangay A">Barangay A</option><option value="Barangay B">Barangay B</option>';
+            barangayDropdown.innerHTML += '<option value="Atop-Atop">Atop-Atop</option><option value="Baigad">Baigad</option><option value="Bantigue">Bantigue</option><option value="Baod">Baod</option><option value="Binaobao">Binaobao</option><option value="Botigues">Botigues</option><option value="Doong">Doong</option><option value="Guiwanon">Guiwanon</option><option value="Hilotongan">Hilotongan</option><option value="Kabac">Kabac</option><option value="Kampinganon">Kampinganon</option><option value="Kabangbang">Kabangbang</option><option value="Kangkaibe">Kangkaibe</option><option value="Lipayran">Lipayran</option><option value="Luyong Baybay">Luyong Baybay</option><option value="Mojon">Mojon</option><option value="Oboob">Oboob</option><option value="Patao">Patao</option><option value="Putian">Putian</option><option value="Sillon">Sillon</option><option value="Suba">Suba</option><option value="Sulangan">Sulangan</option><option value="Sungko">Sungko</option><option value="Tamiao">Tamiao</option><option value="Ticad">Ticad</option>';
         } else if (municipality === 'Madridejos') {
-            barangayDropdown.innerHTML += '<option value="Barangay X">Barangay X</option><option value="Barangay Y">Barangay Y</option>';
+            barangayDropdown.innerHTML += '<option value="Bunakan">Bunakan</option><option value="Kangwayan">Kangwayan</option><option value="Kaongkod">Kaongkod</option><option value="Kodia">Kodia</option><option value="Maalat">Maalat</option><option value="Malbago">Malbago</option><option value="Mancilang">Mancilang</option><option value="Pili">Pili</option><option value="Poblacion">Poblacion</option><option value="San Agustin">San Agustin</option><option value="Tabagak">Tabagak</option><option value="Talangnan">Talangnan</option><option value="Tarong">Tarong</option><option value="Tugas">Tugas</option>';
         }
     });
 </script>
