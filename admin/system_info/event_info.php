@@ -24,7 +24,15 @@
 
                 <div class="form-group">
                     <label for="event_name" class="control-label">Event Name</label>
-                    <input type="text" class="form-control form-control-sm" name="event_name" id="event_name" required>
+                    <select class="form-control form-control-sm" name="event_name" id="event_name" required>
+                        <option value="" disabled selected>Select Event</option>
+                        <option value="Earthquake Drill">Earthquake Drill</option>
+                        <option value="Fire Drill">Fire Drill</option>
+                        <option value="Flood Drill">Flood Drill</option>
+                        <option value="Tornado Drill">Tornado Drill</option>
+                        <option value="Hazardous Materials Drill">Hazardous Materials Drill</option>
+                        <option value="Evacuation Drill">Evacuation Drill</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
