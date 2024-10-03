@@ -19,7 +19,7 @@
             <h5 class="card-title">Manage Event</h5>
         </div>
         <div class="card-body">
-            <form action="" id="event-frm" method="POST" enctype="multipart/form-data">
+        <form action="<?php echo base_url ?>admin/?page=system_info/event_process" id="event-frm" method="POST" enctype="multipart/form-data">
                 <div id="msg" class="form-group"></div>
 
                 <div class="form-group">
