@@ -1,15 +1,19 @@
 <?php
 // Handle form submission in event_process.php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Initialize the database connection (assuming $_settings includes DB connection)
+    // Initialize the database connection
     include '../initialize.php'; // Adjust this depending on your setup
 
-    $event_name = $_POST['event_name'];
-    $event_description = $_POST['event_description'];
-    $event_date = $_POST['event_date'];
-    $municipality = $_POST['municipality'];
-    $barangay = $_POST['barangay'];
-    $sitio = $_POST['sitio'];
+    // Get POST data and sanitize inputs
+    $event_name = mysqli_real_escape_string($conn, $_POST['event_name']);
+    $event_description = mysqli_real_escape_string($conn, $_POST['event_description']);
+    $event_date = mysqli_real_escape_string($conn, $_POST['event_date']);
+    $municipality = mysqli_real_escape_string($conn, $_POST['municipality']);
+    $barangay = mysqli_real_escape_string($conn, $_POST['barangay']);
+    $sitio = mysqli_real_escape_string($conn, $_POST['sitio']);
+
+    // Default empty event image
+    $event_image = '';
 
     // Handling file upload for event image
     if (!empty($_FILES['event_image']['name'])) {
@@ -22,26 +26,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mkdir($upload_path, 0755, true);
         }
 
-        $new_file_name = time() . "_" . $file_name; // Rename file to avoid conflicts
+        $new_file_name = time() . "_" . basename($file_name); // Rename file to avoid conflicts
         $file_destination = $upload_path . $new_file_name;
 
         // Move the uploaded file to the destination
         if (move_uploaded_file($file_tmp, $file_destination)) {
-            $event_image = $file_destination;
+            $event_image = $new_file_name; // Save only the file name in the database
+        } else {
+            // Return JSON error if file upload fails
+            echo json_encode(['status' => 'error', 'message' => 'File upload failed']);
+            exit();
         }
     }
 
-    // Insert the event data into the database
-    $sql = "INSERT INTO events_list (event_name, event_description, event_date, municipality, barangay, sitio, event_image) 
-            VALUES ('$event_name', '$event_description', '$event_date', '$municipality', '$barangay', '$sitio', '$event_image')";
-    if (mysqli_query($conn, $sql)) {
-        $_settings->set_flashdata('success', 'Event has been added successfully.');
-        header('Location: ./upcoming_event.php'); // Redirect back to the homepage
+    // Insert the event data into the database using a prepared statement
+    $stmt = $conn->prepare("INSERT INTO events_list (event_name, event_description, event_date, municipality, barangay, sitio, event_image) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssss", $event_name, $event_description, $event_date, $municipality, $barangay, $sitio, $event_image);
+
+    if ($stmt->execute()) {
+        // Return success response as JSON
+        echo json_encode(['status' => 'success', 'message' => 'Event has been added successfully.']);
     } else {
-        echo "Error: " . mysqli_error($conn);
+        // Return error message
+        echo json_encode(['status' => 'error', 'message' => 'Database Error: ' . $conn->error]);
     }
 
     // Close the connection
-    mysqli_close($conn);
+    $stmt->close();
+    $conn->close();
+    exit();
 }
 ?>
