@@ -102,7 +102,7 @@
     document.addEventListener('DOMContentLoaded', function() {
     var today = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
     document.getElementById('event_date').setAttribute('min', today); // Set as min attribute
-    });
+});
 
     // Dynamically update barangays based on selected municipality
     document.getElementById('municipality').addEventListener('change', function() {
