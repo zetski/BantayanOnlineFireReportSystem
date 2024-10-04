@@ -15,7 +15,7 @@ if (mysqli_num_rows($result) > 0) {
         echo '<p>Date: ' . date('F j, Y', strtotime($row['event_date'])) . '</p>';
         echo '<p>Location: ' . $row['municipality'] . ', ' . $row['barangay'] . ', ' . $row['sitio'] . '</p>';
         if ($row['event_image']) {
-            echo '<img src="' . $row['event_image'] . '" alt="' . $row['event_name'] . '" style="width: 100%; height: auto;">';
+            echo '<img src="./uploads/' . basename($row['event_image']) . '" alt="' . $row['event_name'] . '" style="width: 100%; height: auto;">';
         }
         echo '</div>';
         echo '<hr>'; // Add a line to separate events
