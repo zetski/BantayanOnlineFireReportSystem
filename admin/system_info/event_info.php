@@ -18,7 +18,7 @@
             <h5 class="card-title">Manage Event</h5>
         </div>
         <div class="card-body">
-        <form action="<?php echo base_url ?>admin/?page=system_info/event_process" id="event-frm" method="POST" enctype="multipart/form-data">
+        <form action="" id="event-frm" method="POST" enctype="multipart/form-data">
                 <div id="msg" class="form-group"></div>
 
                 <div class="form-group">
@@ -99,9 +99,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-    var today = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
-    document.getElementById('event_date').setAttribute('min', today); // Set as min attribute
-});
+        var today = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
+        document.getElementById('event_date').setAttribute('min', today); // Set as min attribute
+    });
 
     // Dynamically update barangays based on selected municipality
     document.getElementById('municipality').addEventListener('change', function() {
@@ -119,4 +119,57 @@
             barangayDropdown.innerHTML += '<option value="Bunakan">Bunakan</option><option value="Kangwayan">Kangwayan</option><option value="Kaongkod">Kaongkod</option><option value="Kodia">Kodia</option><option value="Maalat">Maalat</option><option value="Malbago">Malbago</option><option value="Mancilang">Mancilang</option><option value="Pili">Pili</option><option value="Poblacion">Poblacion</option><option value="San Agustin">San Agustin</option><option value="Tabagak">Tabagak</option><option value="Talangnan">Talangnan</option><option value="Tarong">Tarong</option><option value="Tugas">Tugas</option>';
         }
     });
+
+    // AJAX request for saving event
+    $('#event-frm').submit(function(e){
+        e.preventDefault(); // Prevent default form submission
+
+        var formData = new FormData(this); // Collect all form data
+
+        $.ajax({
+            url: '../classes/Master.php?f=save_event', // Path to the save_event function
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            beforeSend: function(){
+                // Start loader (you can implement this as a custom function)
+                start_loader();
+            },
+            success: function(resp){
+                if (resp.status == 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: resp.message,
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if(result.isConfirmed){
+                            location.reload(); // Reload page after success
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: resp.message,
+                        confirmButtonText: 'OK'
+                    });
+                }
+                end_loader(); // Stop loader (you can implement this as a custom function)
+            },
+            error: function(err){
+                console.log(err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred. Please try again.',
+                    confirmButtonText: 'OK'
+                });
+                end_loader(); // Stop loader
+            }
+        });
+    });
 </script>
+

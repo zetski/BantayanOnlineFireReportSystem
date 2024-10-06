@@ -91,71 +91,71 @@ Class Master extends DBConnection {
 
 	}
 
-	// function save_event(){
-	// 	// Sanitize and extract form data
-	// 	extract($_POST);
+	function save_event(){
+		// Sanitize and extract form data
+		extract($_POST);
 	
-	// 	$event_name = $this->conn->real_escape_string($event_name);
-	// 	$event_description = $this->conn->real_escape_string($event_description);
-	// 	$event_date = $this->conn->real_escape_string($event_date);
-	// 	$municipality = $this->conn->real_escape_string($municipality);
-	// 	$barangay = $this->conn->real_escape_string($barangay);
-	// 	$sitio = $this->conn->real_escape_string($sitio);
+		$event_name = $this->conn->real_escape_string($event_name);
+		$event_description = $this->conn->real_escape_string($event_description);
+		$event_date = $this->conn->real_escape_string($event_date);
+		$municipality = $this->conn->real_escape_string($municipality);
+		$barangay = $this->conn->real_escape_string($barangay);
+		$sitio = $this->conn->real_escape_string($sitio);
 	
-	// 	// Default empty event image
-	// 	$event_image = '';
+		// Default empty event image
+		$event_image = '';
 	
-	// 	// Handle file upload
-	// 	if (!empty($_FILES['event_image']['name'])) {
-	// 		$file_name = $_FILES['event_image']['name'];
-	// 		$file_tmp = $_FILES['event_image']['tmp_name'];
-	// 		$upload_path = '../uploads/';
+		// Handle file upload
+		if (!empty($_FILES['event_image']['name'])) {
+			$file_name = $_FILES['event_image']['name'];
+			$file_tmp = $_FILES['event_image']['tmp_name'];
+			$upload_path = '../uploads/';
 	
-	// 		// Ensure upload directory exists
-	// 		if (!is_dir($upload_path)) {
-	// 			mkdir($upload_path, 0755, true);
-	// 		}
+			// Ensure upload directory exists
+			if (!is_dir($upload_path)) {
+				mkdir($upload_path, 0755, true);
+			}
 	
-	// 		$new_file_name = time() . "_" . basename($file_name); // Rename file to avoid conflicts
-	// 		$file_destination = $upload_path . $new_file_name;
+			$new_file_name = time() . "_" . basename($file_name); // Rename file to avoid conflicts
+			$file_destination = $upload_path . $new_file_name;
 	
-	// 		// Move uploaded file to destination
-	// 		if (move_uploaded_file($file_tmp, $file_destination)) {
-	// 			$event_image = $new_file_name; // Save file name in database
-	// 		} else {
-	// 			// Handle file upload failure
-	// 			$resp['status'] = 'error';
-	// 			$resp['message'] = 'File upload failed';
-	// 			return json_encode($resp);
-	// 			exit();
-	// 		}
-	// 	}
+			// Move uploaded file to destination
+			if (move_uploaded_file($file_tmp, $file_destination)) {
+				$event_image = $new_file_name; // Save file name in database
+			} else {
+				// Handle file upload failure
+				$resp['status'] = 'error';
+				$resp['message'] = 'File upload failed';
+				return json_encode($resp);
+				exit();
+			}
+		}
 	
-	// 	// Prepare SQL query for inserting event
-	// 	$data = "event_name = '$event_name', event_description = '$event_description', event_date = '$event_date', municipality = '$municipality', barangay = '$barangay', sitio = '$sitio', event_image = '$event_image'";
+		// Prepare SQL query for inserting event
+		$data = "event_name = '$event_name', event_description = '$event_description', event_date = '$event_date', municipality = '$municipality', barangay = '$barangay', sitio = '$sitio', event_image = '$event_image'";
 	
-	// 	if (empty($id)) {
-	// 		// Insert new event
-	// 		$sql = "INSERT INTO events_list SET $data";
-	// 	} else {
-	// 		// Update existing event
-	// 		$sql = "UPDATE events_list SET $data WHERE id = $id";
-	// 	}
+		if (empty($id)) {
+			// Insert new event
+			$sql = "INSERT INTO events_list SET $data";
+		} else {
+			// Update existing event
+			$sql = "UPDATE events_list SET $data WHERE id = $id";
+		}
 	
-	// 	$save = $this->conn->query($sql);
+		$save = $this->conn->query($sql);
 	
-	// 	if ($save) {
-	// 		// Handle successful save
-	// 		$resp['status'] = 'success';
-	// 		$resp['message'] = empty($id) ? 'Event has been added successfully.' : 'Event has been updated successfully.';
-	// 	} else {
-	// 		// Handle database error
-	// 		$resp['status'] = 'error';
-	// 		$resp['message'] = 'Database Error: ' . $this->conn->error;
-	// 	}
+		if ($save) {
+			// Handle successful save
+			$resp['status'] = 'success';
+			$resp['message'] = empty($id) ? 'Event has been added successfully.' : 'Event has been updated successfully.';
+		} else {
+			// Handle database error
+			$resp['status'] = 'error';
+			$resp['message'] = 'Database Error: ' . $this->conn->error;
+		}
 	
-	// 	return json_encode($resp);
-	// }
+		return json_encode($resp);
+	}
 	
 	function save_request() {
 		// Sanitize input
