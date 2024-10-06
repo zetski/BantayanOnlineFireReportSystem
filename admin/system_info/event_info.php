@@ -10,7 +10,6 @@
 <?php endif; ?>
 
 <style>
-    <style>
     img#cimg {
         height: 300px; /* Adjust the height */
         width: 100%;   /* Make the image responsive */
