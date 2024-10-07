@@ -72,3 +72,10 @@
         </div>
     </div>
 </section>
+<script>
+    document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && (event.key === 'i' || event.key === 'u')) {
+            event.preventDefault();
+        }
+    });
+</script>
