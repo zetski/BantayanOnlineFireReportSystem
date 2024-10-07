@@ -21,7 +21,7 @@ $dev_data = array('id'=>'-1','firstname'=>'Developer','lastname'=>'','username'=
 //     if(!defined('DB_PASSWORD')) define('DB_PASSWORD',"");
 //     if(!defined('DB_NAME')) define('DB_NAME',"ofrs_db");
     // Establish the connection
-$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 // Check the connection
 if (!$conn) {
