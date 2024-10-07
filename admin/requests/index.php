@@ -1,4 +1,4 @@
-<?php if($_settings->chk_flashdata('success')): ?>
+<?php if ($_settings->chk_flashdata('success')): ?>
 <script>
     alert_toast("<?php echo $_settings->flashdata('success') ?>", 'success');
 </script>
@@ -39,7 +39,7 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                 <tbody>
                     <?php 
                     $i = 1;
-                    $where = "";
+                    $where = " WHERE `status` != 5 "; // Only fetch non-deleted requests
                     switch ($status) {
                         case 0:
                             $where = " WHERE `status` = 0 ";
@@ -57,6 +57,7 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                             $where = " WHERE `status` = 4 ";
                             break;
                     }
+
                     $qry = $conn->query("SELECT * FROM `request_list` {$where} ORDER BY abs(unix_timestamp(date_created)) DESC");
                     while ($row = $qry->fetch_assoc()):
                     ?>
@@ -146,20 +147,22 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    delete_request(id);
+                    delete_request(id, $(this).closest('tr')); // Pass the row to delete
                 }
             });
         });
+
         $('.table').dataTable({
             columnDefs: [
                 { orderable: false, targets: [6] }
             ],
             order: [0, 'asc']
         });
+
         $('.dataTable td, .dataTable th').addClass('py-1 px-2 align-middle');
     });
 
-    function delete_request(id) {
+    function delete_request(id, row) {
         start_loader();
         $.ajax({
             url: _base_url_ + "classes/Master.php?f=delete_request",
@@ -168,15 +171,24 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
             dataType: "json",
             error: err => {
                 console.log(err);
-                alert_toast("An error occured.", 'error');
+                alert_toast("An error occurred.", 'error');
                 end_loader();
             },
             success: function(resp) {
+                end_loader();
                 if (typeof resp == 'object' && resp.status == 'success') {
-                    location.reload();
+                    Swal.fire(
+                        'Deleted!',
+                        'Item successfully deleted.',
+                        'success'
+                    ).then(() => {
+                        // Remove the deleted row from the table without reloading the page
+                        $(row).fadeOut('slow', function() {
+                            $(this).remove();
+                        });
+                    });
                 } else {
-                    alert_toast("An error occured.", 'error');
-                    end_loader();
+                    alert_toast("An error occurred.", 'error');
                 }
             }
         });
