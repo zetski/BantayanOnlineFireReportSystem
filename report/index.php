@@ -1,3 +1,28 @@
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Define a function to sanitize input data
+        function sanitizeInput($data) {
+            // Strip tags and special characters, convert them to HTML entities
+            $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+            $data = trim($data); // Remove unnecessary spaces
+            return $data;
+        }
+
+        // Sanitize the form fields
+        $lastname = sanitizeInput($_POST['lastname']);
+        $firstname = sanitizeInput($_POST['firstname']);
+        $middlename = sanitizeInput($_POST['middlename']);
+        $contact = sanitizeInput($_POST['contact']);
+        $subject = sanitizeInput($_POST['subject']);
+        $message = sanitizeInput($_POST['message']);
+        $municipality = sanitizeInput($_POST['municipality']);
+        $barangay = sanitizeInput($_POST['barangay']);
+        $sitio_street = sanitizeInput($_POST['sitio_street']);
+        
+        // Process the data here (e.g., insert into a database)
+    }
+?>
+
 <section class="py-3">
     <div class="container">
         <div class="content py-3 px-3" style="background-color: #FF4600">
@@ -109,6 +134,23 @@
 </style>
 
 <script>
+    // Define fields that need capitalization for the first letter of each word (except message and sitio_street)
+    const fields = ['lastname', 'firstname', 'middlename', 'subject'];
+
+    // Capitalize first letter of each word for specific fields
+    fields.forEach(field => {
+        document.getElementById(field).addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function (char) {
+                return char.toUpperCase();
+            });
+        });
+    });
+
+    // No automatic capitalization for the 'message' field, only prevent special characters
+    document.getElementById('message').addEventListener('input', function (e) {
+        e.target.value = e.target.value.replace(/[^a-zA-Z0-9\s,.!?]/g, ''); // Allow letters, numbers, spaces, and basic punctuation
+    });
+
     document.getElementById('lastname').addEventListener('input', function(e) {
                 e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, function(char) {
                     return char.toUpperCase();
@@ -127,9 +169,16 @@
                 });
             });
 
-    document.getElementById('contact').addEventListener('input', function (e) {
-        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
-    });
+            // Allow letters, spaces, and the forward slash (/) for the 'sitio_street' field
+            document.getElementById('sitio_street').addEventListener('input', function (e) {
+                e.target.value = e.target.value.replace(/[^a-zA-Z\s\/]/g, '').replace(/\b\w/g, function (char) {
+                    return char.toUpperCase();
+                });
+            });
+
+            document.getElementById('contact').addEventListener('input', function (e) {
+                this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+            });
 
     const barangays = {
         "Bantayan": ["Atop-Atop", "Baigad", "Bantigue", "Baod", "Binaobao", "Botigues", "Doong", "Guiwanon", "Hilotongan", "Kabac", "Kabangbang", "Kampinganon", "Kangkaibe", "Lipayran", "Luyongbay-bay", "Mojon", "Oboob", "Patao", "Putian", "Sillon", "Suba", "Sulangan", "Sungko", "Tamiao", "Ticad"],
