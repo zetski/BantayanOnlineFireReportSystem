@@ -11,10 +11,10 @@ class DBConnection{
     // private $database = "u510162695_ofrs_db";
 
     // LOCALHOST
-    // private $host = DB_SERVER;
-    // private $username = DB_USERNAME;
-    // private $password = DB_PASSWORD;
-    // private $database = DB_NAME;
+    private $host = DB_SERVER;
+    private $username = DB_USERNAME;
+    private $password = DB_PASSWORD;
+    private $database = DB_NAME;
     
     public $conn;
     
