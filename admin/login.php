@@ -7,10 +7,19 @@ function sanitize_input($input) {
     $input = strip_tags($input);
     $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
     
-    // Disallow the word "script" to block any malicious input
-    if (preg_match('/script/i', $input)) {
-        die('Invalid input');
+    // Disallow dangerous symbols and the word "script"
+    $disallowed_symbols = ['<', '>', '/', '"', "'"];  // You can add more symbols as needed
+    foreach ($disallowed_symbols as $symbol) {
+        if (strpos($input, $symbol) !== false) {
+            return '';  // Return empty string on invalid input, rather than terminating the script
+        }
     }
+
+    // Prevent usage of the word "script"
+    if (preg_match('/script/i', $input)) {
+        return '';  // Return empty string on invalid input
+    }
+
     return $input;
 }
 
@@ -19,27 +28,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = sanitize_input($_POST['username']);
     $password = sanitize_input($_POST['password']);
 
-    // Prepare statement to prevent SQL injection
+    if (empty($username) || empty($password)) {
+        echo 'Invalid input'; // Provide user feedback for invalid input
+        exit;
+    }
+
+    // Prepared statement to prevent SQL injection
     $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
     
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        
-        // Verify password (assuming the password is hashed in the database)
-        if (password_verify($password, $user['password'])) {
+    $user = $result->fetch_assoc();
+    
+    // Generate a dummy hash for timing attack protection (if user doesn't exist)
+    $dummy_hash = password_hash("invalid_password", PASSWORD_DEFAULT);
+
+    // If user exists, use real password hash; otherwise, use dummy hash
+    $password_hash = $user ? $user['password'] : $dummy_hash;
+
+    // Verify password (assume password is hashed in the database)
+    if (password_verify($password, $password_hash)) {
+        if ($user) {
             // User authenticated successfully
             echo 'Login successful';
         } else {
-            // Invalid password
-            echo 'Invalid credentials';
+            echo 'Invalid credentials';  // Generic error for non-existent user
         }
     } else {
-        // No user found with the given username
+        // Invalid password
         echo 'Invalid credentials';
     }
+
     $stmt->close();
 }
 ?>
@@ -112,37 +132,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       end_loader();
     });
 
-    // Toggle password visibility
-    $('#toggle-password').on('click', function() {
-      let passwordField = $('#password');
-      let passwordFieldType = passwordField.attr('type');
-      if (passwordFieldType == 'password') {
+    // Automatically remove disallowed characters as they are typed
+document.querySelector('input[name="username"]').addEventListener('input', function(e) {
+    // Replace disallowed characters in username field
+    e.target.value = e.target.value.replace(/[<>\/]/g, '');
+});
+
+document.querySelector('input[name="password"]').addEventListener('input', function(e) {
+    // Replace disallowed characters in password field
+    e.target.value = e.target.value.replace(/[<>\/]/g, '');
+});
+
+// Toggle password visibility
+$('#toggle-password').on('click', function() {
+    let passwordField = $('#password');
+    let passwordFieldType = passwordField.attr('type');
+    if (passwordFieldType == 'password') {
         passwordField.attr('type', 'text');
         $(this).removeClass('fa-eye').addClass('fa-eye-slash');
-      } else {
+    } else {
         passwordField.attr('type', 'password');
         $(this).removeClass('fa-eye-slash').addClass('fa-eye');
-      }
-    });
+    }
+});
 
-    // Disable inspect element
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.onkeydown = function(e) {
-      if (e.keyCode == 123 || e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0) || 
-          e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0) || 
-          e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+// Disable inspect element and right-click
+document.addEventListener('contextmenu', event => event.preventDefault());
+document.onkeydown = function(e) {
+    if (e.keyCode == 123 || e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0) || 
+        e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0) || 
+        e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
         return false;
-      }
-    };
-
-    // Prevent the word "script" in the username field
-    document.getElementById('login-frm').addEventListener('submit', function(e) {
-      const username = document.querySelector('input[name="username"]').value.toLowerCase();
-      if (username.includes('script')) {
-        alert('Invalid input in username');
-        e.preventDefault(); // Stop the form from submitting
-      }
-    });
+    }
+};
   </script>
 </body>
 </html>
