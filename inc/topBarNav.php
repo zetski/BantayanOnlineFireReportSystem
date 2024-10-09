@@ -15,6 +15,41 @@
     z-index: 1000;
   }
 
+  /* Style for the About Us Dropdown */
+.nav-item .dropdown-menu {
+  background-color: #333333; /* Match sidebar background */
+  border: none;
+}
+
+.nav-item .dropdown-menu .dropdown-item {
+  color: white; /* White text */
+}
+
+.nav-item .dropdown-menu .dropdown-item:hover {
+  background-color: #ff4600; /* Orange hover effect */
+}
+
+
+/* Sidebar dropdown styling */
+#sidebarAboutDropdown {
+  padding-top: 5px;
+  list-style: none;
+  padding-left: 20px; /* Indent the dropdown items */
+}
+
+#sidebarAboutDropdown li a {
+  color: #fff; /* White text */
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: block;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#sidebarAboutDropdown li a:hover {
+  background-color: #ff4600; /* Formal orange hover background */
+  color: #fff;
+}
+
   .navbar-brand,
   .navbar-nav {
     margin-left: -70px; /* Adjust this value to move more or less */
@@ -82,7 +117,16 @@
         <li class="nav-item"><a class="nav-link text-white" href="./">Home</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="./?p=report">Report</a></li>
         <li class="nav-item"><a class="nav-link text-white" id="search_report" href="javascript:void(0)">View Status</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="./?p=about">About Us</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            About Us
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+          <li><a class="dropdown-item" href="./?p=about&municipality=mun1">Bantayan</a></li>
+          <li><a class="dropdown-item" href="./?p=about&municipality=mun2">Santa Fe</a></li>
+          <li><a class="dropdown-item" href="./?p=about&municipality=mun3">Madridejos</a></li>
+        </ul>
+</li>
         <li class="nav-item"><a class="nav-link text-white" href="./?p=contact">Contact Us</a></li>
       </ul>
       <div class="d-flex align-items-center">
@@ -98,13 +142,36 @@
     <li><a href="./">Home</a></li>
     <li><a href="./?p=report">Report</a></li>
     <li><a href="javascript:void(0)" id="search_report_sidebar">View Status</a></li>
-    <li><a href="./?p=about">About Us</a></li>
+    <!-- sidebar dropdown about us -->
+    <li class="nav-item">
+      <a href="javascript:void(0)" class="nav-link text-white" id="aboutSidebarDropdown" data-bs-toggle="collapse" data-bs-target="#sidebarAboutDropdown" aria-expanded="false">
+        About Us
+      </a>
+      <ul class="collapse" id="sidebarAboutDropdown">
+        <li><a class="nav-link text-white" href="./?p=about&municipality=mun1">Bantayan</a></li>
+        <li><a class="nav-link text-white" href="./?p=about&municipality=mun2">Santa Fe</a></li>
+        <li><a class="nav-link text-white" href="./?p=about&municipality=mun3">Madridejos</a></li>
+      </ul>
+    </li>
+
     <li><a href="./?p=contact">Contact Us</a></li>
     <li><a href="./admin">Login</a></li>
   </ul>
 </div>
 
 <script>
+  //navbar dropdown about us
+  $(document).ready(function() {
+  $('.dropdown-toggle').dropdown();
+});
+
+$(document).ready(function() {
+  // Sidebar toggle for About Us dropdown
+  $('#aboutSidebarDropdown').click(function() {
+    $('#sidebarAboutDropdown').collapse('toggle');
+  });
+});
+
   $(document).ready(function() {
     $('#sidebarToggle').click(function() {
       $('#sidebarMenu').toggleClass('show');
