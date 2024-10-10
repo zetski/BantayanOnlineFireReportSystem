@@ -122,7 +122,7 @@
             About Us
           </a>
           <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
-          <li><a class="dropdown-item" href="./?p=about&municipality=mun1">Bantayan</a></li>
+          <li><a class="dropdown-item" href="./aboutB.php">Bantayan</a></li>
           <li><a class="dropdown-item" href="./?p=about&municipality=mun2">Santa Fe</a></li>
           <li><a class="dropdown-item" href="./?p=about&municipality=mun3">Madridejos</a></li>
         </ul>

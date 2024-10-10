@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+</head>
+<style>
+    .about-us-container {
+  display: flex;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-us-left, .about-us-right {
+  padding: 20px;
+  width: 50%;
+}
+
+.about-us-left {
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-us-right {
+  background-color: #e0e0e0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-image img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.carousel {
+  position: relative;
+}
+
+.carousel-item {
+  display: none;
+}
+
+.carousel-item.active {
+  display: block;
+}
+
+h2, h3 {
+  margin: 10px 0;
+  color: #333;
+}
+
+.contact-info a {
+  margin-right: 15px;
+  font-size: 24px;
+  color: #333;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  color: #ff4600;
+}
+
+/* Pagination dots (for carousel navigation) */
+.pagination-dots {
+  margin-top: 20px;
+}
+
+.pagination-dots .dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.pagination-dots .dot.active {
+  background-color: #ff4600;
+}
+</style>
+<body>
+<div class="about-us-container">
+  <!-- Left Section (Mission, Vision, and Contacts) -->
+  <div class="about-us-left">
+   
+  <?= htmlspecialchars_decode(file_get_contents('./about.html')) ?>
+
+    <hr>
+
+    <!-- Contact icons -->
+    <div class="contact-info">
+      <a href="tel:+1234567890"><i class="fas fa-phone"></i></a>
+      <a href="mailto:example@example.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://maps.google.com" target="_blank"><i class="fas fa-map-marker-alt"></i></a>
+    </div>
+  </div>
+
+  <!-- Right Section (Carousel for Profile Images and Names) -->
+  <div class="about-us-right">
+    <!-- Carousel Wrapper -->
+    <div class="carousel">
+      <div class="carousel-item active">
+        <div class="profile-image">
+          <img src="profile-placeholder1.jpg" alt="Profile">
+        </div>
+        <h3>Fsupt. John Doe</h3>
+      </div>
+      <div class="carousel-item">
+        <div class="profile-image">
+          <img src="profile-placeholder2.jpg" alt="Profile">
+        </div>
+        <h3>Fsupt. Jane Smith</h3>
+      </div>
+      <div class="carousel-item">
+        <div class="profile-image">
+          <img src="profile-placeholder3.jpg" alt="Profile">
+        </div>
+        <h3>Fsupt. Carlos Perez</h3>
+      </div>
+    </div>
+
+    <!-- Pagination Dots -->
+    <div class="pagination-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+    // Carousel functionality
+const items = document.querySelectorAll('.carousel-item');
+const dots = document.querySelectorAll('.dot');
+
+// Initialize first item and dot as active
+let currentIndex = 0;
+items[currentIndex].classList.add('active');
+dots[currentIndex].classList.add('active');
+
+function showItem(index) {
+  // Hide all items and deactivate all dots
+  items.forEach(item => item.classList.remove('active'));
+  dots.forEach(dot => dot.classList.remove('active'));
+
+  // Show the selected item and activate the corresponding dot
+  items[index].classList.add('active');
+  dots[index].classList.add('active');
+}
+
+dots.forEach(dot => {
+  dot.addEventListener('click', function() {
+    currentIndex = parseInt(dot.getAttribute('data-index'));
+    showItem(currentIndex);
+  });
+});
+</script>
+</body>
+</html>
