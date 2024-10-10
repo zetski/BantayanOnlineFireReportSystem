@@ -3,33 +3,30 @@ require_once('../config.php');
 
 // Sanitize and validate input
 function sanitize_input($input) {
-    // Strip HTML tags and encode special characters
     $input = strip_tags($input);
     $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
     
     // Disallow dangerous symbols and the word "script"
-    $disallowed_symbols = ['<', '>', '/', '"', "'"];  // You can add more symbols as needed
+    $disallowed_symbols = ['<', '>', '/', '"', "'"];
     foreach ($disallowed_symbols as $symbol) {
         if (strpos($input, $symbol) !== false) {
-            return '';  // Return empty string on invalid input, rather than terminating the script
+            return '';
         }
     }
 
-    // Prevent usage of the word "script"
     if (preg_match('/script/i', $input)) {
-        return '';  // Return empty string on invalid input
+        return '';
     }
 
     return $input;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize input data
     $username = sanitize_input($_POST['username']);
     $password = sanitize_input($_POST['password']);
 
     if (empty($username) || empty($password)) {
-        echo 'Invalid input'; // Provide user feedback for invalid input
+        echo 'Invalid input';
         exit;
     }
 
@@ -41,22 +38,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $user = $result->fetch_assoc();
     
-    // Generate a dummy hash for timing attack protection (if user doesn't exist)
     $dummy_hash = password_hash("invalid_password", PASSWORD_DEFAULT);
-
-    // If user exists, use real password hash; otherwise, use dummy hash
     $password_hash = $user ? $user['password'] : $dummy_hash;
 
-    // Verify password (assume password is hashed in the database)
     if (password_verify($password, $password_hash)) {
         if ($user) {
             // User authenticated successfully
+            session_start();
+            $_SESSION['user_id'] = $user['id'];  // Store user ID in session
+            $_SESSION['username'] = $user['username'];  // Store username in session
+            $_SESSION['district'] = $user['district'];  // Store user's district in session
+            
             echo 'Login successful';
+
+            // Optionally, redirect to the dashboard
+            // header("Location: dashboard.php");
+            exit;
         } else {
-            echo 'Invalid credentials';  // Generic error for non-existent user
+            echo 'Invalid credentials';
         }
     } else {
-        // Invalid password
         echo 'Invalid credentials';
     }
 
