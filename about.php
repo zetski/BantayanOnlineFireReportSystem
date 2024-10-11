@@ -2,7 +2,7 @@
     <div class="container">
         <div class="card rounded-0">
             <div class="card-body">
-                <?= htmlspecialchars_decode(file_get_contents('./about.html')) ?>
+                <?= htmlspecialchars_decode(file_get_contents('./aboutB.html')) ?>
             </div>
         </div>
     </div>
