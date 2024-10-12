@@ -148,9 +148,9 @@
         About Us
       </a>
       <ul class="collapse" id="sidebarAboutDropdown">
-        <li><a class="nav-link text-white" href="./?p=about&municipality=mun1">Bantayan</a></li>
-        <li><a class="nav-link text-white" href="./?p=about&municipality=mun2">Santa Fe</a></li>
-        <li><a class="nav-link text-white" href="./?p=about&municipality=mun3">Madridejos</a></li>
+        <li><a class="nav-link text-white" href="./aboutB.php">Bantayan</a></li>
+        <li><a class="nav-link text-white" href="./aboutS.php">Santa Fe</a></li>
+        <li><a class="nav-link text-white" href="./aboutM.php">Madridejos</a></li>
       </ul>
     </li>
 
