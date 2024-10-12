@@ -123,8 +123,8 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
           <li><a class="dropdown-item" href="./aboutB.php">Bantayan</a></li>
-          <li><a class="dropdown-item" href="./?p=about&municipality=mun2">Santa Fe</a></li>
-          <li><a class="dropdown-item" href="./?p=about&municipality=mun3">Madridejos</a></li>
+          <li><a class="dropdown-item" href="./aboutS.php">Santa Fe</a></li>
+          <li><a class="dropdown-item" href="./aboutM.php">Madridejos</a></li>
         </ul>
 </li>
         <li class="nav-item"><a class="nav-link text-white" href="./?p=contact">Contact Us</a></li>
