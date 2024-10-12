@@ -89,11 +89,11 @@ $new_reports_count = $new_reports_query->num_rows;
     </li>
 
     <!-- Email Message Icon -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link nav-icon" href="#">
         <i class="fas fa-envelope"></i>
       </a>
-    </li>
+    </li> -->
 
     <!-- Vertical Line -->
     <li class="nav-item">
