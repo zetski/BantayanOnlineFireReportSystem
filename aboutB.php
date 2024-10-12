@@ -169,7 +169,6 @@
     <div class="container">
         <!-- About Us Section -->
         <div class="about-us-section">
-            <h1>About Us</h1>
             <div class="mission">Mission</div>
             <p>Prevent and suppress destructive fires, investigate their causes, enforce fire codes and other related laws, and respond to man-made and natural disasters and other emergencies.</p>
             <div class="vision">Vision</div>
