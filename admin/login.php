@@ -66,7 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="en" class="" style="height: auto;">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self';">
 <?php require_once('inc/header.php') ?>
 <body class="hold-transition login-page">
   <script>
