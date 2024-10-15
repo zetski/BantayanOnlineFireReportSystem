@@ -7,6 +7,10 @@
 <?php 
 $status = isset($_GET['status']) ? $_GET['status'] : '';
 $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is on their Way', 'Requests where Fire Relief is on Progress', 'Requests where Fire Relief Completed'];
+
+// Fetch the admin's district from session or database
+$admin_district = $_settings->userdata('district');
+
 ?>
 <div class="card card-outline rounded-0 card-danger">
     <div class="card-header">
@@ -40,23 +44,28 @@ $stat_arr = ['Pending Requests', 'Assigned to a Team', 'Request where a Team is 
                     <?php 
                     $i = 1;
                     $where = " WHERE `status` != 5 "; // Only fetch non-deleted requests
+                    
+                    // Add status-based filtering
                     switch ($status) {
                         case 0:
-                            $where = " WHERE `status` = 0 ";
+                            $where .= " AND `status` = 0 ";
                             break;
                         case 1:
-                            $where = " WHERE `status` = 1 ";
+                            $where .= " AND `status` = 1 ";
                             break;
                         case 2:
-                            $where = " WHERE `status` = 2 ";
+                            $where .= " AND `status` = 2 ";
                             break;
                         case 3:
-                            $where = " WHERE `status` = 3 ";
+                            $where .= " AND `status` = 3 ";
                             break;
                         case 4:
-                            $where = " WHERE `status` = 4 ";
+                            $where .= " AND `status` = 4 ";
                             break;
                     }
+
+                    // Filter by municipality matching the admin's district
+                    $where .= " AND `municipality` = '{$admin_district}' ";
 
                     $qry = $conn->query("SELECT * FROM `request_list` {$where} ORDER BY abs(unix_timestamp(date_created)) DESC");
                     while ($row = $qry->fetch_assoc()):
