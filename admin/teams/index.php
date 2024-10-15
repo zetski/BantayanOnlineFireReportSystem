@@ -1,21 +1,25 @@
-<?php if($_settings->chk_flashdata('success')): ?>
+<?php
+// Check if a success message is set
+if($_settings->chk_flashdata('success')): ?>
 <script>
-	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success');
+	alert_toast("<?php echo $_settings->flashdata('success') ?>", 'success');
 </script>
 <?php endif;?>
+
 <style>
 	.team-logo{
-		width:3em;
-		height:3em;
-		object-fit:cover;
-		object-position:center center;
+		width: 3em;
+		height: 3em;
+		object-fit: cover;
+		object-position: center center;
 	}
 </style>
+
 <div class="card card-outline rounded-0 card-danger">
 	<div class="card-header">
 		<h3 class="card-title">List of Teams</h3>
 		<div class="card-tools">
-			<a href="./?page=teams/manage_team" id="create_new" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
+			<a href="./?page=teams/manage_team" id="create_new" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span> Create New</a>
 		</div>
 	</div>
 	<div class="card-body">
@@ -46,14 +50,20 @@
 				<tbody>
 					<?php 
 					$i = 1;
-						$qry = $conn->query("SELECT *,COALESCE((SELECT `status` FROM `request_list` where `team_id` = team_list.id and `status` in (1,2,3)), 0) as `status` from `team_list` where delete_flag = 0 order by `code` asc ");
-						while($row = $qry->fetch_assoc()):
+
+					// Get the current admin's district from the session or logged-in user data
+					$current_admin_district = $_settings->userdata('district'); // Assuming 'district' is stored in user session data
+
+					// Modify the query to select teams only from the current admin's district
+					$qry = $conn->query("SELECT *, COALESCE((SELECT `status` FROM `request_list` WHERE `team_id` = team_list.id AND `status` IN (1,2,3)), 0) AS `status` FROM `team_list` WHERE `district` = '{$current_admin_district}' AND delete_flag = 0 ORDER BY `code` ASC");
+
+					while($row = $qry->fetch_assoc()):
 					?>
 						<tr>
 							<td class="text-center"><?php echo $i++; ?></td>
-							<td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
+							<td><?php echo date("Y-m-d H:i", strtotime($row['date_created'])) ?></td>
 							<td class=""><?= $row['code'] ?></td>
-							<td class=""><?= $row ['district'] ?></td>
+							<td class=""><?= $row['district'] ?></td>
 							<td>
 								<div style="line-height:1em">
 									<div class="font-weight-bold"><?= $row['leader_name'] ?></div>
@@ -69,17 +79,17 @@
                                 <?php endif; ?>
                             </td>
 							<td align="center">
-								 <button type="button" class="btn btn-flat p-1 btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
-				                  		Action
-				                    <span class="sr-only">Toggle Dropdown</span>
-				                  </button>
-				                  <div class="dropdown-menu" role="menu">
-				                    <a class="dropdown-item" href="./?page=teams/view_team&id=<?php echo $row['id'] ?>"><span class="fa fa-eye text-dark"></span> View</a>
-				                    <div class="dropdown-divider"></div>
-				                    <a class="dropdown-item" href="./?page=teams/manage_team&id=<?php echo $row['id'] ?>"><span class="fa fa-edit text-primary"></span> Edit</a>
-				                    <div class="dropdown-divider"></div>
-				                    <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Delete</a>
-				                  </div>
+								<button type="button" class="btn btn-flat p-1 btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
+									Action
+									<span class="sr-only">Toggle Dropdown</span>
+								</button>
+								<div class="dropdown-menu" role="menu">
+									<a class="dropdown-item" href="./?page=teams/view_team&id=<?php echo $row['id'] ?>"><span class="fa fa-eye text-dark"></span> View</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="./?page=teams/manage_team&id=<?php echo $row['id'] ?>"><span class="fa fa-edit text-primary"></span> Edit</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Delete</a>
+								</div>
 							</td>
 						</tr>
 					<?php endwhile; ?>
@@ -88,6 +98,7 @@
 		</div>
 	</div>
 </div>
+
 <script>
 	$(document).ready(function(){
 		$('.delete_data').click(function(){
@@ -106,32 +117,34 @@
 				}
 			});
 		});
+
 		$('.table').dataTable({
 			columnDefs: [
-					{ orderable: false, targets: [2,6] }
+					{ orderable: false, targets: [2, 6] }
 			],
-			order:[0,'asc']
+			order: [0, 'asc']
 		});
+
 		$('.dataTable td,.dataTable th').addClass('py-1 px-2 align-middle');
 	});
 
 	function delete_team(id){
 		start_loader();
 		$.ajax({
-			url:_base_url_+"classes/Master.php?f=delete_team",
-			method:"POST",
-			data:{id: id},
-			dataType:"json",
-			error:err=>{
+			url: _base_url_ + "classes/Master.php?f=delete_team",
+			method: "POST",
+			data: {id: id},
+			dataType: "json",
+			error: err => {
 				console.log(err);
-				alert_toast("An error occured.",'error');
+				alert_toast("An error occurred.", 'error');
 				end_loader();
 			},
-			success:function(resp){
-				if(typeof resp== 'object' && resp.status == 'success'){
+			success: function(resp){
+				if(typeof resp == 'object' && resp.status == 'success'){
 					location.reload();
-				}else{
-					alert_toast("An error occured.",'error');
+				} else {
+					alert_toast("An error occurred.", 'error');
 					end_loader();
 				}
 			}
