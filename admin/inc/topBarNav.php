@@ -1,6 +1,17 @@
 <?php
 // Assuming $conn is your database connection
-$new_reports_query = $conn->query("SELECT id, lastname, firstname, middlename, date_created FROM `request_list` WHERE `status` = 0 ORDER BY `date_created` DESC");
+// Fetch the logged-in admin's district or municipality
+$admin_municipality = $_settings->userdata('district');
+
+// Query to get new reports where the municipality matches the admin's district
+$new_reports_query = $conn->query("
+    SELECT id, lastname, firstname, middlename, date_created 
+    FROM `request_list` 
+    WHERE `status` = 0 
+    AND `municipality` = '$admin_municipality' 
+    ORDER BY `date_created` DESC
+");
+
 $new_reports_count = $new_reports_query->num_rows;
 ?>
 
