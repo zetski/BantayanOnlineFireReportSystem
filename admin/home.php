@@ -1,10 +1,10 @@
 <?php
-// Define and assign value to $pending_requests before using it
-$pending_requests = $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0")->fetch_row()[0];
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Assuming $_settings->userdata('district') holds the admin's district
+$admin_district = $_settings->userdata('district');
 
+// Query to count teams where the district matches the admin's district
+$team_query = $conn->query("SELECT * FROM team_list WHERE delete_flag = 0 AND district = '{$admin_district}'");
+$team_count = $team_query->num_rows;
 ?>
 
 <!DOCTYPE html>
@@ -70,26 +70,26 @@ error_reporting(E_ALL);
       Welcome, <?php echo $_settings->userdata('firstname')." ".$_settings->userdata('lastname') ?>!
     </h3>
     <div class="row h-100">
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=teams" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
+    <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+    <a href="./?page=teams" class="text-decoration-none h-100 d-block">
+        <div class="info-box h-100 d-flex flex-column justify-content-center">
             <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-users"></i>
+                <i class="fas fa-users"></i>
             </span>
             <div class="info-box-content">
-              <span class="info-box-text">Control Teams</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $team = $conn->query("SELECT * FROM team_list where delete_flag = 0")->num_rows;
-                  echo format_num($team);
-                ?>
-              </span>
+                <span class="info-box-text">Control Teams</span>
+                <span class="info-box-number text-center h5">
+                    <?php 
+                        // Display the filtered team count
+                        echo format_num($team_count);
+                    ?>
+                </span>
             </div>
-          </div>
-        </a>
-      </div>
+        </div>
+    </a>
+</div>
 
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+<div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
         <a href="./?page=requests&status=0" class="text-decoration-none h-100 d-block">
           <div class="info-box h-100 d-flex flex-column justify-content-center">
             <span class="info-box-icon bg-gradient-secondary">
@@ -99,7 +99,7 @@ error_reporting(E_ALL);
               <span class="info-box-text">Pending Requests</span>
               <span class="info-box-number text-center h5">
                 <?php 
-                  $request = $conn->query("SELECT id FROM request_list where status = 0")->num_rows;
+                  $request = $conn->query("SELECT id FROM request_list WHERE status = 0 AND municipality = '{$admin_district}'")->num_rows;
                   echo format_num($request);
                 ?>
               </span>
@@ -200,52 +200,52 @@ error_reporting(E_ALL);
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <script>
-    // Data for charts
-    var barData = {
-      labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
-      datasets: [{
-        label: 'Number of Requests',
-        data: [
-          <?php echo $team; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 1")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 2")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 3")->fetch_row()[0]; ?>,
-          <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 4")->fetch_row()[0]; ?>
-        ],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
-    };
+  // Data for charts
+  var barData = {
+    labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
+    datasets: [{
+      label: 'Number of Requests',
+      data: [
+        <?php echo $team_count; ?>, // Corrected team count
+        <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0")->fetch_row()[0]; ?>,
+        <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 1")->fetch_row()[0]; ?>,
+        <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 2")->fetch_row()[0]; ?>,
+        <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 3")->fetch_row()[0]; ?>,
+        <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 4")->fetch_row()[0]; ?>
+      ],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1
+    }]
+  };
 
-    var lineData = {
-      labels: ["January", "February", "March", "April", "May", "June", "July", "Aug"],
-      datasets: [{
-        label: 'Requests Over Time',
-        data: [12, 19, 3, 5, 2, 3, 9, 0], // Example data, replace with your actual data
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1,
-        fill: true
-      }]
-    };
+  var lineData = {
+    labels: ["January", "February", "March", "April", "May", "June", "July", "Aug"],
+    datasets: [{
+      label: 'Requests Over Time',
+      data: [12, 19, 3, 5, 2, 3, 9, 0], // Example data, replace with actual data or PHP-generated dynamic data
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1,
+      fill: true
+    }]
+  };
 
-    var barConfig = {
+  var barConfig = {
     type: 'bar',
     data: barData,
     options: {
@@ -366,6 +366,7 @@ error_reporting(E_ALL);
   // Initialize the charts
   var barChart = new Chart(document.getElementById('barChart'), barConfig);
   var lineChart = new Chart(document.getElementById('lineChart'), lineConfig);
-  </script>
+</script>
+
 </body>
 </html>
