@@ -26,22 +26,43 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 
                 <div class="container-fluid">
                     <form action="" id="request-form">
-                        <input type="hidden" name ="id" value="<?php echo isset($id) ? $id : '' ?>">
+                        <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+                        
                         <div class="form-group">
-                            <label for="fullname" class="control-label">Fullname <small class="text-danger">*</small></label>
-                            <input type="text" class="form-control form-control-sm rounded-0" name="fullname" id="fullname" required="required" value="<?= isset($fullname) ? $fullname : '' ?>">
+                            <label for="lastname" class="control-label">Last Name <small class="text-danger">*</small></label>
+                            <input type="text" class="form-control form-control-sm rounded-0" name="lastname" id="lastname" required="required" value="<?= isset($lastname) ? $lastname : '' ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname" class="control-label">First Name <small class="text-danger">*</small></label>
+                            <input type="text" class="form-control form-control-sm rounded-0" name="firstname" id="firstname" required="required" value="<?= isset($firstname) ? $firstname : '' ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="middlename" class="control-label">Middle Name</label>
+                            <input type="text" class="form-control form-control-sm rounded-0" name="middlename" id="middlename" value="<?= isset($middlename) ? $middlename : '' ?>">
                         </div>
                         <div class="form-group">
                             <label for="contact" class="control-label">Contact # <small class="text-danger">*</small></label>
                             <input type="text" class="form-control form-control-sm rounded-0" name="contact" id="contact" required="required" value="<?= isset($contact) ? $contact : '' ?>" maxlength="11" oninput="validateContact()">
                         </div>
                         <div class="form-group">
-                            <label for="message" class="control-label">Message<small class="text-danger">*</small></label>
+                            <label for="subject" class="control-label">Subject <small class="text-danger">*</small></label>
+                            <input type="text" class="form-control form-control-sm rounded-0" name="subject" id="subject" required="required" value="<?= isset($subject) ? $subject : '' ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="control-label">Message <small class="text-danger">*</small></label>
                             <textarea rows="3" class="form-control form-control-sm rounded-0" name="message" id="message" required="required"><?= isset($message) ? $message : '' ?></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="location" class="control-label">Location <small class="text-danger">*</small></label>
-                            <textarea rows="3" class="form-control form-control-sm rounded-0" name="location" id="location" required="required"><?= isset($location) ? $location : '' ?></textarea>
+                            <label for="municipality" class="control-label">Municipality <small class="text-danger">*</small></label>
+                            <input type="text" class="form-control form-control-sm rounded-0" name="municipality" id="municipality" required="required" value="<?= isset($municipality) ? $municipality : '' ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="barangay" class="control-label">Barangay <small class="text-danger">*</small></label>
+                            <input type="text" class="form-control form-control-sm rounded-0" name="barangay" id="barangay" required="required" value="<?= isset($barangay) ? $barangay : '' ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="sitio_street" class="control-label">Sitio/Street <small class="text-danger">*</small></label>
+                            <input type="text" class="form-control form-control-sm rounded-0" name="sitio_street" id="sitio_street" required="required" value="<?= isset($sitio_street) ? $sitio_street : '' ?>">
                         </div>
                     </form>
                 </div>
@@ -70,13 +91,13 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 method: 'POST',
                 type: 'POST',
                 dataType: 'json',
-                error:err=>{
+                error: err => {
                     console.log(err)
-                    alert_toast("An error occured",'error');
+                    alert_toast("An error occurred",'error');
                     end_loader();
                 },
                 success:function(resp){
-                    if(typeof resp =='object' && resp.status == 'success'){
+                    if(typeof resp == 'object' && resp.status == 'success'){
                         location.replace('./?page=requests/view_request&id='+resp.tid)
                     }else if(resp.status == 'failed' && !!resp.msg){
                         var el = $('<div>')
@@ -86,7 +107,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                             $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
                             end_loader()
                     }else{
-                        alert_toast("An error occured",'error');
+                        alert_toast("An error occurred",'error');
                         end_loader();
                         console.log(resp)
                     }
