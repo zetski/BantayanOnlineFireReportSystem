@@ -1,76 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Oline Fire Reporting System</title>
+    <title>Online Fire Reporting System</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Base styles */
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Container for the whole page */
-        .container {
-            text-align: center;
-            background-color: #f9f9f9;
-            padding-bottom: 50px;
-        }
-
-        /* About Us Section */
-        .about-us-section {
-            position: relative;
-            background-image: url('./officerimg/bfpbg.jpg'); /* Replace with your actual image path */
+        html, body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-image: url('./officerimg/firebg.webp');
             background-size: cover;
             background-position: center;
-            height: 400px;
-            color: white;
+        }
+
+        /* Container for the whole page */
+        .container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header .back-button {
+            color: white;
+            text-decoration: none;
+            margin-right: auto;
+            font-size: 18px;
+            display: flex;
             align-items: center;
         }
 
-        /* Dark overlay for better text visibility */
-        .about-us-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
+        .header .back-button i {
+            margin-right: 8px;
         }
 
-        .about-us-section h1,
-        .about-us-section .mission,
-        .about-us-section .vision {
-            z-index: 2;
-            position: relative;
-            color: white;
+        .header h1 {
+            flex: 1;
+            text-align: center;
+            font-size: 15px;
         }
 
-        .about-us-section h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
+        /* Content Section */
+        .content {
+            flex: 1;
+            text-align: center;
+            background-color: rgba(249, 249, 249, 0.8);
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
         }
 
         .mission, .vision {
             font-size: 24px;
-            margin-bottom: 10px;
             font-weight: bold;
+            color: black;
+            margin-bottom: 10px;
         }
 
-        /* Officers Section */
+        /* Officers Carousel Section */
         .carousel-container {
             position: relative;
             width: 100%;
+            max-width: 300px;
             overflow: hidden;
-            margin-top: 30px;
+            /* background-image: url('./firebg.webp');
+            background-size: cover;
+            background-position: center; */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .carousel {
@@ -80,7 +101,6 @@
 
         .officer {
             min-width: 100%;
-            transition: transform 0.5s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -91,8 +111,8 @@
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid white; /* White stroke */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Drop shadow */
+            border: 4px solid white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .officer h3 {
@@ -121,91 +141,129 @@
             right: 10px;
         }
 
-        /* Hide buttons on large screens */
-        @media (min-width: 768px) {
-            .carousel-btn {
-                display: none;
-            }
-
-            .carousel {
-                display: flex;
-                justify-content: space-around;
-            }
-
-            .officer {
-                min-width: auto;
-                margin: 0 10px;
-            }
-        }
-
-        /* Contact Section */
-        .contact-section {
-            margin-top: 50px;
-        }
-
-        .contact-section h2 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .contact-icons {
+        /* Footer */
+        .footer {
+            background-color: #808080;
+            padding: 20px 10px;
+            color: white;
             display: flex;
-            justify-content: center;
-            gap: 30px;
-            font-size: 24px;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .contact-icons a {
-            color: #333;
+        .footer .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+        }
+
+        .footer .contact-item i {
+            font-size: 20px;
+        }
+
+        .footer a {
+            color: white;
             text-decoration: none;
         }
 
-        .contact-icons a:hover {
+        .footer a:hover {
             color: #ff4600;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .mission, .vision {
+                font-size: 20px;
+            }
+
+            .officer img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mission, .vision {
+                font-size: 18px;
+            }
+
+            .footer .contact-item {
+                font-size: 14px;
+            }
+
+            .footer .contact-item i {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- About Us Section -->
-        <div class="about-us-section">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <a href="./" class="back-button">
+                <i class="fas fa-arrow-left"></i> 
+            </a>
+            <h1>Online Fire Reporting System</h1>
+        </header>
+
+        <!-- Content Section -->
+        <div class="content">
+            <!-- Mission and Vision Section -->
             <div class="mission">Mission</div>
             <p>Prevent and suppress destructive fires, investigate their causes, enforce fire codes and other related laws, and respond to man-made and natural disasters and other emergencies.</p>
             <div class="vision">Vision</div>
             <p>A modern fire service fully capable of ensuring a fire-safe nation by 2034.</p>
-        </div>
 
-        <!-- Officers Carousel Section -->
-        <div class="carousel-container">
-            <button class="carousel-btn prev-btn" onclick="prevSlide()">&#10094;</button>
-            <div class="carousel" id="carousel">
-                <div class="officer">
-                    <img src="./officerimg/aspin.jpg" alt="Officer 1">
-                    <h3>Officer 1</h3>
+            <!-- Officers Carousel Section -->
+            <div class="carousel-container">
+                <button class="carousel-btn prev-btn" onclick="prevSlide()">&#10094;</button>
+                <div class="carousel" id="carousel">
+                    <div class="officer">
+                        <img src="./officerimg/aspin.jpg" alt="Officer 1">
+                        <h3>Officer 1</h3>
+                    </div>
+                    <div class="officer">
+                        <img src="./officerimg/dlaw.jpg" alt="Officer 2">
+                        <h3>Officer 2</h3>
+                    </div>
+                    <div class="officer">
+                        <img src="./officerimg/gear5.jpg" alt="Officer 3">
+                        <h3>Officer 3</h3>
+                    </div>
                 </div>
-                <div class="officer">
-                    <img src="./officerimg/dlaw.jpg" alt="Officer 2">
-                    <h3>Officer 2</h3>
-                </div>
-                <div class="officer">
-                    <img src="./officerimg/gear5.jpg" alt="Officer 3">
-                    <h3>Officer 3</h3>
-                </div>
-            </div>
-            <button class="carousel-btn next-btn" onclick="nextSlide()">&#10095;</button>
-        </div>
-
-        <!-- Contact Section -->
-        <div class="contact-section">
-            <h2>Contact Us</h2>
-            <div class="contact-icons">
-                <a href="tel:+09538278512"><i class="fas fa-phone"></i></a>
-                <a href="mailto:bgf@gmail.com"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.bfp.com" target="_blank"><i class="fas fa-globe"></i></a>
+                <button class="carousel-btn next-btn" onclick="nextSlide()">&#10095;</button>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <span>09481752040</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:bantayancentral@gmail.com">bantayancentral@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-facebook"></i>
+                <a href="https://facebook.com" target="_blank">facebook.com</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Suba, Bantayan, Cebu</span>
+            </div>
+        </footer>
     </div>
 
     <script>
@@ -215,16 +273,15 @@
             const carousel = document.getElementById('carousel');
             const totalSlides = document.querySelectorAll('.officer').length;
             
-            // Ensure index is within bounds
             if (index >= totalSlides) {
-                currentSlide = 0; // Loop back to the first slide
+                currentSlide = 0;
             } else if (index < 0) {
-                currentSlide = totalSlides - 1; // Loop to the last slide
+                currentSlide = totalSlides - 1;
             } else {
                 currentSlide = index;
             }
             
-            const offset = -currentSlide * 100; // Slide width is 100%
+            const offset = -currentSlide * 100;
             carousel.style.transform = `translateX(${offset}%)`;
         }
 
