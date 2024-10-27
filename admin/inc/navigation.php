@@ -126,14 +126,14 @@
                         </p>
                       </a>
                     </li>
-                    <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=system_info/contact_info" class="nav-link nav-system_info_contact_info">
+                    <!-- <li class="nav-item dropdown">
+                      <a href="</?php echo base_url ?>admin/?page=system_info/contact_info" class="nav-link nav-system_info_contact_info">
                         <i class="nav-icon fas fa-phone-square-alt"></i>
                         <p>
                           Contact Info
                         </p>
                       </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tools"></i>
