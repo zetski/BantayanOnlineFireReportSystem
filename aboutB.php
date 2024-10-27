@@ -30,7 +30,7 @@
 
         /* Header */
         .header {
-            background-color: #333;
+            background-color: #f45000;
             color: white;
             display: flex;
             align-items: center;
