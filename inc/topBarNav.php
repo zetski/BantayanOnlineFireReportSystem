@@ -127,7 +127,8 @@
           <li><a class="dropdown-item" href="./aboutM.php">Madridejos</a></li>
         </ul>
 </li>
-        <li class="nav-item"><a class="nav-link text-white" href="./?p=contact">Contact Us</a></li>
+        <!-- <li class="nav-item"><a class="nav-link text-white" href="./?p=contact">Contact Us</a></li> -->
+         <li class="nav-item"><a href="#" class="nav-link text-white">Services</a></li>
       </ul>
       <div class="d-flex align-items-center">
         <a class="font-weight-bolder text-light mx-2 text-decoration-none" href="./admin">Login</a>
