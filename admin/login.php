@@ -73,18 +73,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </script>
   <style>
     body {
-      background-image: url("<?php echo validate_image($_settings->info('cover')) ?>");
-      background-size: cover;
-      background-repeat: no-repeat;
-      backdrop-filter: contrast(1);
+        background-image: url("<?php echo validate_image($_settings->info('cover')) ?>");
+        background-size: cover; /* Ensure the image covers the entire background */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Prevent repeating the image */
+        backdrop-filter: contrast(1);
+        height: 100vh; /* Ensure body takes full viewport height */
+        margin: 0; /* Remove default margin */
     }
     #page-title {
-      text-shadow: 6px 4px 7px black;
-      font-size: 3.5em;
-      color: #fff4f4 !important;
-      background: #8080801c;
+        text-shadow: 6px 4px 7px black;
+        font-size: 3.5em;
+        color: #fff4f4 !important;
     }
-  </style>
+    .login-box {
+        margin: auto; /* Center the login box */
+        max-width: 400px; /* Set a max width for the login box */
+        width: 90%; /* Allow it to be responsive */
+    }
+
+    /* Media queries for responsive design */
+    @media (max-width: 768px) {
+        #page-title {
+            font-size: 2.5em; /* Reduce title size on smaller screens */
+        }
+        .login-box {
+            width: 95%; /* Make the login box wider on smaller screens */
+        }
+    }
+    @media (max-width: 480px) {
+        #page-title {
+            font-size: 2em; /* Further reduce title size on very small screens */
+        }
+    }
+</style>
   <h1 class="text-center text-white px-4 py-5" id="page-title"><b><?php echo htmlspecialchars($_settings->info('name')) ?></b></h1>
   <div class="login-box" style="height: 100%">
     <div class="card card-danger my-2">
@@ -158,14 +180,14 @@ $('#toggle-password').on('click', function() {
 });
 
 // Disable inspect element and right-click
-document.addEventListener('contextmenu', event => event.preventDefault());
-document.onkeydown = function(e) {
-    if (e.keyCode == 123 || e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0) || 
-        e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0) || 
-        e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-    }
-};
+// document.addEventListener('contextmenu', event => event.preventDefault());
+// document.onkeydown = function(e) {
+//     if (e.keyCode == 123 || e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0) || 
+//         e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0) || 
+//         e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+//         return false;
+//     }
+// };
   </script>
 </body>
 </html>
