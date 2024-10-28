@@ -91,6 +91,26 @@ Class Master extends DBConnection {
 
 	}
 
+	//Delete Events
+	function delete_event(){
+		error_log("delete_event function called."); // Add this to see if function is reached
+		
+		extract($_POST);
+	
+		// Soft-delete by setting delete_flag to 1
+		$del = $this->conn->query("UPDATE `events_list` SET `delete_flag` = 1 WHERE id = '{$id}'");
+	
+		if ($del) {
+			$resp['status'] = 'success';
+			$this->settings->set_flashdata('success', "Event successfully deleted.");
+		} else {
+			$resp['status'] = 'failed';
+			$resp['error'] = $this->conn->error;
+		}
+	
+		echo json_encode($resp); // Make sure this echoes out the JSON response
+	}
+	
 	function save_event(){
 		// Sanitize and extract form data
 		extract($_POST);

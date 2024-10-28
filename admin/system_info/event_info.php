@@ -173,3 +173,125 @@
     });
 </script>
 
+
+<!-- List of Events -->
+<?php if($_settings->chk_flashdata('success')): ?>
+    <script>
+    alert_toast("<?php echo $_settings->flashdata('success') ?>", 'success');
+    </script>
+<?php endif; ?>
+
+<style>
+    img#cimg {
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 0;
+    }
+
+    /* Table styling */
+    .table {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    /* Action dropdown styling */
+    .action-dropdown .dropdown-menu {
+        min-width: 8rem;
+    }
+    .action-dropdown .dropdown-item i {
+        margin-right: 5px;
+    }
+</style>
+
+<div class="col-lg-12">
+    <div class="card card-outline rounded-0 card-danger">
+        <div class="card-header">
+            <h5 class="card-title">Manage Event</h5>
+        </div>
+        <div class="card-body">
+            <form action="" id="event-frm" method="POST" enctype="multipart/form-data">
+                <!-- Form fields for Event -->
+                <!-- <button class="btn btn-sm btn-primary" type="submit">Save Event</button> -->
+            </form>
+
+            <h5 class="mt-4">Event List</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Event Name</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Location</th> <!-- New column for combined location -->
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $qry = $conn->query("SELECT * FROM events_list WHERE delete_flag = 0");
+                    $i = 1;
+                    while($row = $qry->fetch_assoc()):
+                        $location = $row['municipality'] . ', ' . $row['barangay'] . ', ' . $row['sitio']; // Combine location fields
+                    ?>
+                    <tr>
+                        <td><?php echo $i++; ?></td>
+                        <td><?php echo $row['event_name']; ?></td>
+                        <td><?php echo $row['event_description']; ?></td>
+                        <td><?php echo date("F d, Y", strtotime($row['event_date'])); ?></td>
+                        <td><?php echo $location; ?></td> <!-- Display combined location -->
+                        <td>
+                            <div class="dropdown action-dropdown">
+                                <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    Action
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a href="view_event.php?id=<?php echo $row['id']; ?>" class="dropdown-item"><i class="fas fa-eye"></i> View</a>
+                                    <a href="edit_event.php?id=<?php echo $row['id']; ?>" class="dropdown-item"><i class="fas fa-edit"></i> Edit</a>
+                                    <a href="#" class="dropdown-item text-danger delete_event" data-id="<?php echo $row['id']; ?>"><i class="fas fa-trash"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Confirm before deleting an event
+    $('.delete_event').click(function(){
+    var id = $(this).data('id');
+    Swal.fire({
+        icon: 'warning',
+        title: 'Delete Event',
+        text: 'Are you sure you want to delete this event?',
+        showCancelButton: true,
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '../classes/Master.php?f=delete_event',
+                method: 'POST',
+                data: {id: id},
+                dataType: 'json',
+                success: function(resp){
+                    if(resp.status == 'success'){
+                        Swal.fire('Deleted!', 'Event has been deleted.', 'success').then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire('Error', 'Failed to delete event. ' + (resp.error || ''), 'error');
+                    }
+                },
+                error: function(xhr, status, error){
+                    Swal.fire('Error', 'Failed to delete event. Try again.', 'error');
+                }
+            });
+        }
+    });
+});
+</script>
