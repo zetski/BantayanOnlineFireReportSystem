@@ -4,7 +4,7 @@ if(!defined('DB_SERVER')){
 }
 class DBConnection{
 
-    // LIVE SERVER
+    // LIVE SERVERss
     private $host = "127.0.0.1:3306";
     private $username = "u510162695_ofrs_db";
     private $password = "1Ofrs_db";
