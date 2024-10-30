@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="login-box" style="height: 100%">
     <div class="card card-danger my-2">
       <div class="card-body">
-        <p class="login-box-msg">Please enter your credentials122231</p>
+        <p class="login-box-msg">Please enter your credentials</p>
         <form id="login-frm" action="" method="post">
           <div class="input-group mb-3">
             <input type="text" class="form-control" name="username" autofocus placeholder="Username" value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>">
