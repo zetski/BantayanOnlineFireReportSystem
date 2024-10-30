@@ -29,7 +29,7 @@
                         <center><hr style="height:2px;width:5em;opacity:1" class="bg-danger"></center>
                         <dl class="contact-details">
                             <dt class="text-muted">
-                                <i class="fas fa-envelope contact-icon"></i> Email122
+                                <i class="fas fa-envelope contact-icon"></i> Email
                             </dt>
                             <dd><?= $_settings->info('email') ?></dd>
                             <dt class="text-muted">
