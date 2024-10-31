@@ -302,44 +302,110 @@ Class Master extends DBConnection {
 		}
 	}
 	
-	public function restore_request() {
-		global $conn;
-		$id = $_POST['id'];
+	// function restore_request() {
+	// 	global $conn;
 	
-		// Fetch the deleted_report JSON data
-		$qry = $conn->query("SELECT deleted_reports FROM request_list WHERE id = $id");
-		$row = $qry->fetch_assoc();
+	// 	// Set content type to JSON
+	// 	header('Content-Type: application/json');
 	
-		if ($row && $row['deleted_reports']) {
-			// Decode the deleted_reports JSON
-			$deleted_reports = json_decode($row['deleted_reports'], true);
+	// 	// Check if the database connection is established
+	// 	if (!$conn) {
+	// 		echo json_encode(['status' => 'error', 'message' => 'Database connection failed']);
+	// 		return;
+	// 	}
 	
-			// Restore the report by updating necessary fields
-			$update_qry = $conn->query("UPDATE request_list SET 
-				code = '{$deleted_reports['code']}',
-				date_created = '{$deleted_reports['date_created']}',
-				lastname = '{$deleted_reports['lastname']}',
-				firstname = '{$deleted_reports['firstname']}',
-				middlename = '{$deleted_reports['middlename']}',
-				contact = '{$deleted_reports['contact']}',
-				subject = '{$deleted_reports['subject']}',
-				message = '{$deleted_reports['message']}',
-				sitio_street = '{$deleted_reports['sitio_street']}',
-				barangay = '{$deleted_reports['barangay']}',
-				municipality = '{$deleted_reports['municipality']}',
-				deleted_reports = NULL, -- Clear the deleted reports data
-				status = 0 -- Assuming 0 is the status for active reports
-				WHERE id = $id");
+	// 	// Ensure the id is present
+	// 	if (!isset($_POST['id'])) {
+	// 		echo json_encode(['status' => 'error', 'message' => 'ID not provided']);
+	// 		return;
+	// 	}
 	
-			if ($update_qry) {
-				echo json_encode(['status' => 'success']);
-			} else {
-				echo json_encode(['status' => 'error', 'message' => $conn->error]);
-			}
-		} else {
-			echo json_encode(['status' => 'error', 'message' => 'Report not found or already restored.']);
+	// 	$id = intval($_POST['id']); // Sanitize input
+	
+	// 	// Fetch the deleted_report JSON data using a prepared statement
+	// 	$stmt = $conn->prepare("SELECT deleted_reports FROM request_list WHERE id = ?");
+	// 	$stmt->bind_param("i", $id);
+		
+	// 	if (!$stmt->execute()) {
+	// 		error_log("SQL Error: " . $stmt->error);
+	// 		echo json_encode(['status' => 'error', 'message' => 'Database error while fetching report']);
+	// 		return;
+	// 	}
+		
+	// 	$result = $stmt->get_result();
+	// 	$row = $result->fetch_assoc();
+	
+	// 	// Check if a report was found
+	// 	if ($row && !empty($row['deleted_reports'])) {
+	// 		// Decode the deleted_reports JSON
+	// 		$deleted_reports = json_decode($row['deleted_reports'], true);
+			
+	// 		if (json_last_error() !== JSON_ERROR_NONE) {
+	// 			echo json_encode(['status' => 'error', 'message' => 'Invalid JSON format']);
+	// 			return;
+	// 		}
+	
+	// 		// Prepare the update query
+	// 		$update_stmt = $conn->prepare("UPDATE request_list SET 
+	// 			code = ?, date_created = ?, lastname = ?, firstname = ?, middlename = ?, 
+	// 			contact = ?, subject = ?, message = ?, sitio_street = ?, barangay = ?, 
+	// 			municipality = ?, deleted_reports = NULL, status = 0 
+	// 			WHERE id = ?");
+			
+	// 		$update_stmt->bind_param("sssssssssssi", 
+	// 			$deleted_reports['code'], 
+	// 			$deleted_reports['date_created'], 
+	// 			$deleted_reports['lastname'], 
+	// 			$deleted_reports['firstname'], 
+	// 			$deleted_reports['middlename'], 
+	// 			$deleted_reports['contact'], 
+	// 			$deleted_reports['subject'], 
+	// 			$deleted_reports['message'], 
+	// 			$deleted_reports['sitio_street'], 
+	// 			$deleted_reports['barangay'], 
+	// 			$deleted_reports['municipality'], 
+	// 			$id);
+	
+	// 		// Execute the update query
+	// 		if ($update_stmt->execute()) {
+	// 			echo json_encode(['status' => 'success']);
+	// 		} else {
+	// 			error_log("Restore Request Update Error: " . $update_stmt->error);
+	// 			echo json_encode(['status' => 'error', 'message' => 'Database error during update']);
+	// 		}
+	// 	} else {
+	// 		echo json_encode(['status' => 'error', 'message' => 'No deleted report found for the given ID']);
+	// 	}
+	// }	
+
+	function restore_request() {
+		header('Content-Type: application/json'); // Set content type to JSON
+	
+		error_log("restore_request function called."); // Debugging log
+	
+		// Check if 'id' is set in POST data
+		if (!isset($_POST['id'])) {
+			echo json_encode(['stats' => 'failed', 'error' => 'ID not provided.']);
+			return;
 		}
-	}
+	
+		extract($_POST); // Extract POST variables
+		$id = intval($id); // Sanitize input
+	
+		// Soft restore by setting deleted_reports to NULL
+		$restore = $this->conn->query("UPDATE request_list SET deleted_reports = NULL WHERE id = '{$id}'");
+	
+		// Prepare the response array
+		if ($restore) {
+			$resp['stats'] = 'success';
+			$this->settings->set_flashdata('success', "Request successfully restored.");
+		} else {
+			$resp['stats'] = 'failed';
+			$resp['error'] = $this->conn->error; // Capture any database error
+		}
+	
+		echo json_encode($resp); // Echo out the JSON response
+	}		
 
 	function assign_team(){
 		extract($_POST);
@@ -458,6 +524,9 @@ switch ($action) {
 	case 'save_event';
 		echo $Master->save_event();
 	break;
+	case 'restore_request': // Add this case for restoring requests
+        echo $Master->restore_request();
+        break;
 	default:
 		// echo $sysset->index();
 		break;

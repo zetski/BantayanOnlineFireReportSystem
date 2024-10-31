@@ -48,6 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $user['id'];  // Store user ID in session
             $_SESSION['username'] = $user['username'];  // Store username in session
             $_SESSION['district'] = $user['district'];  // Store user's district in session
+
+            // Log the district to verify it's set
+        error_log("User logged in with district: " . $_SESSION['district']);
             
             echo 'Login successful';
 

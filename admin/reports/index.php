@@ -116,25 +116,49 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
 <noscript id="print-header">
     <div>
         <style>
-            html{
-                min-height:unset !important;
+            html {
+                min-height: unset !important;
             }
         </style>
         <div class="d-flex w-100 align-items-center">
+            <!-- Left logo -->
             <div class="col-2 text-center">
-                <img src="<?= validate_image($_settings->info('logo')) ?>" alt="" class="rounded-circle border" style="width: 5em;height: 5em;object-fit:cover;object-position:center center">
+                <img src="<?= validate_image($_settings->info('logo')) ?>" alt="" class="rounded-circle border" style="width: 5em; height: 5em; object-fit: cover; object-position: center center">
             </div>
+            
+            <!-- Centered Text Information -->
             <div class="col-8">
-                <div style="line-height:1em">
+                <div style="line-height: 1em">
                     <div class="text-center font-weight-bold h5 mb-0"><large><?= $_settings->info('name') ?></large></div>
                     <div class="text-center font-weight-bold h5 mb-0"><large>Daily Requests Report</large></div>
                     <div class="text-center font-weight-bold h5 mb-0">From <?= date("F d, Y", strtotime($from_date)) ?> to <?= date("F d, Y", strtotime($to_date)) ?></div>
                 </div>
             </div>
+            
+            <!-- Right logo based on district -->
+            <div class="col-2 text-center">
+                <?php
+                $admin_district = $_settings->userdata('district');
+                
+                // Select the logo based on district
+                $district_logo = '';
+                if ($admin_district == 'Bantayan') {
+                    $district_logo = $_settings->info('district_logo_bantayan');
+                } elseif ($admin_district == 'Madridejos') {
+                    $district_logo = $_settings->info('district_logo_madridejos');
+                } elseif ($admin_district == 'Sta Fe') {
+                    $district_logo = $_settings->info('district_logo_stafe');
+                }
+                ?>
+                
+                <!-- Display the selected logo -->
+                <img src="<?= validate_image($district_logo) ?>" alt="" class="rounded-circle border" style="width: 5em; height: 5em; object-fit: cover; object-position: center center">
+            </div>
         </div>
         <hr>
     </div>
 </noscript>
+
 <script>
     function print_r(){
         var h = $('head').clone()

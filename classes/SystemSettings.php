@@ -30,144 +30,215 @@ class SystemSettings extends DBConnection{
 			}
 		return true;
 	}
-	function update_settings_info(){
-		$data = "";
-		foreach ($_POST as $key => $value) {
-			if(!in_array($key,array("content")))
-			if(isset($_SESSION['system_info'][$key])){
-				$value = str_replace("'", "&apos;", $value);
-				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$value}' where meta_field = '{$key}' ");
-			}else{
-				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$value}', meta_field = '{$key}' ");
-			}
-		}
-		if(isset($_POST['content'])){
-			foreach($_POST['content'] as $k => $v){
-				$v = addslashes(htmlspecialchars($v));
-				file_put_contents("../$k.html",$v);
-			}
-		}
-		if(!empty($_FILES['img']['tmp_name'])){
-			$ext = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
-			$fname = "uploads/logo.png";
-			$accept = array('image/jpeg','image/png');
-			if(!in_array($_FILES['img']['type'],$accept)){
-				$err = "Image file type is invalid";
-			}
-			if($_FILES['img']['type'] == 'image/jpeg')
-				$uploadfile = imagecreatefromjpeg($_FILES['img']['tmp_name']);
-			elseif($_FILES['img']['type'] == 'image/png')
-				$uploadfile = imagecreatefrompng($_FILES['img']['tmp_name']);
-			if(!$uploadfile){
-				$err = "Image is invalid";
-			}
-			$temp = imagescale($uploadfile,200,200);
-			if(is_file(base_app.$fname))
-			unlink(base_app.$fname);
-			$upload =imagepng($temp,base_app.$fname);
-			if($upload){
-				if(isset($_SESSION['system_info']['logo'])){
-					$qry = $this->conn->query("UPDATE system_info set meta_value = CONCAT('{$fname}', '?v=',unix_timestamp(CURRENT_TIMESTAMP)) where meta_field = 'logo' ");
-					if(is_file(base_app.$_SESSION['system_info']['logo'])) unlink(base_app.$_SESSION['system_info']['logo']);
-				}else{
-					$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'logo' ");
-				}
-			}
-			imagedestroy($temp);
-		}
-		if(!empty($_FILES['cover']['tmp_name'])){
-			$ext = pathinfo($_FILES['cover']['name'], PATHINFO_EXTENSION);
-			$fname = "uploads/cover.png";
-			$accept = array('image/jpeg','image/png');
-			if(!in_array($_FILES['cover']['type'],$accept)){
-				$err = "Image file type is invalid";
-			}
-			if($_FILES['cover']['type'] == 'image/jpeg')
-				$uploadfile = imagecreatefromjpeg($_FILES['cover']['tmp_name']);
-			elseif($_FILES['cover']['type'] == 'image/png')
-				$uploadfile = imagecreatefrompng($_FILES['cover']['tmp_name']);
-			if(!$uploadfile){
-				$err = "Image is invalid";
-			}
-			list($width,$height) = getimagesize($_FILES['cover']['tmp_name']);
-			$temp = imagescale($uploadfile,$width,$height);
-			if(is_file(base_app.$fname))
-			unlink(base_app.$fname);
-			$upload =imagepng($temp,base_app.$fname);
-			if($upload){
-				if(isset($_SESSION['system_info']['cover'])){
-					$qry = $this->conn->query("UPDATE system_info set meta_value = CONCAT('{$fname}', '?v=',unix_timestamp(CURRENT_TIMESTAMP)) where meta_field = 'cover' ");
-					if(is_file(base_app.$_SESSION['system_info']['cover'])) unlink(base_app.$_SESSION['system_info']['cover']);
-				}else{
-					$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'cover' ");
-				}
-			}
-			imagedestroy($temp);
-		}
-		if(isset($_FILES['banners']) && count($_FILES['banners']['tmp_name']) > 0){
-			$err='';
-			$banner_path = "uploads/banner/";
-			foreach($_FILES['banners']['tmp_name'] as $k => $v){
-				if(!empty($_FILES['banners']['tmp_name'][$k])){
-					$accept = array('image/jpeg','image/png');
-					if(!in_array($_FILES['banners']['type'][$k],$accept)){
-						$err = "Image file type is invalid";
-						break;
-					}
-					if($_FILES['banners']['type'][$k] == 'image/jpeg')
-						$uploadfile = imagecreatefromjpeg($_FILES['banners']['tmp_name'][$k]);
-					elseif($_FILES['banners']['type'][$k] == 'image/png')
-						$uploadfile = imagecreatefrompng($_FILES['banners']['tmp_name'][$k]);
-					if(!$uploadfile){
-						$err = "Image is invalid";
-						break;
-					}
-					list($width, $height) =getimagesize($_FILES['banners']['tmp_name'][$k]);
-					if($width > 1200 || $height > 480){
-						if($width > $height){
-							$perc = ($width - 1200) / $width;
-							$width = 1200;
-							$height = $height - ($height * $perc);
-						}else{
-							$perc = ($height - 480) / $height;
-							$height = 480;
-							$width = $width - ($width * $perc);
-						}
-					}
-					$temp = imagescale($uploadfile,$width,$height);
-					$spath = base_app.$banner_path.'/'.$_FILES['banners']['name'][$k];
-					$i = 1;
-					while(true){
-						if(is_file($spath)){
-							$spath = base_app.$banner_path.'/'.($i++).'_'.$_FILES['banners']['name'][$k];
-						}else{
-							break;
-						}
-					}
-					if($_FILES['banners']['type'][$k] == 'image/jpeg')
-					imagejpeg($temp,$spath,60);
-					elseif($_FILES['banners']['type'][$k] == 'image/png')
-					imagepng($temp,$spath,6);
 
-					imagedestroy($temp);
-				}
-			}
-			if(!empty($err)){
-				$resp['status'] = 'failed';
-				$resp['msg'] = $err;
-			}
-		}
+	function update_settings_info() {
+    $data = "";
+    $err = ''; // Initialize error variable for error messages
+    $resp = []; // Initialize response array
+
+    // Process POST data for settings
+    foreach ($_POST as $key => $value) {
+        if (!in_array($key, array("content"))) {
+            if (isset($_SESSION['system_info'][$key])) {
+                $value = str_replace("'", "&apos;", $value);
+                $qry = $this->conn->query("UPDATE system_info set meta_value = '{$value}' where meta_field = '{$key}' ");
+            } else {
+                $qry = $this->conn->query("INSERT into system_info set meta_value = '{$value}', meta_field = '{$key}' ");
+            }
+        }
+    }
+
+    // Handle content saving
+    if (isset($_POST['content'])) {
+        foreach ($_POST['content'] as $k => $v) {
+            $v = addslashes(htmlspecialchars($v));
+            file_put_contents("../$k.html", $v);
+        }
+    }
+
+    // Handle main logo upload
+    if (!empty($_FILES['img']['tmp_name'])) {
+        $ext = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+        $fname = "uploads/logo.png";
+        $accept = array('image/jpeg', 'image/png');
+        if (!in_array($_FILES['img']['type'], $accept)) {
+            $err = "Logo image file type is invalid";
+        }
+        if ($_FILES['img']['type'] == 'image/jpeg')
+            $uploadfile = imagecreatefromjpeg($_FILES['img']['tmp_name']);
+        elseif ($_FILES['img']['type'] == 'image/png')
+            $uploadfile = imagecreatefrompng($_FILES['img']['tmp_name']);
+        if (!$uploadfile) {
+            $err = "Logo image is invalid";
+        }
+        $temp = imagescale($uploadfile, 200, 200);
+        if (is_file(base_app . $fname))
+            unlink(base_app . $fname);
+        $upload = imagepng($temp, base_app . $fname);
+        if ($upload) {
+            if (isset($_SESSION['system_info']['logo'])) {
+                $qry = $this->conn->query("UPDATE system_info set meta_value = CONCAT('{$fname}', '?v=', unix_timestamp(CURRENT_TIMESTAMP)) where meta_field = 'logo' ");
+                if (is_file(base_app . $_SESSION['system_info']['logo'])) unlink(base_app . $_SESSION['system_info']['logo']);
+            } else {
+                $qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}', meta_field = 'logo' ");
+            }
+        }
+        imagedestroy($temp);
+    }
+
+    // Handle cover image upload
+    if (!empty($_FILES['cover']['tmp_name'])) {
+        $ext = pathinfo($_FILES['cover']['name'], PATHINFO_EXTENSION);
+        $fname = "uploads/cover.png";
+        $accept = array('image/jpeg', 'image/png');
+        if (!in_array($_FILES['cover']['type'], $accept)) {
+            $err = "Cover image file type is invalid";
+        }
+        if ($_FILES['cover']['type'] == 'image/jpeg')
+            $uploadfile = imagecreatefromjpeg($_FILES['cover']['tmp_name']);
+        elseif ($_FILES['cover']['type'] == 'image/png')
+            $uploadfile = imagecreatefrompng($_FILES['cover']['tmp_name']);
+        if (!$uploadfile) {
+            $err = "Cover image is invalid";
+        }
+        list($width, $height) = getimagesize($_FILES['cover']['tmp_name']);
+        $temp = imagescale($uploadfile, $width, $height);
+        if (is_file(base_app . $fname))
+            unlink(base_app . $fname);
+        $upload = imagepng($temp, base_app . $fname);
+        if ($upload) {
+            if (isset($_SESSION['system_info']['cover'])) {
+                $qry = $this->conn->query("UPDATE system_info set meta_value = CONCAT('{$fname}', '?v=', unix_timestamp(CURRENT_TIMESTAMP)) where meta_field = 'cover' ");
+                if (is_file(base_app . $_SESSION['system_info']['cover'])) unlink(base_app . $_SESSION['system_info']['cover']);
+            } else {
+                $qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}', meta_field = 'cover' ");
+            }
+        }
+        imagedestroy($temp);
+    }
+
+    // Handle district logo upload
+    // if (!empty($_FILES['district_logo']['tmp_name'])) {
+    //     $ext = pathinfo($_FILES['district_logo']['name'], PATHINFO_EXTENSION);
+    //     $district_logo_path = "uploads/district_logo.png"; // Set the district logo file name
+    //     $accept = array('image/jpeg', 'image/png'); // Accepted image types
+
+    //     // Validate file type
+    //     if (!in_array($_FILES['district_logo']['type'], $accept)) {
+    //         $err = "District logo image file type is invalid";
+    //     }
+    //     // Create image resource based on file type
+    //     if ($_FILES['district_logo']['type'] == 'image/jpeg') {
+    //         $uploadfile = imagecreatefromjpeg($_FILES['district_logo']['tmp_name']);
+    //     } elseif ($_FILES['district_logo']['type'] == 'image/png') {
+    //         $uploadfile = imagecreatefrompng($_FILES['district_logo']['tmp_name']);
+    //     }
+
+    //     // Validate the uploaded image
+    //     if (!$uploadfile) {
+    //         $err = "District logo image is invalid";
+    //     }
+
+    //     // Resize image to 200x200
+    //     $temp = imagescale($uploadfile, 200, 200);
+    //     // Remove old district logo if exists
+    //     if (is_file(base_app . $district_logo_path)) unlink(base_app . $district_logo_path);
+    //     // Save the new district logo
+    //     $upload = imagepng($temp, base_app . $district_logo_path);
+        
+    //     // Update the database for district logo
+    //     if ($upload) {
+    //         if (isset($_SESSION['system_info']['district_logo'])) {
+    //             // Update existing district logo record
+    //             $qry = $this->conn->query("UPDATE system_info set meta_value = CONCAT('{$district_logo_path}', '?v=', unix_timestamp(CURRENT_TIMESTAMP)) where meta_field = 'district_logo'");
+    //             // Remove old district logo file
+    //             if (is_file(base_app . $_SESSION['system_info']['district_logo'])) unlink(base_app . $_SESSION['system_info']['district_logo']);
+    //         } else {
+    //             // Insert new district logo record
+    //             $qry = $this->conn->query("INSERT into system_info set meta_value = '{$district_logo_path}', meta_field = 'district_logo'");
+    //         }
+    //     }
+    //     imagedestroy($temp); // Free up memory
+    // }
+
+    // Handle banner uploads
+    if (isset($_FILES['banners']) && count($_FILES['banners']['tmp_name']) > 0) {
+        $err = '';
+        $banner_path = "uploads/banner/"; // Set the banner directory
+        foreach ($_FILES['banners']['tmp_name'] as $k => $v) {
+            if (!empty($_FILES['banners']['tmp_name'][$k])) {
+                $accept = array('image/jpeg', 'image/png');
+
+                // Validate file type
+                if (!in_array($_FILES['banners']['type'][$k], $accept)) {
+                    $err = "Banner image file type is invalid";
+                    break;
+                }
+                // Create image resource based on file type
+                if ($_FILES['banners']['type'][$k] == 'image/jpeg') {
+                    $uploadfile = imagecreatefromjpeg($_FILES['banners']['tmp_name'][$k]);
+                } elseif ($_FILES['banners']['type'][$k] == 'image/png') {
+                    $uploadfile = imagecreatefrompng($_FILES['banners']['tmp_name'][$k]);
+                }
+
+                // Validate the uploaded image
+                if (!$uploadfile) {
+                    $err = "Banner image is invalid";
+                    break;
+                }
+
+                // Get the dimensions of the uploaded banner
+                list($width, $height) = getimagesize($_FILES['banners']['tmp_name'][$k]);
+
+                // Resize if dimensions exceed limits
+                if ($width > 1200 || $height > 480) {
+                    if ($width > $height) {
+                        $perc = ($width - 1200) / $width;
+                        $width = 1200;
+                        $height = $height - ($height * $perc);
+                    } else {
+                        $perc = ($height - 480) / $height;
+                        $height = 480;
+                        $width = $width - ($width * $perc);
+                    }
+                }
+                $temp = imagescale($uploadfile, $width, $height);
+                $spath = base_app . $banner_path . '/' . $_FILES['banners']['name'][$k];
+                $i = 1;
+                while (true) {
+                    if (is_file($spath)) {
+                        $spath = base_app . $banner_path . '/' . ($i++) . '_' . $_FILES['banners']['name'][$k];
+                    } else {
+                        break;
+                    }
+                }
+                if ($_FILES['banners']['type'][$k] == 'image/jpeg')
+                    imagejpeg($temp, $spath, 60);
+                elseif ($_FILES['banners']['type'][$k] == 'image/png')
+                    imagepng($temp, $spath, 6);
+
+                imagedestroy($temp);
+            }
+        }
+        if (!empty($err)) {
+            $resp['status'] = 'failed';
+            $resp['msg'] = $err;
+        }
+    }
+
+    // Update the system info and set flash message
+    $update = $this->update_system_info();
+    $flash = $this->set_flashdata('success', 'System Info Successfully Updated.');
+
+    if ($update && $flash) {
+        $resp['status'] = 'success';
+    } else {
+        $resp['status'] = 'failed';
+    }
+
+    return json_encode($resp);
+}		
 		
-		$update = $this->update_system_info();
-		$flash = $this->set_flashdata('success','System Info Successfully Updated.');
-		if($update && $flash){
-			// var_dump($_SESSION);
-			$resp['status'] = 'success';
-		}else{
-			$resp['status'] = 'failed';
-		}
-		return json_encode($resp);
-	}
 	function set_userdata($field='',$value=''){
 		if(!empty($field) && !empty($value)){
 			$_SESSION['userdata'][$field]= $value;

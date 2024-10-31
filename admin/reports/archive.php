@@ -2,8 +2,18 @@
 // archive.php
 include_once '../classes/DBConnection.php'; // Include your DB connection
 
-// Fetch archived reports with status = 5 (Assumed 5 is the archived status)
-$qry = $conn->query("SELECT * FROM request_list WHERE deleted_reports IS NOT NULL");
+
+
+
+// Assuming $_settings->userdata('district') holds the admin's district
+$admin_district = $_settings->userdata('district');
+
+// Check if district is set before running the query
+if ($admin_district) {
+    $qry = $conn->query("SELECT * FROM request_list WHERE deleted_reports IS NOT NULL AND municipality = '" . $admin_district . "'");
+} else {
+    echo "District information is missing. Please log in again.";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -141,8 +151,9 @@ $qry = $conn->query("SELECT * FROM request_list WHERE deleted_reports IS NOT NUL
     });
 
     function restore_request(id){
+        console.log(id);
         $.ajax({
-            url: 'classes/Master.php?f=restore_request',
+            url:_base_url_+'classes/Master.php?f=restore_request',
             method: 'POST',
             data: { id: id },
             dataType: 'json',
@@ -150,15 +161,18 @@ $qry = $conn->query("SELECT * FROM request_list WHERE deleted_reports IS NOT NUL
                 // You can show a loader here
             },
             success: function(resp){
-                if (resp.status === 'success') {
+                console.log(resp.stats)
+                if (resp.stats === 'success') {
                     Swal.fire('Restored!', 'The request has been restored.', 'success').then(() => {
                         location.reload();
                     });
                 } else {
+                    
                     Swal.fire('Failed!', 'An error occurred.', 'error');
                 }
             },
-            error: function(){
+            error: function(resp){
+                console.log(resp)
                 Swal.fire('Failed!', 'An error occurred.', 'error');
             }
         });
