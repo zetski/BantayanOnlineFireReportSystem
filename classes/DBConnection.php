@@ -1,9 +1,16 @@
 <?php
-if (!defined('DB_SERVER')) {
+if(!defined('DB_SERVER')){
     require_once("../initialize.php");
 }
+class DBConnection{
 
-class DBConnection {
+    // LIVE SERVER
+    // private $host = "127.0.0.1:3306";
+    // private $username = "u510162695_ofrs_db";
+    // private $password = "1Ofrs_db";
+    // private $database = "u510162695_ofrs_db";
+
+    // LOCALHOST
     private $host = DB_SERVER;
     private $username = DB_USERNAME;
     private $password = DB_PASSWORD;
@@ -11,25 +18,22 @@ class DBConnection {
     
     public $conn;
     
-    public function __construct() {
-        // Check if the constants are defined
-        if (!defined('DB_SERVER') || !defined('DB_USERNAME') || !defined('DB_PASSWORD') || !defined('DB_NAME')) {
-            throw new Exception("Database connection constants are not defined.");
-        }
+    public function __construct(){
 
-        // Create the connection
-        $this->conn = new mysqli($this->host, $this->username, $this->password, $this->database);
-
-        // Check for connection errors
-        if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
-        }
+        if (!isset($this->conn)) {
+            
+            $this->conn = new mysqli($this->host, $this->username, $this->password, $this->database);
+            
+            if (!$this->conn) {
+                echo 'Cannot connect to database server';
+                exit;
+            } 
+                       
+        }    
+        
     }
-
-    public function __destruct() {
-        if ($this->conn) {
-            $this->conn->close();
-        }
+    public function __destruct(){
+        $this->conn->close();
     }
 }
 ?>
