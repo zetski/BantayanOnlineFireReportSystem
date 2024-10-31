@@ -23,7 +23,7 @@ if(!defined('DB_NAME')) define('DB_NAME',"u510162695_ofrs_db");
 // $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 // Check the connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+// if (!$conn) {
+//     die("Connection failed: " . mysqli_connect_error());
+// }
 ?>
