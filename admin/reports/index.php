@@ -141,13 +141,23 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : date("Y-m-d");
                 $admin_district = $_settings->userdata('district');
                 
                 // Select the logo based on district
-                $district_logo = '';
+                // $district_logo = '';
+                // if ($admin_district == 'Bantayan') {
+                //     $district_logo = $_settings->info('district_logo_bantayan');
+                // } elseif ($admin_district == 'Madridejos') {
+                //     $district_logo = $_settings->info('district_logo_madridejos');
+                // } elseif ($admin_district == 'Sta Fe') {
+                //     $district_logo = $_settings->info('district_logo_stafe');
+                // }
+
                 if ($admin_district == 'Bantayan') {
                     $district_logo = $_settings->info('district_logo_bantayan');
                 } elseif ($admin_district == 'Madridejos') {
                     $district_logo = $_settings->info('district_logo_madridejos');
-                } elseif ($admin_district == 'Sta Fe') {
+                } elseif ($admin_district == 'Santa Fe') { // Ensure "Santa Fe" matches the saved value
                     $district_logo = $_settings->info('district_logo_stafe');
+                } else {
+                    $district_logo = 'default_logo_path'; // Path to a default logo image
                 }
                 ?>
                 
