@@ -34,13 +34,16 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
         <div class="card rounded-0">
             <div class="card-header py-1">
-                <div class="card-tools">
-                    <?php if(isset($status) && $status < 4 && isset($team_id) && $team_id > 0): ?>
-                        <button class="btn btn-info btn-sm bg-gradient-info rounded-0" type="button" id="update_status">Update Status</button>
-                    <?php endif; ?>
+            <div class="card-tools">
+                <?php if(isset($status) && $status < 4 && isset($team_id) && $team_id > 0): ?>
+                    <button class="btn btn-info btn-sm bg-gradient-info rounded-0" type="button" id="update_status">Update Status</button>
+                <?php endif; ?>
+                <!-- Show the print button only if the status is 4 (Completed) -->
+                <?php if(isset($status) && $status == 4): ?>
                     <button class="btn btn-navy btn-sm bg-gradient-navy rounded-0" type="button" id="print"><i class="fa fa-print"></i> Print</button>
-                    <a class="btn btn-light btn-sm bg-gradient-light border rounded-0" href="./?page=requests"><i class="fa fa-angle-left"></i> Back to List</a>
-                </div>
+                <?php endif; ?>
+                <a class="btn btn-light btn-sm bg-gradient-light border rounded-0" href="./?page=requests"><i class="fa fa-angle-left"></i> Back to List</a>
+            </div>
             </div>
         </div>
     </div>
@@ -204,16 +207,34 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
     <div>
         <div class="d-flex w-100 align-items-center">
             <div class="col-2 text-center">
-                <img src="<?= validate_image($_settings->info('logo')) ?>" alt="" class="rounded-circle border" style="width: 5em;height: 5em;object-fit:cover;object-position:center center">
+                <img src="<?= validate_image($_settings->info('logo')) ?>" alt="" class="rounded-circle border" style="width: 5em; height: 5em; object-fit: cover; object-position: center center">
             </div>
             <div class="col-8">
-                <div style="line-height:1em">
+                <div style="line-height: 1em">
                     <div class="text-center font-weight-bold"><large><?= $_settings->info('name') ?></large></div>
                     <div class="text-center font-weight-bold"><large>Request Details</large></div>
                 </div>
             </div>
+            <!-- Right logo based on district -->
+            <div class="col-2 text-center">
+                <?php
+                $admin_district = $_settings->userdata('district');
+                
+                // Select the logo based on district
+                $district_logo = '';
+                if ($admin_district == 'Bantayan') {
+                    $district_logo = $_settings->info('district_logo_bantayan');
+                } elseif ($admin_district == 'Madridejos') {
+                    $district_logo = $_settings->info('district_logo_madridejos');
+                } elseif ($admin_district == 'Sta Fe') {
+                    $district_logo = $_settings->info('district_logo_stafe');
+                }
+                ?>
+                
+                <!-- Display the selected logo -->
+                <img src="<?= validate_image($district_logo) ?>" alt="" class="rounded-circle border" style="width: 5em; height: 5em; object-fit: cover; object-position: center center">
+            </div>
         </div>
-       
         <hr>
     </div>
 </noscript>

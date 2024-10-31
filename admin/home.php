@@ -90,99 +90,104 @@ $team_count = $team_query->num_rows;
 </div>
 
 <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=requests&status=0" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-hourglass-half"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">Pending Requests</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $request = $conn->query("SELECT id FROM request_list WHERE status = 0 AND municipality = '{$admin_district}'")->num_rows;
-                  echo format_num($request);
-                ?>
-              </span>
-            </div>
-          </div>
-        </a>
+  <a href="./?page=requests&status=0" class="text-decoration-none h-100 d-block">
+    <div class="info-box h-100 d-flex flex-column justify-content-center">
+      <span class="info-box-icon bg-gradient-secondary">
+        <i class="fas fa-hourglass-half"></i>
+      </span>
+      <div class="info-box-content">
+        <span class="info-box-text">Pending Requests</span>
+        <span class="info-box-number text-center h5">
+          <?php 
+            // Include district filter for pending requests
+            $pending_requests = $conn->query("SELECT id FROM request_list WHERE status = 0 AND municipality = '{$admin_district}'")->num_rows;
+            echo format_num($pending_requests);
+          ?>
+        </span>
       </div>
+    </div>
+  </a>
+</div>
 
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=requests&status=1" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-tasks"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">Assigned Requests</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $request = $conn->query("SELECT id FROM request_list where status = 1")->num_rows;
-                  echo format_num($request);
-                ?>
-              </span>
-            </div>
-          </div>
-        </a>
+<div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+  <a href="./?page=requests&status=1" class="text-decoration-none h-100 d-block">
+    <div class="info-box h-100 d-flex flex-column justify-content-center">
+      <span class="info-box-icon bg-gradient-secondary">
+        <i class="fas fa-tasks"></i>
+      </span>
+      <div class="info-box-content">
+        <span class="info-box-text">Assigned Requests</span>
+        <span class="info-box-number text-center h5">
+          <?php 
+            // Include district filter for assigned requests
+            $assigned_requests = $conn->query("SELECT id FROM request_list WHERE status = 1 AND municipality = '{$admin_district}'")->num_rows;
+            echo format_num($assigned_requests);
+          ?>
+        </span>
       </div>
+    </div>
+  </a>
+</div>
 
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=requests&status=2" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-truck"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">Team OTW Requests</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $request = $conn->query("SELECT id FROM request_list where status = 2")->num_rows;
-                  echo format_num($request);
-                ?>
-              </span>
-            </div>
-          </div>
-        </a>
+<div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+  <a href="./?page=requests&status=2" class="text-decoration-none h-100 d-block">
+    <div class="info-box h-100 d-flex flex-column justify-content-center">
+      <span class="info-box-icon bg-gradient-secondary">
+        <i class="fas fa-truck"></i>
+      </span>
+      <div class="info-box-content">
+        <span class="info-box-text">Team OTW Requests</span>
+        <span class="info-box-number text-center h5">
+          <?php 
+            // Include district filter for OTW requests
+            $otw_requests = $conn->query("SELECT id FROM request_list WHERE status = 2 AND municipality = '{$admin_district}'")->num_rows;
+            echo format_num($otw_requests);
+          ?>
+        </span>
       </div>
+    </div>
+  </a>
+</div>
 
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=requests&status=3" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-wrench"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">On-Progress Requests</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $request = $conn->query("SELECT id FROM request_list where status = 3")->num_rows;
-                  echo format_num($request);
-                ?>
-              </span>
-            </div>
-          </div>
-        </a>
+<div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+  <a href="./?page=requests&status=3" class="text-decoration-none h-100 d-block">
+    <div class="info-box h-100 d-flex flex-column justify-content-center">
+      <span class="info-box-icon bg-gradient-secondary">
+        <i class="fas fa-wrench"></i>
+      </span>
+      <div class="info-box-content">
+        <span class="info-box-text">On-Progress Requests</span>
+        <span class="info-box-number text-center h5">
+          <?php 
+            // Include district filter for on-progress requests
+            $in_progress_requests = $conn->query("SELECT id FROM request_list WHERE status = 3 AND municipality = '{$admin_district}'")->num_rows;
+            echo format_num($in_progress_requests);
+          ?>
+        </span>
       </div>
+    </div>
+  </a>
+</div>
 
-      <div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
-        <a href="./?page=requests&status=4" class="text-decoration-none h-100 d-block">
-          <div class="info-box h-100 d-flex flex-column justify-content-center">
-            <span class="info-box-icon bg-gradient-secondary">
-              <i class="fas fa-check"></i>
-            </span>
-            <div class="info-box-content">
-              <span class="info-box-text">Completed Requests</span>
-              <span class="info-box-number text-center h5">
-                <?php 
-                  $request = $conn->query("SELECT id FROM request_list where status = 4")->num_rows;
-                  echo format_num($request);
-                ?>
-              </span>
-            </div>
-          </div>
-        </a>
+<div class="col-12 col-sm-4 col-md-4 mb-3 h-100">
+  <a href="./?page=requests&status=4" class="text-decoration-none h-100 d-block">
+    <div class="info-box h-100 d-flex flex-column justify-content-center">
+      <span class="info-box-icon bg-gradient-secondary">
+        <i class="fas fa-check"></i>
+      </span>
+      <div class="info-box-content">
+        <span class="info-box-text">Completed Requests</span>
+        <span class="info-box-number text-center h5">
+          <?php 
+            // Include district filter for completed requests
+            $completed_requests = $conn->query("SELECT id FROM request_list WHERE status = 4 AND municipality = '{$admin_district}'")->num_rows;
+            echo format_num($completed_requests);
+          ?>
+        </span>
       </div>
+    </div>
+  </a>
+</div>
     </div>
     <div class="row">
       <div class="col-12 col-md-6">
@@ -200,38 +205,38 @@ $team_count = $team_query->num_rows;
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <script>
-  // Data for charts
-  var barData = {
-    labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
-    datasets: [{
-      label: 'Number of Requests',
-      data: [
-        <?php echo $team_count; ?>, // Corrected team count
-        <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0")->fetch_row()[0]; ?>,
-        <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 1")->fetch_row()[0]; ?>,
-        <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 2")->fetch_row()[0]; ?>,
-        <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 3")->fetch_row()[0]; ?>,
-        <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 4")->fetch_row()[0]; ?>
-      ],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 1
-    }]
-  };
+// Data for the bar chart
+var barData = {
+  labels: ["Teams", "Pending Requests", "Assigned Requests", "OTW Requests", "On-Progress Requests", "Completed Requests"],
+  datasets: [{
+    label: 'Number of Requests',
+    data: [
+      <?php echo $team_count; ?>, // Corrected team count remains as is
+      <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 0 AND municipality = '{$admin_district}'")->fetch_row()[0]; ?>,
+      <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 1 AND municipality = '{$admin_district}'")->fetch_row()[0]; ?>,
+      <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 2 AND municipality = '{$admin_district}'")->fetch_row()[0]; ?>,
+      <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 3 AND municipality = '{$admin_district}'")->fetch_row()[0]; ?>,
+      <?php echo $conn->query("SELECT COUNT(id) FROM request_list WHERE status = 4 AND municipality = '{$admin_district}'")->fetch_row()[0]; ?>
+    ],
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(255, 206, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(255, 159, 64, 0.2)'
+    ],
+    borderColor: [
+      'rgba(255, 99, 132, 1)',
+      'rgba(54, 162, 235, 1)',
+      'rgba(255, 206, 86, 1)',
+      'rgba(75, 192, 192, 1)',
+      'rgba(153, 102, 255, 1)',
+      'rgba(255, 159, 64, 1)'
+    ],
+    borderWidth: 1
+  }]
+};
 
   var lineData = {
     labels: ["January", "February", "March", "April", "May", "June", "July", "Aug"],
