@@ -129,7 +129,8 @@
         </ul>
 </li>
         <!-- <li class="nav-item"><a class="nav-link text-white" href="./?p=contact">Contact Us</a></li> -->
-         <li class="nav-item"><a href="#" class="nav-link text-white">Services</a></li>
+         <li class="nav-item"><a href="./citizencharter.php" class="nav-link text-white">Citizen Charter</a></li>
+         <li class="nav-item"><a href="./safetytips.php" class="nav-link text-white">Safetytips</li>
       </ul>
       <div class="d-flex align-items-center">
         <a class="font-weight-bolder text-light mx-2 text-decoration-none" href="./admin">Login</a>
@@ -156,7 +157,8 @@
       </ul>
     </li>
 
-    <li><a href="#">Services</a></li>
+    <li><a href="./?p=citizencharter">Citizen Charter</a></li>
+    <li><a href="./?p=safetytips">Safetytips</li>
     <li><a href="./admin">Login</a></li>
   </ul>
 </div>
