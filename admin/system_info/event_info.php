@@ -246,7 +246,7 @@
                                     Action
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a href="view_event.php?id=<?php echo $row['id']; ?>" class="dropdown-item"><i class="fas fa-eye"></i> View</a>
+                                    <!-- <a href="view_event.php?id=<?php echo $row['id']; ?>" class="dropdown-item"><i class="fas fa-eye"></i> View</a> -->
                                     <a href="edit_event.php?id=<?php echo $row['id']; ?>" class="dropdown-item"><i class="fas fa-edit"></i> Edit</a>
                                     <a href="#" class="dropdown-item text-danger delete_event" data-id="<?php echo $row['id']; ?>"><i class="fas fa-trash"></i> Delete</a>
                                 </div>
