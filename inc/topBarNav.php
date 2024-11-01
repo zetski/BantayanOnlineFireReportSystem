@@ -1,7 +1,8 @@
 <style>
   button[type="button"]{
     background-color: transparent !important;
-    margin-left: 5px;
+    margin-left: 15px;
+    margin: -10px;
   }
   /* Sidebar styling with formal hover effect */
   .sidebar {
@@ -109,7 +110,7 @@
       <img src="<?php echo validate_image($_settings->info('logo')) ?>" width="30" height="30" alt="Logo" loading="lazy">
       <?php echo $_settings->info('short_name') ?>
     </a>
-    <button class="navbar-toggler btn btn-sm" type="button" id="sidebarToggle">
+    <button class="navbar-toggler btn btn-sm" type="button" id="sidebarToggle" style="background-color: transparent !important; margin-left: 10px; border: none; padding-right: 10px;">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -155,7 +156,7 @@
       </ul>
     </li>
 
-    <li><a href="./?p=contact">Contact Us</a></li>
+    <li><a href="#">Services</a></li>
     <li><a href="./admin">Login</a></li>
   </ul>
 </div>
