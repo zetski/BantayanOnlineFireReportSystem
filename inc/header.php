@@ -63,6 +63,57 @@
 
 
     <style>
+      /* Responsive container */
+      body {
+          font-family: 'Source Sans Pro', sans-serif;
+      }
+
+      /* Responsive main header */
+      #main-header {
+          position: relative;
+          background: rgb(0,0,0) !important;
+          background: radial-gradient(circle, rgba(0,0,0,0.5) 22%, rgba(0,0,0,0.4) 49%, rgba(0,212,255,0) 100%) !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          text-align: center;
+          color: white;
+      }
+
+      /* Background image with mobile responsiveness */
+      #main-header:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url(<?php echo base_url . $_settings->info('cover') ?>);
+          background-repeat: no-repeat;
+          background-size: cover;
+          filter: drop-shadow(0px 7px 6px black);
+          z-index: -1;
+      }
+
+      /* Mobile-friendly data table adjustments */
+      .dataTables_wrapper {
+          width: 100%;
+          overflow-x: auto;
+      }
+
+      /* Mobile adjustments */
+      @media (max-width: 768px) {
+          #main-header {
+              padding: 10px;
+              font-size: 14px;
+          }
+          .dataTables_wrapper {
+              font-size: 12px;
+          }
+      }
+    </style>
+    <!-- <style>
     #main-header{
         position:relative;
         background: rgb(0,0,0)!important;
@@ -82,6 +133,6 @@
         z-index:-1;
     }
 
- </style>
+ </style> -->
 
   </head>
